@@ -1,0 +1,34 @@
+[
+    {
+      "Name": "app.application",
+      "Version": "1.0.0.0",
+      "Culture": "neutral",
+      "PublicKeyToken": "null"
+    },
+    {
+      "Name": "app.core",
+      "Version": "1.0.0.0",
+      "Culture": "neutral",
+      "PublicKeyToken": "null"
+    },
+  {
+    "Name": "app.Data",
+    "Version": "1.0.0.0",
+    "Culture": "neutral",
+    "PublicKeyToken": "null"
+  },
+
+    {
+      "Name": "app.Domain",
+      "Version": "1.0.0.0",
+      "Culture": "neutral",
+      "PublicKeyToken": "null"
+    },
+  {
+    "Name": "app.Dashboard",
+    "Version": "1.0.0.0",
+    "Culture": "neutral",
+    "PublicKeyToken": "null"
+  }
+]
+  

@@ -1,0 +1,89 @@
+﻿@using App.Domain.Products.Dtos
+<link href="~/pagescss/product/productdetails.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+
+@* @model Muslim.HandelResult.Result<ProductDetailsDto>
+@{
+    var data = Model.Response;
+    var Page = Model.Page;
+} *@
+
+<div id="wrapper">
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+                    <h1 class="h3 mb-0 text-gray-800">
+                        <i class="fa fa-info-circle" style="color: #502e90;"></i>
+
+                        <span data-arabic="تفاصيل المنتج" data-english="Product Details"></span>
+                    </h1>
+                </div>
+
+
+                <div class="">
+                    <h5 class="">
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الرقم التسلسلي" data-english="Id" style="color: black; font-weight: bold; display:">
+                            </span> : 1
+                            @* @data.Id *@
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="اسم المنتج" data-english="Product Name" style="color: black; font-weight: bold; display:">
+                            </span> : عباي
+                                @* @data.Name *@
+                        </div>
+                         
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الموديل" data-english="Model" style="color: black; font-weight: bold;">
+                            </span>  : m552
+                                @* @data.Price *@
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الباركود" data-english="Barcod" style="color: black; font-weight: bold;">
+                            </span>  : 59642139875
+                            @* @data.Price *@
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الوصف" data-english="Description" style="color: black; font-weight: bold;">
+                            </span> : 
+                            @* @data.Description *@
+                        </div>
+
+                        <div style="margin-top: 30px;">
+                            <img src="~/img/1.jpg"
+                                 alt="" style="border-radius: 17px; width:250px ;margin: 50px" />
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الحالة" data-english="Status" style="color: black; font-weight: bold;">
+                            </span> : 
+                            @if(@* data.IsActive *@ true)
+                            {
+                                <span data-arabic="متاح" data-english="Available" style="color: green; font-weight: bold;">
+                                </span>
+                            }
+                            else
+                            {
+                                <span data-arabic="غير متاح" data-english="Not Available" style="color: red; font-weight: bold;">
+                                </span>
+                            }
+                        </div>
+                    </h5>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="~/pagesjs/product/productdetails.js"></script>

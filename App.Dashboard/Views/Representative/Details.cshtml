@@ -1,0 +1,81 @@
+﻿@using App.Domain.Representatives.Dtos
+<link href="~/pagescss/customer/customerdetails.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+
+@model Muslim.HandelResult.Result<RepresentativeDetailsDto>
+@{
+    var data = Model.Response;
+    var Page = Model.Page;
+}
+
+<div id="wrapper">
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+                    <h1 class="h3 mb-0 text-gray-800">
+                        <i class="fa fa-info-circle" style="color: #502e90;"></i>
+
+                        <span data-arabic="معلومات المندوب" data-english="Salesmen Details"></span>
+                    </h1>
+                </div>
+
+
+                <div class="">
+                    <h5 class="">
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الرقم التسلسلي" data-english="Id" style="color: black; font-weight: bold; display:">
+                            </span> : @data.Id
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="إسم المندوب" data-english="Salesmen Name" style="color: black; font-weight: bold; display:">
+                                </span> : @data.UserName
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الإسم" data-english="Salesmen Name" style="color: black; font-weight: bold; display:">
+                            </span> : @data.Name
+                        </div>
+                         
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="رقم الهاتف" data-english="Phone Number" style="color: black; font-weight: bold;">
+                                </span>  : @data.Phone
+                        </div>
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="العمولة" data-english="Commission" style="color: black; font-weight: bold;">
+                            </span> : @data.Commision
+                        </div>
+
+
+                        <div style="margin-bottom:16px">
+                            <span data-arabic="الحالة" data-english="Status" style="color: black; font-weight: bold;">
+                            </span> : 
+                            @if(data.IsActive)
+                            {
+                                <span data-arabic="فَعَّال" data-english="Active" style="color: green; font-weight: bold;">
+                                </span>
+                            }
+                            else
+                            {
+                                <span data-arabic="غير فَعَّال" data-english="Inactive" style="color: red; font-weight: bold;">
+                                </span>
+                            }
+                        </div>
+                    </h5>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="~/pagesjs/customer/customerdetails.js"></script>
+

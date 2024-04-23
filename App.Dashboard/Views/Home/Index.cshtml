@@ -1,0 +1,103 @@
+﻿@using App.core.Extensions
+@using Microsoft.IdentityModel.Tokens
+@using Muslim.Filter.Extensions
+@using App.Domain.Users
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.IdentityModel.Tokens.Jwt
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link href="~/pagescss/home/homeindex.css" rel="stylesheet" />
+
+
+
+
+<center>
+    <div class="max-width-container">
+        <div class="row justify-content-start ">
+                <div class="col-3" style="margin-top:15px">
+
+                    <a asp-controller="Representative" asp-action="Index">
+                        <div class="card custom-color" style="width: 140px; height: 140px;  margin-top: -22px;">
+                            <center>
+
+                            <img src="~/img/home/user-managment.png" alt="" width="110px">
+                            </center>
+                        </div>
+                    </a>
+                <p style="margin-top: 4px;" data-arabic="إدارة المندوبين" data-english="Salesmen Management"></p>
+                </div>
+
+                <div class="col-3" style="margin-top:15px">
+
+                    <a asp-controller="Order" asp-action="Index">
+                        <div class="card custom-color" style="width: 140px; height: 140px;  margin-top: -22px;">
+                            <center>
+
+                            <img src="~/img/home/order-managment.png" alt="" width="110px">
+                            </center>
+                        </div>
+                    </a>
+                    <p style="margin-top: 4px;" data-arabic="إدارة الطلبات" data-english="Order Management"></p>
+                </div>
+
+            <div class="col-3" style="margin-top:15px">
+
+                <a asp-controller="Product" asp-action="Index">
+                    <div class="card custom-color" style="width: 140px; height: 140px;  margin-top: -22px;">
+                        <center>
+
+                            <img src="~/img/home/product-managment.jpg" alt="" width="110px">
+                        </center>
+                    </div>
+                </a>
+                <p style="margin-top: 4px;" data-arabic="إدارة المنتجات" data-english="Product Management"></p>
+            </div>
+
+               
+            
+
+        </div>
+    </div>
+
+         
+    
+
+</center>
+
+<script src="~/pagesjs/home/homeindex.js"></script>
+<!-- Other HTML code above this -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the input element
+        var searchInput = document.getElementById("searchInput");
+
+
+
+        // Add event listener for input changes
+        searchInput.addEventListener("input", function () {
+            // Get the value entered in the search input
+            var searchValue = searchInput.value.toLowerCase();
+
+            // Get all the cards on the page
+            var cards = document.querySelectorAll(".card");
+            console.log(cards);
+
+            // Loop through each card to check if it contains the search value in the name (assumed in the first <p> tag)
+            cards.forEach(function (card) {
+                // Get the text content of the first <p> tag within the card
+                var cardName = card.querySelector("p").textContent.toLowerCase();
+
+                // Show or hide the card based on whether it contains the search value in the name
+                if (cardName.includes(searchValue)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+

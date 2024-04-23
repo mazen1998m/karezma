@@ -1,0 +1,25 @@
+﻿.pagination-bar {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-index-btn {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .page-index-btn.active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+.page-info {
+    margin: 0 10px; /* Adjust margin as needed */
+    font-weight: bold;
+}

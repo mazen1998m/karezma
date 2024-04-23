@@ -1,0 +1,38 @@
+{
+
+  "Assembly": [
+    {
+      "Assembly.Name": "app.application",
+      "Assembly.Version": "1.0.0.0",
+      "Culture=": "neutral",
+      "PublicKeyToken": "null"
+    },
+    {
+      "Assembly.Name": "app.core",
+      "Assembly.Version": "1.0.0.0",
+      "Culture=": "neutral",
+      "PublicKeyToken": "null"
+    },
+    {
+      "Assembly.Name": "app.Data",
+      "Assembly.Version": "1.0.0.0",
+      "Culture=": "neutral",
+      "PublicKeyToken": "null"
+    },
+    {
+      "Assembly.Name": "app.Domain",
+      "Assembly.Version": "1.0.0.0",
+      "Culture=": "neutral",
+      "PublicKeyToken": "null"
+    },
+    {
+      "Assembly.Name": "app.web",
+      "Assembly.Version": "1.0.0.0",
+      "Culture=": "neutral",
+      "PublicKeyToken": "null"
+    }
+  ]
+  
+
+
+}

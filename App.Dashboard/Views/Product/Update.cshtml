@@ -1,0 +1,166 @@
+﻿@using App.Domain.Products.Dtos
+<link href="~/pagescss/css/popup.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+<link href="~/pagescss/css/checkboxswitch.css" rel="stylesheet" />
+@* @model Muslim.HandelResult.Result<ProductUpdateDto>
+@{
+    var data = Model.Response;
+    var Page = Model.Page;
+} *@
+<form asp-action="Update" method="post">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+            <h1 class="h3 mb-0 text-gray-800">
+                <i class="fa-solid fa-pen" style="color: #0ec0e4"></i>
+                <span data-arabic="تعديل منتج" data-english="Update Product"></span>
+            </h1>
+            <div>
+                <a href="#">
+                    <i id="infoBtn" class="fa fa-info-circle" style="color:#502e90;"></i>
+                </a>
+                <div id="infoPopup">
+                    <span 
+                        data-arabic="في هذه الصفحة يمكنك تحديث معلومات المنتج" 
+                        data-english="On this page, you can modify the product"></span>
+                </div>
+            </div>
+        </div>
+
+        @* <input asp-for="@data.Id" name="Id" type="hidden"/> *@
+        @* <input asp-for="@data.UserId" name="UserId" type="hidden" /> *@
+
+        
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="اسم المنتج"
+                   data-english="Product Name"></label>
+
+            <input required class="form-control form-control-lg"
+                   @* asp-for="@data.Name" *@
+                   name="Name"
+                   type="text"
+                   placeholder="Product Name"
+                   value="عباي"
+                   aria-label="Name"
+                   style="border-radius: 17px; border: none;"
+                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+
+        </div>
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="الموديل"
+                   data-english="Model"></label>
+
+            <input required class="form-control form-control-lg"
+                   type="text"
+            @* asp-for="@data.Quantity" *@
+                   name="Model"
+                   placeholder="Model"
+                   aria-label="Model"
+                   value="m552"
+                   style="border-radius: 17px; border: none;"
+                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+
+        </div>
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="ألباركود"
+                   data-english="Barcod Number"></label>
+
+            <input required class="form-control form-control-lg"
+                   type="text"
+                   @* asp-for="@data.Price" *@
+                   name="Barcod"
+                   placeholder="Barcod"
+                   aria-label="Barcod"
+                   value="59642139875"
+                   style="border-radius: 17px; border: none;"
+                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+
+        </div>
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="الوصف"
+                   data-english="Description "></label>
+
+            <textarea required class="form-control form-control-lg"
+                      name="Commision"
+                      placeholder="Description"
+                      aria-label="Commision"
+                      style="border-radius: 17px; border: none;"
+                      validation="@(Json.Serialize(Model.ValidatorError).ToString())"></textarea>
+
+        </div>
+
+        @* add img  *@
+
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-english="Image"
+                   data-arabic="صورة"></label>
+
+            <input class="form-control form-control-lg"
+                   name="Image"
+                   type="file"
+                   accept="image/*"
+                   aria-label="Image"
+                   style="border-radius: 17px; border: none;"
+                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+
+        </div>
+
+     
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+
+            <!-- HTML -->
+            <div class="form-check form-switch">
+                <span data-arabic="الحالة" data-english="Status"></span>
+                <div class="checkbox-wrapper-22">
+                    <label class="switch" for="isActiveSwitch">
+                        <input class="checkbox-wrapper-22"
+                               type="checkbox"
+                               aria-label="IsActive"
+                               name="IsActive"
+                               id="isActiveSwitch"
+                               validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+                        <div class="slider round"></div>a
+                    </label>
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+        
+    </div>
+
+    <div class="container" style="margin-top:70px">
+        <div class="row">
+            <div class="col-8"></div>
+            <div class="col-4" style=" justify-content: end; text-align: end;">
+                <button type="submit" class="btn  btn-lg new"
+                        style=" color: white; border-radius:20px ;border:2px solid #502e90; padding-left: 35px;height: auto ; padding-right: 35px; margin-top: -110px;">
+                    <span data-arabic="تحديث" data-english="Update"></span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/js/validation.js"></script>
+<script src="~/pagesjs/publicjs/popup.js"></script>

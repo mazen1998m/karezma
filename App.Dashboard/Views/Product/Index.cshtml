@@ -1,0 +1,218 @@
+﻿@using App.Domain.Representatives.Dtos
+<link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+<link href="~/pagescss/css/pagination.css" rel="stylesheet" />
+<link href="~/pagescss/css/popup.css" rel="stylesheet" />
+
+@model Muslim.HandelResult.Result<List<RepresentativeListDto>>
+@{
+    var data = Model.Response;
+    var Page = Model.Response.Count==0 ? new() : Model.Page;
+    var pagenumber = ViewBag.Pageindex;
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+        <h1 class="h3 mb-0 text-gray-800">
+
+            <i class="fa-regular fa-rectangle-list" style="color:#502e90;"></i>
+            <span data-arabic="إدارة المنتجات"
+                  data-english="Products Managment"></span>
+
+        </h1>
+        <div>
+            <a href="#">
+                <i id="infoBtn" class="fa fa-info-circle" style="color:#502e90;"></i>
+            </a>
+            <div id="infoPopup">On this page, the user can see all additional services and control them by adding a new additional service, modifying an existing additional service, deleting a additional service, or looking at the details of each additional service</div>
+        </div>
+    </div>
+
+    <form asp-action="Index" method="get" id="searchForm">
+        <div class="row" style="margin-left: 20px; margin: 10px;">
+
+
+            <div class="col-2 ">
+                <input 
+                    name="Name" 
+                    class="form-control form-control-lg" 
+                    type="text" 
+                    placeholder="Name"
+                       aria-label="Name"
+                       style="border-radius: 17px; border: none;">
+            </div>
+            <div class="col-2 ">
+                <input name="Model"
+                       class="form-control form-control-lg" 
+                    type="text"
+                       placeholder="Model"
+                       aria-label="Model"
+                       style="border-radius: 17px; border: none;">
+            </div>
+            
+            <div class="col-2 ">
+                <input name="Barcod"
+                       class="form-control form-control-lg"
+                       type="text"
+                       placeholder="Barcod"
+                       aria-label="Barcod"
+                       style="border-radius: 17px; border: none;">
+            </div>
+            <input type="hidden" name="PageIndex" id="pageIndex" value="1">
+
+            <div class="col-4 ">
+
+                <button onclick="updatePageIndex(@ViewBag.LastIndex)" class="btn btn-lg new"
+                        style="border:2px solid #502e90; color: white;width:150px; border-radius:20px ; padding-left: 35px ; padding-right: 35px;">
+                    <span data-arabic="بحث" data-english="Search">
+                        
+                    </span>
+                </button>
+
+                <button type="submit" hidden></button>
+                <a asp-action="Index" title="Back to full list"><i class="fa-solid fa-circle-chevron-left fa-xl" style="color:#502e90"></i></a>
+            </div>
+
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+
+        </div>
+    </form>
+
+</div>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card-body ">
+        <div class="table-responsive shadow mb-4"
+             style="background-color: white; border-radius: 17px; ">
+            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0"
+                   style="border: 0px;">
+                <thead>
+                    <tr>
+                        <th data-arabic="الرقم التسلسلي" data-english="Id"></th>
+                        <th data-arabic="إسم المنتج" data-english="Name"></th>
+                        <th data-arabic="الموديل" data-english="Model"></th>
+                        <th data-arabic="الباركود" data-english="Barcod"></th>
+                        <th data-arabic="الإجرائات" data-english="Actions"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                   @*  @if (Model is not null)
+                    {
+
+
+                        @if (data.Count > 0 && data != null)
+                        {
+
+                            @foreach (var item in data)
+                            { *@
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>عباي</td>
+                                    <td>m552</td>
+                                    <td>59642139875</td>
+                                  
+                                    <td>
+                                        <span style="margin: 10px;">
+                                            <a asp-action="Details" asp-route-id="1">
+                                                <i class="fa fa-info-circle" style="color:#502e90;"></i>
+
+                                            </a>
+                                        </span>
+                                        <span style="margin: 10px;">
+                                            <a asp-action="Update" asp-route-id="1">
+                                                <i class="fa-solid fa-pen" style="color: #0ec0e4"></i>
+
+                                            </a>
+                                        </span>
+
+                                        <span style="margin: 10px; cursor:pointer">
+                                            <a>
+                                                <i onclick="openConfirmModal(1)" class="fa-solid fa-trash" style="color: #e94e24"></i>
+
+                                            </a>
+                                        </span>
+
+
+                                    </td>
+                                </tr>
+                                @* <div id="deleteModal_@item.Id" class="modal">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2>Delete Confirmation</h2>
+
+                                            </div>
+                                            <h5 class="modal-title " style="padding-left:10px">
+                                                Service Name:@item.Name<br>
+                                                ID: @item.Id
+                                            </h5>
+                                            <p>Are you sure you want to delete this Service?</p>
+                                            <div class="modal-footer">
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="Cancel btn " style="background-color:#e94e24;color:#fff"
+                                                   id="confirmDeleteBtn">
+                                                    Delete
+                                                </a>
+
+                                                <button type="button" class="btn " style="background-color:#0ec0e4;color:#fff" onclick="closeConfirmModal(item.Id)" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> *@
+                           @*  }
+
+                        }
+                        else
+                        {
+                            <tr style="text-align:center">
+                                <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr style="text-align:center">
+                            <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
+                        </tr>
+                    } *@
+
+                </tbody>
+
+
+            </table>
+            @if (Model is not null)
+            {
+                <form method="get" asp-action="Index">
+
+
+                    <input hidden readonly type="number" id="pagenumber" name="pageIndex" value="@pagenumber" />
+                    <input readonly hidden type="number" id="currentPage" min="1" value="1">
+                    <div class="pagination" id="pagination">
+
+                        <input hidden readonly type="number" oninput="generatePagination()" id="totalPages" min="1" value="@Page.NumberOfPages">
+                    </div>
+                </form>
+
+
+            }
+        </div>
+    </div>
+
+</div>
+@{
+    bool inputCondition = ViewBag.Action; // Assuming ViewBag.Action is a boolean value
+}
+
+@if (inputCondition == true)
+{
+    <script src="~/pagesjs/layout/toastmessagejs.js"></script>
+}
+<script src="~/pagesjs/permission/permissionindex.js"></script>
+<script src="~/pagesjs/publicjs/public.js"></script>
+<script src="~/pagesjs/pagination/paginationjs.js"></script>
+<script src="~/pagesjs/publicjs/popup.js"></script>

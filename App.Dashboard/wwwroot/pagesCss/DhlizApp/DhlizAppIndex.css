@@ -1,0 +1,94 @@
+﻿
+
+
+/* أنماط لقسم المخزن */
+.store-section {
+    width: 400px;
+    margin: 10px;
+    float: left;
+    position: relative;
+    /* تعيين الوضع إلى نسبي */
+}
+
+/* أنماط للمربعات داخل كل قسم */
+.section-square {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    /* تغيير المؤشر إلى علامة اليد عند التحويل إلى رابط قابل للنقر */
+}
+
+/* ألوان مختلفة للمربعات */
+.square-red {
+    background-color: rgb(228, 84, 84);
+}
+
+.square-green {
+    background-color: rgb(88, 211, 88);
+}
+
+.square-yellow {
+    background-color: rgb(215, 236, 23);
+}
+
+.square-blue {
+    border: 1px solid black
+}
+
+/* يمكنك إضافة المزيد من الألوان حسب الحاجة */
+
+/* أنماط للبطاقة المنبثقة */
+.popup {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    /* تعيين القيمة إلى 2 لتظهر فوق المربعات */
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+/* أنماط للزر داخل البطاقة */
+.popup-button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* Styles for the inventory blocks */
+.inventory-block {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* Define color group classes */
+.color-group {
+    display: none;
+    /* Initially hide all color groups */
+}
+
+    /* Show the selected color group */
+    .color-group.active {
+        display: block;
+    }
+
+
+/*charts */
+.chart-container {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+}

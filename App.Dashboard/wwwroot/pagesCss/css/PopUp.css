@@ -1,0 +1,11 @@
+﻿#infoPopup {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1;
+    width: 337px;
+    right: 3%;
+}

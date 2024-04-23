@@ -1,0 +1,244 @@
+﻿@using App.Domain.Representatives.Dtos
+<link href="~/pagescss/customer/customerdetails.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+
+@model Muslim.HandelResult.Result<RepresentativeDetailsDto>
+@{
+    var data = Model.Response;
+    var Page = Model.Page;
+}
+
+<div id="wrapper">
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+                    <h1 class="h3 mb-0 text-gray-800">
+                        <i class="fa-solid fa-users-rays" style="color: #0ec0e4;"></i>
+                        <span data-arabic="تفاصيل الطلب" data-english="Order Details"></span>
+                    </h1>
+                </div>
+                <hr/>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800" style="margin: 10px;">
+                        <i class="fa-solid fa-money-check" style="color: #e94e24;"></i>
+                        <span data-arabic="معلومات الزبون"
+                              data-english="Customer Info"></span>
+                    </h1>
+                </div>
+            </div>
+
+            <div style="margin: 15px;">
+                <div class="container "
+                     style=" background-color: white; height:450px;  margin-left: 0!important; border-radius: 17px;">
+
+
+
+                    <div class="row">
+                        @* <div style="margin-top: 30px;">
+                            <img src="https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"
+                                 alt="" style="border-radius: 17px; width:250px ;margin: 50px">
+                        </div> *@
+
+                        <div class="col" style="margin-top: 30px; margin-left: 10px;">
+
+                            <div class="FullNameContainer MarginStyle">
+                                <span style="font-weight: bold;" data-arabic="اسم الزبون :" data-english="Customer Name :"></span>
+                                <span id="FullName">حنين</span>
+                                <i class="fa-regular fa-copy" style="color: chocolate;" id="copyIconFullName"
+                                   onclick="copyFullName()"></i>
+                                <!-- إضافة عنصر لعرض رسالة النسخ -->
+                                <span id="copyFullName"
+                                      style="display: none; color: rgb(231, 151, 46); background-color: white ;">
+                                    تم
+                                    النسخ بنجاح
+                                </span>
+                            </div>
+                            <div class="PhoneNumberContainer MarginStyle">
+                                <span style="font-weight: bold;" data-arabic="رقم الهاتف :" data-english="Phone Number :"></span>
+                                <span id="PhoneNumber">0789654123</span>
+                                <i class="fa-regular fa-copy" style="color: chocolate;" id="copyIconPhoneNumber"
+                                   onclick="copyPhoneNumber()"></i>
+                                <!-- إضافة عنصر لعرض رسالة النسخ -->
+                                <span id="copyPhoneNumber"
+                                      style="display: none; color: rgb(231, 151, 46); background-color: white ;">
+                                    تم
+                                    النسخ بنجاح
+                                </span>
+                            </div>
+
+                            <div class="PhoneNumberContainer MarginStyle">
+                                <span style="font-weight: bold;" data-arabic="رقم الهاتف البديل :" data-english="Second Phone Number :"></span>
+                                <span id="PhoneNumber">0789655523</span>
+                                <i class="fa-regular fa-copy" style="color: chocolate;" id="copyIconPhoneNumber"
+                                   onclick="copyPhoneNumber()"></i>
+                                <!-- إضافة عنصر لعرض رسالة النسخ -->
+                                <span id="copyPhoneNumber"
+                                      style="display: none; color: rgb(231, 151, 46); background-color: white ;">
+                                    تم
+                                    النسخ بنجاح
+                                </span>
+                            </div>
+                           
+                            <div class="PhoneNumberContainer MarginStyle">
+                                <span style="font-weight: bold;" data-arabic="الوزن :" data-english="Weight :"></span>
+                                <span id="PhoneNumber">0789655523</span>
+                                <i class="fa-regular fa-copy" style="color: chocolate;" id="copyIconPhoneNumber"
+                                   onclick="copyPhoneNumber()"></i>
+                                <!-- إضافة عنصر لعرض رسالة النسخ -->
+                                <span id="copyPhoneNumber"
+                                      style="display: none; color: rgb(231, 151, 46); background-color: white ;">
+                                    تم
+                                    النسخ بنجاح
+                                </span>
+                            </div>
+                            <div class="PhoneNumberContainer MarginStyle">
+                                <span style="font-weight: bold;" data-arabic="ألطول :" data-english="Hight :"></span>
+                                <span id="PhoneNumber">0789655523</span>
+                                <i class="fa-regular fa-copy" style="color: chocolate;" id="copyIconPhoneNumber"
+                                   onclick="copyPhoneNumber()"></i>
+                                <!-- إضافة عنصر لعرض رسالة النسخ -->
+                                <span id="copyPhoneNumber"
+                                      style="display: none; color: rgb(231, 151, 46); background-color: white ;">
+                                    تم
+                                    النسخ بنجاح
+                                </span>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+            <h1 class="h3 mb-0 text-gray-800" style="margin: 10px;">
+                <i class="fa-solid fa-money-check" style="color: #e94e24;"></i>
+                <span data-arabic="المنتجات" data-english="Products"></span>
+            </h1>
+           
+
+            <div class="container" style="max-width: 100% ; padding: 10px;">
+                <div class="row">
+                    <div style="margin-top: 30px;">
+                        <img src="~/img/1.jpg"
+                             alt="" style="border-radius: 17px; width:250px ;margin: 50px" />
+                    </div>
+
+                    <div class="col" style="margin-top: 30px; margin-left: 10px;">
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="رقم الموديل:" data-english="Model Number :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="السعر :" data-english="Price :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="الكمية:" data-english="Quantity :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="ملاحظات :" data-english="Notes :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" style="max-width: 100% ; padding: 10px;">
+                <div class="row">
+                    <div style="margin-top: 30px;">
+                        <img src="~/img/1.jpg"
+                             alt="" style="border-radius: 17px; width:250px ;margin: 50px" />
+                    </div>
+
+                    <div class="col" style="margin-top: 30px; margin-left: 10px;">
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="رقم الموديل:" data-english="Model Number :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="السعر :" data-english="Price :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="الكمية:" data-english="Quantity :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="ملاحظات :" data-english="Notes :"></span>
+                            <span id="FullName">m518</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.container-fluid -->
+
+            <hr />
+
+            <div class="container" style="max-width: 100% ; padding: 10px;">
+                <div class="row">
+                    <div class="col" style="margin-top: 30px; margin-left: 10px;">
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="رسوم التوصيل :" data-english="Delivery Fare :"></span>
+                            <span id="DeliveryFee">10.00</span>
+                        </div>
+                        <div class="FullNameContainer MarginStyle">
+                            <span style="font-weight: bold;" data-arabic="السعر الإجمالي :" data-english="Total Price :"></span>
+                            <span id="TotalPrice">100.00</span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+@* @{
+    bool inputCondition = ViewBag.Action; // Assuming ViewBag.Action is a boolean value
+} *@
+
+@* @if (inputCondition == true)
+{
+    <script src="~/pagesjs/layout/toastmessagejs.js"></script>
+} *@
+<script src="~/pagesjs/managestock/customeroperations.js"></script>
+
+
