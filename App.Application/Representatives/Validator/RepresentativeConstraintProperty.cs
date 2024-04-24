@@ -1,14 +1,7 @@
-﻿namespace App.Application.Const;
+﻿namespace App.Application.Representatives.Validator;
 
-public static class ConstraintProperty
+public class RepresentativeConstraintProperty
 {
-    #region ResetPassword
-    public static int PasswordMinimumLength = 6;
-    public static int PasswordMaximumLength = 50;
-    public static string PasswordMatches = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,50}$";
-    #endregion
-
-    #region Representative
 
     #region UserName
     public static int UserNameMaximumLength = 50;
@@ -29,5 +22,4 @@ public static class ConstraintProperty
     public static double CommisionMinimum = 0;
     #endregion
 
-    #endregion
 }

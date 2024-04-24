@@ -1,13 +1,11 @@
-﻿namespace App.Application.Const;
+﻿using Newtonsoft.Json;
+
+namespace App.Application.Const;
 
 public class ValidatorErrorMessage
 {
 
-    public static string GetAsJson(TraslateErrorMessage message)
-    {
-
-        return $"{{ar:\"{message.Ar}\",en:\"{message.En}\"}}";
-    }
+    public static string GetAsJson(TraslateErrorMessage message) => JsonConvert.SerializeObject(message);
 
 
 }

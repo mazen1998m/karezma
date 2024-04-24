@@ -37,32 +37,36 @@
 
         <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
             <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
-                   data-arabic="إسم المندوب"
-                   data-english="Salesmen Name"></label>
+                   data-arabic="إسم ألمستخدم"
+                   data-english="UserName"></label>
 
-            <input required class="form-control form-control-lg"
+            <input class="form-control form-control-lg"
+                   required
                    asp-for="@data.UserName"
-                   name="Salesmen Name"
+                   name="UserName"
                    type="text"
                    value="@data.UserName"
                    aria-label="User Name"
                    style="border-radius: 17px; border: none;"
+                   propertyName="UserName"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
 
         </div>
 
         <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
             <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
-                   data-arabic="الإسم"
-                   data-english="Name"></label>
+                   data-arabic="إسم المندوب"
+                   data-english="Salesmen Name"></label>
 
-            <input required class="form-control form-control-lg"
+            <input class="form-control form-control-lg"
+                   required
                    asp-for="@data.Name"
                    name="Name"
                    type="text"
                    value="@data.Name"
                    aria-label="Name"
                    style="border-radius: 17px; border: none;"
+                   propertyName="Name"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
 
         </div>
@@ -72,13 +76,15 @@
                    data-arabic="رقم الهاتف"
                    data-english="Phone Number"></label>
 
-            <input required class="form-control form-control-lg"
+            <input class="form-control form-control-lg"
+                   required
                    type="text"
                    asp-for="@data.Phone"
                    name="Phone"
                    placeholder="Phone Number"
                    aria-label="Phone"
                    style="border-radius: 17px; border: none;"
+                   propertyName="Phone"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
 
         </div>
@@ -88,13 +94,15 @@
                    data-arabic="العمولة"
                    data-english="Commission"></label>
 
-            <input required class="form-control form-control-lg"
+            <input class="form-control form-control-lg"
+                   required
                    type="text"
                    asp-for="@data.Commision"
                    name="Commision"
                    placeholder="Commission"
                    aria-label="Commision"
                    style="border-radius: 17px; border: none;"
+                   propertyName="Commision"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
 
         </div>

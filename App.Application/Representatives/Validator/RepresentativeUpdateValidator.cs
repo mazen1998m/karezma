@@ -1,20 +1,22 @@
-﻿using App.Application.Users.ResetUserPassword.Validator;
-using App.Domain.Representatives.Dtos;
+﻿using App.Domain.Representatives.Dtos;
 using App.Domain.Users;
 
 namespace App.Application.Representatives.Validator;
 
-public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCreateDto>
+public class RepresentativeUpdateValidator : AbstractValidator<RepresentativeUpdateDto>
 {
     public IService<User> _userService { get; set; }
+    public int UserId { get; set; }
 
-    public RepresentativeCreateValidator()
+    public RepresentativeUpdateValidator()
     {
         #region UserName
 
+        RuleFor(x => x.UserId).Must(SetUserId);
+
         RuleFor(x => x.UserName)
             .NotEmpty()
-            .WithMessage(RepresentativeErrorMessage.UserNameRequired);//ar en
+            .WithMessage(RepresentativeErrorMessage.UserNameRequired);
 
         RuleFor(x => x.UserName)
             .Must(IsUserNameUnique)
@@ -30,24 +32,6 @@ public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCre
 
         #endregion
 
-        #region Password
-        RuleFor(x => x.Password)
-            .NotEmpty()
-            .WithMessage(ResePasswordErrorMessage.PasswordRequired);
-
-        RuleFor(x => x.Password)
-            .MinimumLength(ResePasswordConstraintProperty.PasswordMinimumLength)
-            .WithMessage(ResePasswordErrorMessage.PasswordMinimumLength);
-
-        RuleFor(x => x.Password)
-            .MaximumLength(ResePasswordConstraintProperty.PasswordMaximumLength)
-            .WithMessage(ResePasswordErrorMessage.PasswordMaximumLength);
-
-        RuleFor(x => x.Password)
-            .Matches(ResePasswordConstraintProperty.PasswordMatches)
-            .WithMessage(ResePasswordErrorMessage.PasswordFormat);
-
-        #endregion
 
         #region Name
 
@@ -92,6 +76,14 @@ public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCre
     public bool IsUserNameUnique(string userName)
     {
         _userService = _userService.Inject();
-        return _userService.Any(x => x.Email == userName) == 0;
+        var oldUserName = _userService.FirstOrDefault(user => user.Id == UserId, u => new { u.Id, u.Email }).Response.Email;
+
+        return _userService.Any(x => x.Email == userName && x.Email != oldUserName) == 0;
+    }
+
+    public bool SetUserId(int userId)
+    {
+        UserId = userId;
+        return true;
     }
 }

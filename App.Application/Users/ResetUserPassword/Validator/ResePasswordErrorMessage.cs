@@ -1,13 +1,34 @@
-﻿namespace App.Application.Users.ResetUserPassword.Validator;
+﻿using App.Application.Const;
 
-public static class ResePasswordErrorMessage
+namespace App.Application.Users.ResetUserPassword.Validator;
+
+public class ResePasswordErrorMessage : ValidatorErrorMessage
 {
-    #region ResetPassword
-    public static string PasswordRequired = "New password is required";
-    public static string PasswordMinimumLength = "Password must be at least 6 characters";
-    public static string PasswordMaximumLength = "Password must be at most 50 characters";
-    public static string PasswordFormat = "Password must contain at least one uppercase letter, one lowercase letter and one number";
-    public static string PasswordsDoNotMatch = "Passwords do not match";
-    #endregion
+    public static string PasswordRequired = GetAsJson(new()
+    {
+        Ar = "كلمة المرور الجديدة مطلوبة",
+        En = "New password is required"
+    });
+
+    public static string PasswordMinimumLength = GetAsJson(new()
+    {
+        Ar = $"كلمة المرور يجب ان تحتوي على اكثر من {ResePasswordConstraintProperty.PasswordMinimumLength} حرف",
+        En = $"Password must contain at least {ResePasswordConstraintProperty.PasswordMinimumLength} characters"
+    });
+    public static string PasswordMaximumLength = GetAsJson(new()
+    {
+        Ar = $"كلمة المرور يجب ان تحتوي على اقل من {ResePasswordConstraintProperty.PasswordMaximumLength} حرف",
+        En = $"Password must contain a maximum of {ResePasswordConstraintProperty.PasswordMaximumLength} characters"
+    });
+    public static string PasswordFormat = GetAsJson(new()
+    {
+        Ar = "كلمة المرور يجب ان تحتوي على حروف كبيرة وصغيرة وارقام",
+        En = "Password must contain uppercase, lowercase and numbers"
+    });
+    public static string PasswordsDoNotMatch = GetAsJson(new()
+    {
+        Ar = "كلمة المرور غير متطابقة",
+        En = "Passwords do not match"
+    });
 
 }

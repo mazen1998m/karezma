@@ -1039,7 +1039,12 @@ public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity 
         {
             var validatorError = ValidateResult.Errors(dto, out var isValid);
 
-            if (!isValid) return Result<TMap>.ValidatorFail(validatorError);
+            if (!isValid)
+            {
+                var result = Result<TMap>.ValidatorFail(validatorError);
+                result.Response = dto;
+                return result;
+            }
 
             await _repository.SaveUpdateAsync(dto);
             return Result<TMap>.Success(dto);

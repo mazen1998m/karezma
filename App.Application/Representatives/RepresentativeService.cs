@@ -24,7 +24,7 @@ internal class RepresentativeService : Service<Representative>, IRepresentativeS
 
             if (!isValid)
             {
-                result.Response = new() { Id = resetPassword.Id };
+                result.Response = resetPassword;
                 return result;
             }
 
