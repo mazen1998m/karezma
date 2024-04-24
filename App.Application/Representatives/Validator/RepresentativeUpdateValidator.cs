@@ -56,8 +56,8 @@ public class RepresentativeUpdateValidator : AbstractValidator<RepresentativeUpd
             .WithMessage(RepresentativeErrorMessage.PhoneRequired);
 
         RuleFor(x => x.Phone)
-            .Matches(RepresentativeConstraintProperty.PhoneMatches)
-            .WithMessage(RepresentativeErrorMessage.PhoneMatches);
+            .Matches(RepresentativeConstraintProperty.PhoneFormat)
+            .WithMessage(RepresentativeErrorMessage.PhoneFormat);
 
         RuleFor(x => x.Phone)
             .Length(RepresentativeConstraintProperty.PhoneLength)

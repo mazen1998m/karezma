@@ -15,7 +15,7 @@ public class RepresentativeConstraintProperty
 
     #region Phone
     public static int PhoneLength = 10;
-    public static string PhoneMatches = @"^(077|078|079)\d*$";
+    public static string PhoneFormat = @"^(077|078|079)\d*$";
     #endregion
 
     #region Commision

@@ -20,7 +20,7 @@ public class ResetPasswordValidator : AbstractValidator<ResetPassword>
             .WithMessage(ResePasswordErrorMessage.PasswordMaximumLength);
 
         RuleFor(x => x.NewPassword)
-            .Matches(ResePasswordConstraintProperty.PasswordMatches)
+            .Matches(ResePasswordConstraintProperty.PasswordFormat)
             .WithMessage(ResePasswordErrorMessage.PasswordFormat);
 
         RuleFor(x => x.ConfirmPassword)

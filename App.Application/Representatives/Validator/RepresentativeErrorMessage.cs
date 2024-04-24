@@ -58,7 +58,7 @@ public class RepresentativeErrorMessage : ValidatorErrorMessage
     });
 
 
-    public static string PhoneMatches = GetAsJson(new()
+    public static string PhoneFormat = GetAsJson(new()
     {
         Ar = "الهاتف يجب ان يحتوي على ارقام فقط",
         En = "Phone must contain numbers only"

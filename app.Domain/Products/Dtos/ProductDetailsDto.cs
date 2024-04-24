@@ -1,6 +1,6 @@
 ﻿namespace App.Domain.Products.Dtos;
 
-public class ProductUpdateDto : Dto
+public class ProductDetailsDto : Dto
 {
     public string Name { get; set; }
     public string Model { get; set; }
@@ -8,4 +8,5 @@ public class ProductUpdateDto : Dto
     public string Image { get; set; }
     public string Description { get; set; }
     public bool IsActive { get; set; }
+
 }

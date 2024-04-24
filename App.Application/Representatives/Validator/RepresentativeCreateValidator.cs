@@ -13,85 +13,61 @@ public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCre
         #region UserName
 
         RuleFor(x => x.UserName)
-            .NotEmpty()
-            .WithMessage(RepresentativeErrorMessage.UserNameRequired);//ar en
+            .NotEmpty().WithMessage(RepresentativeErrorMessage.UserNameRequired)
 
-        RuleFor(x => x.UserName)
-            .Must(IsUserNameUnique)
-            .WithMessage(RepresentativeErrorMessage.UsernameIsUesd);
+            .MustAsync(IsUserNameUnique).WithMessage(RepresentativeErrorMessage.UsernameIsUesd)
 
-        RuleFor(x => x.UserName)
-            .MaximumLength(RepresentativeConstraintProperty.UserNameMaximumLength)
-            .WithMessage(RepresentativeErrorMessage.UsernameMaximumLength);
+            .MaximumLength(RepresentativeConstraintProperty.UserNameMaximumLength).WithMessage(RepresentativeErrorMessage.UsernameMaximumLength)
 
-        RuleFor(x => x.UserName)
-            .MinimumLength(RepresentativeConstraintProperty.UserNameMinimumLength)
-            .WithMessage(RepresentativeErrorMessage.UsernameMinimumLength);
+            .MinimumLength(RepresentativeConstraintProperty.UserNameMinimumLength).WithMessage(RepresentativeErrorMessage.UsernameMinimumLength);
 
         #endregion
 
         #region Password
-        RuleFor(x => x.Password)
-            .NotEmpty()
-            .WithMessage(ResePasswordErrorMessage.PasswordRequired);
 
         RuleFor(x => x.Password)
-            .MinimumLength(ResePasswordConstraintProperty.PasswordMinimumLength)
-            .WithMessage(ResePasswordErrorMessage.PasswordMinimumLength);
+            .NotEmpty().WithMessage(ResePasswordErrorMessage.PasswordRequired)
 
-        RuleFor(x => x.Password)
-            .MaximumLength(ResePasswordConstraintProperty.PasswordMaximumLength)
-            .WithMessage(ResePasswordErrorMessage.PasswordMaximumLength);
+            .MinimumLength(ResePasswordConstraintProperty.PasswordMinimumLength).WithMessage(ResePasswordErrorMessage.PasswordMinimumLength)
 
-        RuleFor(x => x.Password)
-            .Matches(ResePasswordConstraintProperty.PasswordMatches)
-            .WithMessage(ResePasswordErrorMessage.PasswordFormat);
+            .MaximumLength(ResePasswordConstraintProperty.PasswordMaximumLength).WithMessage(ResePasswordErrorMessage.PasswordMaximumLength)
+
+            .Matches(ResePasswordConstraintProperty.PasswordFormat).WithMessage(ResePasswordErrorMessage.PasswordFormat);
 
         #endregion
 
         #region Name
 
         RuleFor(x => x.Name)
-            .NotEmpty()
-            .WithMessage(RepresentativeErrorMessage.NameRequired);
+            .NotEmpty().WithMessage(RepresentativeErrorMessage.NameRequired)
 
-        RuleFor(x => x.Name)
-           .MaximumLength(RepresentativeConstraintProperty.NameMaximumLength)
-           .WithMessage(RepresentativeErrorMessage.NameMaximumLength);
+            .MaximumLength(RepresentativeConstraintProperty.NameMaximumLength).WithMessage(RepresentativeErrorMessage.NameMaximumLength)
 
-        RuleFor(x => x.Name)
-            .MinimumLength(RepresentativeConstraintProperty.NameMinimumLength)
-            .WithMessage(RepresentativeErrorMessage.NameMinimumLength);
+            .MinimumLength(RepresentativeConstraintProperty.NameMinimumLength).WithMessage(RepresentativeErrorMessage.NameMinimumLength);
 
         #endregion
 
         #region Phone
 
         RuleFor(x => x.Phone)
-            .NotEmpty()
-            .WithMessage(RepresentativeErrorMessage.PhoneRequired);
+            .NotEmpty().WithMessage(RepresentativeErrorMessage.PhoneRequired)
 
-        RuleFor(x => x.Phone)
-            .Matches(RepresentativeConstraintProperty.PhoneMatches)
-            .WithMessage(RepresentativeErrorMessage.PhoneMatches);
+            .Matches(RepresentativeConstraintProperty.PhoneFormat).WithMessage(RepresentativeErrorMessage.PhoneFormat)
 
-        RuleFor(x => x.Phone)
-            .Length(RepresentativeConstraintProperty.PhoneLength)
-            .WithMessage(RepresentativeErrorMessage.PhoneLength);
+            .Length(RepresentativeConstraintProperty.PhoneLength).WithMessage(RepresentativeErrorMessage.PhoneLength);
 
         #endregion
 
         #region Commision
         RuleFor(x => x.Commision)
-            .GreaterThanOrEqualTo(RepresentativeConstraintProperty.CommisionMinimum)
-            .WithMessage(RepresentativeErrorMessage.CommisionMinimum);
+            .GreaterThanOrEqualTo(RepresentativeConstraintProperty.CommisionMinimum).WithMessage(RepresentativeErrorMessage.CommisionMinimum);
         #endregion
     }
 
 
-    public bool IsUserNameUnique(string userName)
+    private async Task<bool> IsUserNameUnique(string userName, CancellationToken token)
     {
         _userService = _userService.Inject();
-        return _userService.Any(x => x.Email == userName) == 0;
+        return await _userService.AnyAsync(x => x.Email == userName) == 0;
     }
 }
