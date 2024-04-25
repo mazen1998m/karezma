@@ -15,7 +15,7 @@ public class RepresentativeMapperProfile : Profile
         CreateMap<Representative, Representative>().ReverseMap();
 
 
-        CreateMap<Representative, RepresentativeDetailsDto>()
+        CreateMap<Representative, DetailsRepresentativeDto>()
              .ForMember(x => x.Name, opt => opt.MapFrom(e => e.UserInfo.Name))
              .ForMember(x => x.Phone, opt => opt.MapFrom(e => e.UserInfo.Phone))
              .ForMember(x => x.UserName, opt => opt.MapFrom(e => e.UserInfo.Email))
@@ -24,7 +24,7 @@ public class RepresentativeMapperProfile : Profile
              .ReverseMap()
             ;
 
-        CreateMap<Representative, RepresentativeListDto>()
+        CreateMap<Representative, ListRepresentativeDto>()
             .ForMember(x => x.Name, opt => opt.MapFrom(e => e.UserInfo.Name))
              .ForMember(x => x.Phone, opt => opt.MapFrom(e => e.UserInfo.Phone))
              .ForMember(x => x.UserName, opt => opt.MapFrom(e => e.UserInfo.Email))
@@ -32,7 +32,7 @@ public class RepresentativeMapperProfile : Profile
              .ReverseMap()
             ;
 
-        CreateMap<RepresentativeCreateDto, Representative>()
+        CreateMap<CreateRepresentativeDto, Representative>()
             .ForMember(x => x.UserInfo, opt => opt.MapFrom(e => new User
             {
                 Name = e.Name,
@@ -50,7 +50,7 @@ public class RepresentativeMapperProfile : Profile
 
 
 
-        CreateMap<RepresentativeUpdateDto, Representative>()
+        CreateMap<UpdateRepresentativeDto, Representative>()
             .ForMember(x => x.UserInfo, opt => opt.MapFrom(e => new User
             {
                 Id = e.UserId,
@@ -73,7 +73,7 @@ public class RepresentativeMapperProfile : Profile
 
     }
 
-    public string GetPassword(RepresentativeUpdateDto userId)
+    public string GetPassword(UpdateRepresentativeDto userId)
     {
         _userService = _userService.Inject();
         var pass = _userService.FirstOrDefault(user => user.Id == userId.UserId, u => new { u.Id, u.Password }).Response.Password;

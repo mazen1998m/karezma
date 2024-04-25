@@ -22,7 +22,7 @@ public class RepresentativeController : BaseController
 
         ViewBag.Pageindex = filter.PageIndex;
         ViewBag.Action = mes == null ? false : mes;
-        var data = await _service.FindAsync<RepresentativeListDto>(filter);
+        var data = await _service.FindAsync<ListRepresentativeDto>(filter);
         return View(data);
 
 
@@ -33,16 +33,16 @@ public class RepresentativeController : BaseController
     public async Task<IActionResult> Details(int id)
     {
 
-        return View(await _service.GetByIdAsync<RepresentativeDetailsDto>(id));
+        return View(await _service.GetByIdAsync<DetailsRepresentativeDto>(id));
 
     }
 
     [HttpGet]
-    public IActionResult Create() => View(new Result<RepresentativeCreateDto>());
+    public IActionResult Create() => View(new Result<CreateRepresentativeDto>());
 
 
     [HttpPost]
-    public async Task<IActionResult> Create(Result<RepresentativeCreateDto> dto)
+    public async Task<IActionResult> Create(Result<CreateRepresentativeDto> dto)
     {
 
         var response = await _service.CreateAsync(dto.Response);
@@ -54,12 +54,12 @@ public class RepresentativeController : BaseController
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var dto = await _service.GetByIdAsync<RepresentativeUpdateDto>(id);
+        var dto = await _service.GetByIdAsync<UpdateRepresentativeDto>(id);
         return View(dto);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(RepresentativeUpdateDto dto)
+    public async Task<IActionResult> Update(UpdateRepresentativeDto dto)
     {
         var response = await _service.UpdateAsync(dto);
         return response.IsSuccess
@@ -69,7 +69,7 @@ public class RepresentativeController : BaseController
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
-        var response = await _service.SoftDeleteByIdAsync<RepresentativeDetailsDto>(id);
+        var response = await _service.SoftDeleteByIdAsync<DetailsRepresentativeDto>(id);
         return response.IsSuccess
                   ? RedirectToAction("Index", new { mes = true })
                     : RedirectToAction("Index");

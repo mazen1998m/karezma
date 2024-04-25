@@ -1,4 +1,4 @@
-﻿using App.Application.Const;
+﻿using App.Domain.Representatives;
 
 namespace App.Application.Representatives.Validator;
 

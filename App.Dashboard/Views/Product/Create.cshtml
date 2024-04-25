@@ -1,5 +1,5 @@
-﻿@using App.Domain.Representatives.Dtos
-@model Muslim.HandelResult.Result<RepresentativeCreateDto>
+﻿@using App.Domain.Products.Dtos
+@model Muslim.HandelResult.Result<CreateProductDto>
 @{
     var data = Model.Response;
     var Page = Model.Page;
@@ -32,13 +32,17 @@
                    data-arabic="إسم منتج"></label>
 
             <input class="form-control form-control-lg"
-                   asp-for="@data.UserName"
-                   name="Name"
+                   required
+                   asp-for="@data.Name"
+                   name="Response.Name"
                    type="text"
                    placeholder="Product Name"
                    aria-label="Name"
                    style="border-radius: 17px; border: none;"
+                   propertyName="Name"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+
+            
 
         </div>
 
@@ -48,28 +52,30 @@
                    data-english="Model Number"></label>
 
             <input class="form-control form-control-lg"
-                   asp-for="@data.Password"
-                   name="Password"
+                   asp-for="@data.Model"
+                   name="Response.Model"
                    type="text"
                    placeholder="Model Number"
-                   aria-label="Password"
+                   aria-label="Model"
                    style="border-radius: 17px; border: none;"
+                   propertyName="Model"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
 
         </div>
 
         <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
             <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
-                   data-english="Barcod Number"
+                   data-english="Barcode Number"
                    data-arabic="الباركود"></label>
 
             <input class="form-control form-control-lg"
-                   asp-for="@data.Phone"
-                   name="Phone"
+                   asp-for="@data.Barcode"
+                   name="Response.Barcode"
                    type="text"
-                   placeholder="Barcod Number"
-                   aria-label="Phone"
+                   placeholder="Barcode Number"
+                   aria-label="Barcode"
                    style="border-radius: 17px; border: none;"
+                   propertyName="Barcode"
                    validation="@(Json.Serialize(Model.ValidatorError).ToString())">
 
         </div>
@@ -80,11 +86,12 @@
                    data-english="Description "></label>
 
             <textarea required class="form-control form-control-lg"
-                      asp-for="@data.Commision"
-                      name="Commision"
+                      asp-for="@data.Description"
+                      name="Response.Description"
                       placeholder="Description"
-                      aria-label="Commision"
+                      aria-label="Description"
                       style="border-radius: 17px; border: none;"
+                      propertyName="Description"
                       validation="@(Json.Serialize(Model.ValidatorError).ToString())"></textarea>
 
         </div>
@@ -98,8 +105,7 @@
                    data-arabic="صورة"></label>
 
             <input class="form-control form-control-lg"
-              
-                   name="Image"
+                   name="Response.Image"
                    type="file"
                    accept="image/*"
                    aria-label="Image"
@@ -115,7 +121,7 @@
         <div class="row">
             <div class="col-8"></div>
             <div class="col-4" style=" justify-content: end; text-align: end;">
-                <button type="submit" class="btn  btn-lg new" @* onclick="validatePassword()" *@
+                <button type="submit" class="btn  btn-lg new" 
                         style=" color: white; border-radius:20px ;border:2px solid #502e90; padding-left: 35px ; padding-right: 35px; margin-top: -110px;">
                     <span data-english="Add Product" data-arabic="اضافة منتج">
                       

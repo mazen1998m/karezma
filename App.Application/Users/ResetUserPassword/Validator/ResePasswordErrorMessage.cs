@@ -1,6 +1,4 @@
-﻿using App.Application.Const;
-
-namespace App.Application.Users.ResetUserPassword.Validator;
+﻿namespace App.Application.Users.ResetUserPassword.Validator;
 
 public class ResePasswordErrorMessage : ValidatorErrorMessage
 {

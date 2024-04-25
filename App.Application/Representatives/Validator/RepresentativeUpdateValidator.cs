@@ -1,9 +1,10 @@
-﻿using App.Domain.Representatives.Dtos;
+﻿using App.Domain.Representatives;
+using App.Domain.Representatives.Dtos;
 using App.Domain.Users;
 
 namespace App.Application.Representatives.Validator;
 
-public class RepresentativeUpdateValidator : AbstractValidator<RepresentativeUpdateDto>
+public class RepresentativeUpdateValidator : AbstractValidator<UpdateRepresentativeDto>
 {
     public IService<User> _userService { get; set; }
     public int UserId { get; set; }

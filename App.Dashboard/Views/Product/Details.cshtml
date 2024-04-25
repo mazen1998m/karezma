@@ -2,11 +2,11 @@
 <link href="~/pagescss/product/productdetails.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 
-@* @model Muslim.HandelResult.Result<ProductDetailsDto>
+@model Muslim.HandelResult.Result<DetailsProductDto>
 @{
     var data = Model.Response;
     var Page = Model.Page;
-} *@
+}
 
 <div id="wrapper">
 
@@ -28,32 +28,31 @@
                     <h5 class="">
                         <div style="margin-bottom:16px">
                             <span data-arabic="الرقم التسلسلي" data-english="Id" style="color: black; font-weight: bold; display:">
-                            </span> : 1
-                            @* @data.Id *@
+                            </span> : @data.Id
                         </div>
 
                         <div style="margin-bottom:16px">
                             <span data-arabic="اسم المنتج" data-english="Product Name" style="color: black; font-weight: bold; display:">
-                            </span> : عباي
-                                @* @data.Name *@
+                            </span> : 
+                                @data.Name
                         </div>
                          
                         <div style="margin-bottom:16px">
                             <span data-arabic="الموديل" data-english="Model" style="color: black; font-weight: bold;">
-                            </span>  : m552
-                                @* @data.Price *@
+                            </span>  : 
+                                @data.Model
                         </div>
 
                         <div style="margin-bottom:16px">
                             <span data-arabic="الباركود" data-english="Barcod" style="color: black; font-weight: bold;">
-                            </span>  : 59642139875
-                            @* @data.Price *@
+                            </span>  : 
+                            @data.Barcode
                         </div>
 
                         <div style="margin-bottom:16px">
                             <span data-arabic="الوصف" data-english="Description" style="color: black; font-weight: bold;">
                             </span> : 
-                            @* @data.Description *@
+                            @data.Description
                         </div>
 
                         <div style="margin-top: 30px;">
@@ -64,7 +63,7 @@
                         <div style="margin-bottom:16px">
                             <span data-arabic="الحالة" data-english="Status" style="color: black; font-weight: bold;">
                             </span> : 
-                            @if(@* data.IsActive *@ true)
+                            @if(data.IsActive)
                             {
                                 <span data-arabic="متاح" data-english="Available" style="color: green; font-weight: bold;">
                                 </span>

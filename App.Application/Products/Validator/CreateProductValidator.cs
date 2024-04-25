@@ -1,6 +1,5 @@
 ﻿using App.Domain.Products;
 using App.Domain.Products.Dtos;
-using Muslim.Filter.Extensions;
 
 namespace App.Application.Products.Validator;
 
@@ -19,7 +18,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
 
             .MinimumLength(ProductConstraintProperty.NameMinimumLength).WithMessage(ProductErrorMessage.NameMinimumLength)
 
-            .MustAsync(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
+            .Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
 
             ;
 
@@ -30,7 +29,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
 
             .MinimumLength(ProductConstraintProperty.ModelMinimumLength).WithMessage(ProductErrorMessage.ModelMinimumLength)
 
-            .MustAsync(IsModelUnique).WithMessage(ProductErrorMessage.ModelUnique)
+            .Must(IsModelUnique).WithMessage(ProductErrorMessage.ModelUnique)
             ;
 
         RuleFor(x => x.Barcode)
@@ -38,7 +37,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
 
             .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
 
-            .MustAsync(IsBarcodUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
+            .Must(IsBarcodeUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
 
             .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
             ;
@@ -49,24 +48,24 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
 
     }
 
-    private async Task<bool> IsModelUnique(string model, CancellationToken token)
+    private bool IsModelUnique(string model)
     {
         _productService = _productService.Inject();
-        return await _productService.AnyAsync(x => x.Model == model) == 0;
+        return _productService.Any(x => x.Model == model) == 0;
     }
 
     //IsNameUnique
-    private async Task<bool> IsNameUnique(string name, CancellationToken token)
+    private bool IsNameUnique(string name)
     {
         _productService = _productService.Inject();
-        return await _productService.AnyAsync(x => x.Name == name) == 0;
+        return _productService.Any(x => x.Name == name) == 0;
     }
 
     //IsBarcodUnique
-    private async Task<bool> IsBarcodUnique(string barcode, CancellationToken token)
+    private bool IsBarcodeUnique(string barcode)
     {
         _productService = _productService.Inject();
-        return await _productService.AnyAsync(x => x.Barcode == barcode && x.Barcode != "0" && !x.Barcode.IsNotNullOrEmpty()) == 0;
+        return _productService.Any(x => x.Barcode == barcode && x.Barcode != "0" && !x.Barcode.IsNotNullOrEmpty()) == 0;
     }
 
 

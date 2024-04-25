@@ -1,4 +1,4 @@
-﻿namespace App.Application.Products.Validator;
+﻿namespace App.Domain.Products;
 
 public class ProductConstraintProperty
 {

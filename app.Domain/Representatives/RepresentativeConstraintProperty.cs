@@ -1,4 +1,4 @@
-﻿namespace App.Application.Representatives.Validator;
+﻿namespace App.Domain.Representatives;
 
 public class RepresentativeConstraintProperty
 {

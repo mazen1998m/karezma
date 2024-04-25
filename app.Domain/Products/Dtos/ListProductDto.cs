@@ -1,8 +1,8 @@
 ﻿namespace App.Domain.Products.Dtos;
 
-public class ProductListDto : Dto
+public class ListProductDto : Dto
 {
     public string Name { get; set; }
     public string Model { get; set; }
-    public string Barcod { get; set; }
+    public string Barcode { get; set; }
 }

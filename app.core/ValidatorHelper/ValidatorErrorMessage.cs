@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace App.Application.Const;
+namespace App.core.ValidatorHelper;
 
 public class ValidatorErrorMessage
 {

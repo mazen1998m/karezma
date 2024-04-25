@@ -63,8 +63,8 @@ public class UserSeeder : IUserSeeder, IAutoInjection
            .Select(role => new RoleDto
            {
                Name = role.ToString(),
-               CreatedDate = DateTime.Now,
-               CreatedBy = "System",
+               //CreatedDate = DateTime.Now,
+               //CreatedBy = "System",
                IsActive = true
            });
 

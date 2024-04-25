@@ -1,10 +1,11 @@
 ﻿using App.Application.Users.ResetUserPassword.Validator;
+using App.Domain.Representatives;
 using App.Domain.Representatives.Dtos;
 using App.Domain.Users;
 
 namespace App.Application.Representatives.Validator;
 
-public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCreateDto>
+public class RepresentativeCreateValidator : AbstractValidator<CreateRepresentativeDto>
 {
     public IService<User> _userService { get; set; }
 
@@ -15,7 +16,7 @@ public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCre
         RuleFor(x => x.UserName)
             .NotEmpty().WithMessage(RepresentativeErrorMessage.UserNameRequired)
 
-            .MustAsync(IsUserNameUnique).WithMessage(RepresentativeErrorMessage.UsernameIsUesd)
+            .Must(IsUserNameUnique).WithMessage(RepresentativeErrorMessage.UsernameIsUesd)
 
             .MaximumLength(RepresentativeConstraintProperty.UserNameMaximumLength).WithMessage(RepresentativeErrorMessage.UsernameMaximumLength)
 
@@ -65,9 +66,9 @@ public class RepresentativeCreateValidator : AbstractValidator<RepresentativeCre
     }
 
 
-    private async Task<bool> IsUserNameUnique(string userName, CancellationToken token)
+    private bool IsUserNameUnique(string userName)
     {
         _userService = _userService.Inject();
-        return await _userService.AnyAsync(x => x.Email == userName) == 0;
+        return _userService.Any(x => x.Email == userName) == 0;
     }
 }

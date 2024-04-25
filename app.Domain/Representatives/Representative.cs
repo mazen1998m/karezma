@@ -15,6 +15,7 @@ public class Representative : Entity
     {
         protected override void ConfigureCustomizations()
         {
+            Builder.Property(x => x.Commision).IsRequired();
 
         }
     }

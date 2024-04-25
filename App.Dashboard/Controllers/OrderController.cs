@@ -20,7 +20,7 @@ public class OrderController : BaseController
 
         ViewBag.Pageindex = filter.PageIndex;
         ViewBag.Action = mes == null ? false : mes;
-        var data = await _service.FindAsync<RepresentativeListDto>(filter);
+        var data = await _service.FindAsync<ListRepresentativeDto>(filter);
         return View(data);
 
 
@@ -31,7 +31,7 @@ public class OrderController : BaseController
     public async Task<IActionResult> Details(int id)
     {
 
-        return View(await _service.GetByIdAsync<RepresentativeDetailsDto>(1));
+        return View(await _service.GetByIdAsync<DetailsRepresentativeDto>(1));
 
     }
 
@@ -39,7 +39,7 @@ public class OrderController : BaseController
     public async Task<IActionResult> ChangeStatus(int id)
     {
 
-        return View(await _service.GetByIdAsync<RepresentativeDetailsDto>(id));
+        return View(await _service.GetByIdAsync<DetailsRepresentativeDto>(id));
 
     }
 

@@ -1,10 +1,10 @@
-﻿@using App.Domain.Representatives.Dtos
+﻿@using App.Domain.Products.Dtos
 <link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
 <link href="~/pagescss/css/popup.css" rel="stylesheet" />
 
-@model Muslim.HandelResult.Result<List<RepresentativeListDto>>
+@model Muslim.HandelResult.Result<List<ListProductDto>>
 @{
     var data = Model.Response;
     var Page = Model.Response.Count==0 ? new() : Model.Page;
@@ -54,11 +54,11 @@
             </div>
             
             <div class="col-2 ">
-                <input name="Barcod"
+                <input name="Barcode"
                        class="form-control form-control-lg"
                        type="text"
-                       placeholder="Barcod"
-                       aria-label="Barcod"
+                       placeholder="Barcode"
+                       aria-label="Barcode"
                        style="border-radius: 17px; border: none;">
             </div>
             <input type="hidden" name="PageIndex" id="pageIndex" value="1">
@@ -95,13 +95,13 @@
                         <th data-arabic="الرقم التسلسلي" data-english="Id"></th>
                         <th data-arabic="إسم المنتج" data-english="Name"></th>
                         <th data-arabic="الموديل" data-english="Model"></th>
-                        <th data-arabic="الباركود" data-english="Barcod"></th>
+                        <th data-arabic="الباركود" data-english="Barcode"></th>
                         <th data-arabic="الإجرائات" data-english="Actions"></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                   @*  @if (Model is not null)
+                    @if (Model is not null)
                     {
 
 
@@ -109,23 +109,23 @@
                         {
 
                             @foreach (var item in data)
-                            { *@
+                            {
 
                                 <tr>
-                                    <td>1</td>
-                                    <td>عباي</td>
-                                    <td>m552</td>
-                                    <td>59642139875</td>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Model</td>
+                                    <td>@item.Barcode</td>
                                   
                                     <td>
                                         <span style="margin: 10px;">
-                                            <a asp-action="Details" asp-route-id="1">
+                                            <a asp-action="Details" asp-route-id="@item.Id">
                                                 <i class="fa fa-info-circle" style="color:#502e90;"></i>
 
                                             </a>
                                         </span>
                                         <span style="margin: 10px;">
-                                            <a asp-action="Update" asp-route-id="1">
+                                            <a asp-action="Update" asp-route-id="@item.Id">
                                                 <i class="fa-solid fa-pen" style="color: #0ec0e4"></i>
 
                                             </a>
@@ -133,7 +133,7 @@
 
                                         <span style="margin: 10px; cursor:pointer">
                                             <a>
-                                                <i onclick="openConfirmModal(1)" class="fa-solid fa-trash" style="color: #e94e24"></i>
+                                                <i onclick="openConfirmModal(@item.Id)" class="fa-solid fa-trash" style="color: #e94e24"></i>
 
                                             </a>
                                         </span>
@@ -141,7 +141,7 @@
 
                                     </td>
                                 </tr>
-                                @* <div id="deleteModal_@item.Id" class="modal">
+                                <div id="deleteModal_@item.Id" class="modal">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -159,12 +159,12 @@
                                                     Delete
                                                 </a>
 
-                                                <button type="button" class="btn " style="background-color:#0ec0e4;color:#fff" onclick="closeConfirmModal(item.Id)" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn " style="background-color:#0ec0e4;color:#fff" onclick="closeConfirmModal(@item.Id)" data-dismiss="modal">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
-                                </div> *@
-                           @*  }
+                                </div>
+                            }
 
                         }
                         else
@@ -179,7 +179,7 @@
                         <tr style="text-align:center">
                             <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
                         </tr>
-                    } *@
+                    }
 
                 </tbody>
 

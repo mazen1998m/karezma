@@ -1,4 +1,4 @@
-﻿using App.Application.Const;
+﻿using App.Domain.Products;
 
 namespace App.Application.Products.Validator;
 

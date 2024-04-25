@@ -4,7 +4,7 @@
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
 <link href="~/pagescss/css/popup.css" rel="stylesheet" />
 
-@model Muslim.HandelResult.Result<List<RepresentativeListDto>>
+@model Muslim.HandelResult.Result<List<ListRepresentativeDto>>
 @{
     var data = Model.Response;
     var Page = Model.Response.Count==0 ? new() : Model.Page;

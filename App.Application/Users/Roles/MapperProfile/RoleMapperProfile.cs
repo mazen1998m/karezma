@@ -7,10 +7,7 @@ public class RoleMapperProfile : Profile
     public RoleMapperProfile()
     {
         CreateMap<Role, RoleReadDto>()
-        .ForMember(x => x.CreatedDate, opt => opt.Ignore())
-        .ForMember(x => x.UpdateDate, opt => opt.Ignore())
-        .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-        .ForMember(x => x.UpdateBy, opt => opt.Ignore())
+
         .ForMember(x => x.UserRoles, opt => opt.Ignore())
         .ForMember(x => x.RolePermissions, opt => opt.Ignore())
 ;
@@ -23,15 +20,9 @@ public class RoleMapperProfile : Profile
             .ForMember(x => x.CreatedBy, opt => opt.Ignore())
             .ForMember(x => x.DeletedBy, opt => opt.Ignore())
             .ForMember(x => x.UpdateBy, opt => opt.Ignore())
-            .ReverseMap()
-            .ForMember(x => x.CreatedDate, opt => opt.Ignore())
-            //.ForMember(x => x.Users, opt => opt.Ignore())
-            ;
+            .ReverseMap();
 
-        CreateMap<RoleDto, Role>()
-          .ReverseMap()
-          //.ForMember(x => x.Users, opt => opt.Ignore())
-          ;
+        CreateMap<RoleDto, Role>().ReverseMap();
     }
 }
 

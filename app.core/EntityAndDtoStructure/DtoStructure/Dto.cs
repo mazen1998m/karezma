@@ -1,6 +1,6 @@
 ﻿namespace app.core.EntityAndDtoStructure.DtoStructure;
 
-public class Dto : SuperBase, IDto, IDBase
+public class Dto : IDto, IDBase
 {
     public int Id { get; set; }
 }
