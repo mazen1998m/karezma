@@ -1,10 +1,10 @@
-﻿@using App.Domain.Representatives.Dtos
+﻿@using App.Domain.Orders.Dtos
 <link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
 <link href="~/pagescss/css/popup.css" rel="stylesheet" />
 
-@model Muslim.HandelResult.Result<List<ListRepresentativeDto>>
+@model Muslim.HandelResult.Result<List<ListOrderDto>>
 @{
     var data = Model.Response;
     var Page = Model.Response.Count==0 ? new() : Model.Page;
@@ -105,31 +105,31 @@
                 </thead>
 
                 <tbody>
-                   @*  @if (Model is not null)
-                    { *@
+                    @if (Model is not null)
+                    {
 
 
-                        @* @if (data.Count > 0 && data != null)
-                        { *@
+                        @if (data.Count > 0 && data != null)
+                        {
 
-                           @*  @foreach (var item in data)
-                            { *@
+                            @foreach (var item in data)
+                            {
 
                                 <tr>
                                    
-                                    <td>1</td>
-                                    <td>حنين</td>
-                                    <td>صابرين</td>
-                                    <td>0789654123</td>
-                                    <td>الاردن</td>
-                                    <td>1</td>
-                                    <td>15.6</td>
-                                    <td>قيد الانتظار</td>
+                                    <td>@item.Id</td>
+                                    <td>@item.RepresentativeName</td>
+                                    <td>@item.Clint.Name</td>
+                                    <td>@item.Clint.Phone</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Price</td>
+                                    <td>@item.OrderStatus</td>
 
                                   
                                     <td>
                                         <span style="margin: 10px;">
-                                            <a asp-action="Details" asp-route-id="1">
+                                            <a asp-action="Details" asp-route-id="@item.Id">
                                                 <i class="fa fa-info-circle" style="color:#502e90;"></i>
 
                                             </a>
@@ -137,22 +137,22 @@
                                     </td>
                                 </tr>
                                 
-                            @* } *@
+                            }
 
-                       @*  }
+                        }
                         else
                         {
                             <tr style="text-align:center">
                                 <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
                             </tr>
-                        } *@
-                    @* } *@
-                    @* else
+                        }
+                    }
+                    else
                     {
                         <tr style="text-align:center">
                             <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
                         </tr>
-                    } *@
+                    }
 
                 </tbody>
 

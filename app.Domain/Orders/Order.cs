@@ -17,7 +17,7 @@ public class Order : Entity
     public List<OrderProduct> OrderProducts { get; set; }
 
     public string Barcode { get; set; }
-    public string Description { get; set; }
+    public string Notes { get; set; }
     public decimal DeliveryFare { get; set; }
     public string Address { get; set; }
     public OrderStatus OrderStatus { get; set; }

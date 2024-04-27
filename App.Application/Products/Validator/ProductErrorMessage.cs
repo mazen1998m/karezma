@@ -1,4 +1,4 @@
-﻿using App.Domain.Products;
+﻿using App.Domain.Orders;
 
 namespace App.Application.Products.Validator;
 
@@ -13,13 +13,13 @@ public class ProductErrorMessage : ValidatorErrorMessage
     });
     public static string NameMaximumLength = GetAsJson(new()
     {
-        Ar = $"الاسم طويل جدا, يجب ان يحتوي الاسم على اقل من {ProductConstraintProperty.NameMaximumLength} حروف",
-        En = $"Name is too long, The name must contain a maximum of {ProductConstraintProperty.NameMaximumLength} characters"
+        Ar = $"الاسم طويل جدا, يجب ان يحتوي الاسم على اقل من {OrderConstraintProperty.NameMaximumLength} حروف",
+        En = $"Name is too long, The name must contain a maximum of {OrderConstraintProperty.NameMaximumLength} characters"
     });
     public static string NameMinimumLength = GetAsJson(new()
     {
-        Ar = $"الاسم قصير جدا, يجب ان يحتوي الاسم على اكثر من {ProductConstraintProperty.NameMinimumLength} حروف",
-        En = $"Name is too short , the name must contain at least {ProductConstraintProperty.NameMinimumLength} characters "
+        Ar = $"الاسم قصير جدا, يجب ان يحتوي الاسم على اكثر من {OrderConstraintProperty.NameMinimumLength} حروف",
+        En = $"Name is too short , the name must contain at least {OrderConstraintProperty.NameMinimumLength} characters "
     });
 
     public static string NameUnique = GetAsJson(new()
@@ -40,14 +40,14 @@ public class ProductErrorMessage : ValidatorErrorMessage
 
     public static string ModelMaximumLength = GetAsJson(new()
     {
-        Ar = $"الموديل طويل جدا, يجب ان يحتوي الموديل على اقل من {ProductConstraintProperty.ModelMaximumLength} حروف",
-        En = $"Model is too long, The model must contain a maximum of {ProductConstraintProperty.ModelMaximumLength} characters"
+        Ar = $"الموديل طويل جدا, يجب ان يحتوي الموديل على اقل من {OrderConstraintProperty.ModelMaximumLength} حروف",
+        En = $"Model is too long, The model must contain a maximum of {OrderConstraintProperty.ModelMaximumLength} characters"
     });
 
     public static string ModelMinimumLength = GetAsJson(new()
     {
-        Ar = $"الموديل قصير جدا, يجب ان يحتوي الموديل على اكثر من {ProductConstraintProperty.ModelMinimumLength} حروف",
-        En = $"Model is too short , the model must contain at least {ProductConstraintProperty.ModelMinimumLength} characters "
+        Ar = $"الموديل قصير جدا, يجب ان يحتوي الموديل على اكثر من {OrderConstraintProperty.ModelMinimumLength} حروف",
+        En = $"Model is too short , the model must contain at least {OrderConstraintProperty.ModelMinimumLength} characters "
     });
 
     public static string ModelUnique = GetAsJson(new()
@@ -62,14 +62,14 @@ public class ProductErrorMessage : ValidatorErrorMessage
 
     public static string BarcodeMaximumLength = GetAsJson(new()
     {
-        Ar = $"الباركود طويل جدا, يجب ان يحتوي الباركود على اقل من {ProductConstraintProperty.BarcodeMaximumLength} حروف",
-        En = $"Barcod is too long, The barcod must contain a maximum of {ProductConstraintProperty.BarcodeMaximumLength} characters"
+        Ar = $"الباركود طويل جدا, يجب ان يحتوي الباركود على اقل من {OrderConstraintProperty.BarcodeMaximumLength} حروف",
+        En = $"Barcod is too long, The barcod must contain a maximum of {OrderConstraintProperty.BarcodeMaximumLength} characters"
     });
 
     public static string BarcodeMinimumLength = GetAsJson(new()
     {
-        Ar = $"الباركود قصير جدا, يجب ان يحتوي الباركود على اكثر من {ProductConstraintProperty.BarcodeMinimumLength} حروف",
-        En = $"Barcod is too short , the barcod must contain at least {ProductConstraintProperty.BarcodeMinimumLength} characters "
+        Ar = $"الباركود قصير جدا, يجب ان يحتوي الباركود على اكثر من {OrderConstraintProperty.BarcodeMinimumLength} حروف",
+        En = $"Barcod is too short , the barcod must contain at least {OrderConstraintProperty.BarcodeMinimumLength} characters "
     });
 
     public static string BarcodeFormat = GetAsJson(new()
@@ -90,8 +90,8 @@ public class ProductErrorMessage : ValidatorErrorMessage
 
     public static string DescriptionMaximumLength = GetAsJson(new()
     {
-        Ar = $"الوصف طويل جدا, يجب ان يحتوي الوصف على اقل من {ProductConstraintProperty.DescriptionMaximumLength} حروف",
-        En = $"Description is too long, The description must contain a maximum of {ProductConstraintProperty.DescriptionMaximumLength} characters"
+        Ar = $"الوصف طويل جدا, يجب ان يحتوي الوصف على اقل من {OrderConstraintProperty.DescriptionMaximumLength} حروف",
+        En = $"Description is too long, The description must contain a maximum of {OrderConstraintProperty.DescriptionMaximumLength} characters"
     });
 
     #endregion

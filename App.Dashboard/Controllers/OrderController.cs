@@ -1,26 +1,28 @@
-﻿using App.Domain.Representatives;
-using App.Domain.Representatives.Dtos;
+﻿using App.Application.Orders;
+using App.Domain.Constants.Enums;
+using App.Domain.Orders;
+using App.Domain.Orders.Dtos;
 
 namespace App.Dashboard.Controllers;
 
 public class OrderController : BaseController
 {
-    public IService<Representative> _service { get; }
+    public IOderService _service { get; }
 
-    public OrderController(IService<Representative> service)
+    public OrderController(IOderService service)
     {
         _service = service;
     }
 
 
     [HttpGet]
-    public async Task<IActionResult> Index(RepresentativeFilter filter, bool? mes)
+    public async Task<IActionResult> Index(OrderFilter filter, bool? mes)
     {
 
 
         ViewBag.Pageindex = filter.PageIndex;
         ViewBag.Action = mes == null ? false : mes;
-        var data = await _service.FindAsync<ListRepresentativeDto>(filter);
+        var data = await _service.FindAsync<ListOrderDto>(filter);
         return View(data);
 
 
@@ -30,16 +32,16 @@ public class OrderController : BaseController
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-
-        return View(await _service.GetByIdAsync<DetailsRepresentativeDto>(1));
+        var data = await _service.GetByIdAsync<DetailsOrderDto>(id);
+        return View(data);
 
     }
 
     [HttpPost]
-    public async Task<IActionResult> ChangeStatus(int id)
+    public async Task<IActionResult> ChangeStatus(int id, OrderStatus status)
     {
 
-        return View(await _service.GetByIdAsync<DetailsRepresentativeDto>(id));
+        return Ok(await _service.ChangeStatus(id, status));
 
     }
 

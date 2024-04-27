@@ -1,4 +1,5 @@
-﻿using App.Domain.Products;
+﻿using App.Domain.Orders;
+using App.Domain.Products;
 using App.Domain.Products.Dtos;
 
 namespace App.Application.Products.Validator;
@@ -14,9 +15,9 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage(ProductErrorMessage.NameRequired)
 
-            .MaximumLength(ProductConstraintProperty.NameMaximumLength).WithMessage(ProductErrorMessage.NameMaximumLength)
+            .MaximumLength(OrderConstraintProperty.NameMaximumLength).WithMessage(ProductErrorMessage.NameMaximumLength)
 
-            .MinimumLength(ProductConstraintProperty.NameMinimumLength).WithMessage(ProductErrorMessage.NameMinimumLength)
+            .MinimumLength(OrderConstraintProperty.NameMinimumLength).WithMessage(ProductErrorMessage.NameMinimumLength)
 
             .Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
 
@@ -25,25 +26,25 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
         RuleFor(x => x.Model)
             .NotEmpty().WithMessage(ProductErrorMessage.ModelRequired)
 
-            .MaximumLength(ProductConstraintProperty.ModelMaximumLength).WithMessage(ProductErrorMessage.ModelMaximumLength)
+            .MaximumLength(OrderConstraintProperty.ModelMaximumLength).WithMessage(ProductErrorMessage.ModelMaximumLength)
 
-            .MinimumLength(ProductConstraintProperty.ModelMinimumLength).WithMessage(ProductErrorMessage.ModelMinimumLength)
+            .MinimumLength(OrderConstraintProperty.ModelMinimumLength).WithMessage(ProductErrorMessage.ModelMinimumLength)
 
             .Must(IsModelUnique).WithMessage(ProductErrorMessage.ModelUnique)
             ;
 
         RuleFor(x => x.Barcode)
-            .MaximumLength(ProductConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
+            .MaximumLength(OrderConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
 
-            .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
+            .MinimumLength(OrderConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
 
             .Must(IsBarcodeUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
 
-            .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
+            .Matches(OrderConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
             ;
 
         RuleFor(x => x.Description)
-            .MaximumLength(ProductConstraintProperty.DescriptionMaximumLength).WithMessage(ProductErrorMessage.DescriptionMaximumLength)
+            .MaximumLength(OrderConstraintProperty.DescriptionMaximumLength).WithMessage(ProductErrorMessage.DescriptionMaximumLength)
             ;
 
     }
