@@ -1,5 +1,4 @@
-﻿using App.Domain.Orders;
-using App.Domain.Products;
+﻿using App.Domain.Products;
 using App.Domain.Products.Dtos;
 
 
@@ -22,9 +21,9 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
 
             .Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
 
-            .MaximumLength(OrderConstraintProperty.NameMaximumLength).WithMessage(ProductErrorMessage.NameMaximumLength)
+            .MaximumLength(ProductConstraintProperty.NameMaximumLength).WithMessage(ProductErrorMessage.NameMaximumLength)
 
-            .MinimumLength(OrderConstraintProperty.NameMinimumLength).WithMessage(ProductErrorMessage.NameMinimumLength);
+            .MinimumLength(ProductConstraintProperty.NameMinimumLength).WithMessage(ProductErrorMessage.NameMinimumLength);
 
         #endregion
 
@@ -35,9 +34,9 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
 
             .Must(IsModelUnique).WithMessage(ProductErrorMessage.ModelUnique)
 
-            .MaximumLength(OrderConstraintProperty.ModelMaximumLength).WithMessage(ProductErrorMessage.ModelMaximumLength)
+            .MaximumLength(ProductConstraintProperty.ModelMaximumLength).WithMessage(ProductErrorMessage.ModelMaximumLength)
 
-            .MinimumLength(OrderConstraintProperty.ModelMinimumLength).WithMessage(ProductErrorMessage.ModelMinimumLength);
+            .MinimumLength(ProductConstraintProperty.ModelMinimumLength).WithMessage(ProductErrorMessage.ModelMinimumLength);
 
         #endregion
 
@@ -47,11 +46,11 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
         RuleFor(x => x.Barcode)
             .Must(IsBarcodUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
 
-            .MaximumLength(OrderConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
+            .MaximumLength(ProductConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
 
-            .MinimumLength(OrderConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
+            .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
 
-            .Matches(OrderConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
+            .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
             ;
 
         #endregion
@@ -59,7 +58,7 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
         #region Description
 
         RuleFor(x => x.Description)
-            .MaximumLength(OrderConstraintProperty.DescriptionMaximumLength).WithMessage(ProductErrorMessage.DescriptionMaximumLength);
+            .MaximumLength(ProductConstraintProperty.DescriptionMaximumLength).WithMessage(ProductErrorMessage.DescriptionMaximumLength);
 
         #endregion
 

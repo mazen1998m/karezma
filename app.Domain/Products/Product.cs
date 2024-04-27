@@ -1,6 +1,4 @@
-﻿using App.Domain.Orders;
-
-namespace App.Domain.Products;
+﻿namespace App.Domain.Products;
 
 public class Product : Entity
 {
@@ -19,10 +17,10 @@ public class Product : Entity
             Builder.HasIndex(c => new { c.Name, c.IsDeleted }).IsUnique();
             Builder.HasIndex(c => new { c.Model, c.IsDeleted }).IsUnique();
 
-            Builder.Property(u => u.Name).IsRequired().HasMaxLength(OrderConstraintProperty.NameMaximumLength);
-            Builder.Property(u => u.Model).IsRequired().HasMaxLength(OrderConstraintProperty.ModelMaximumLength);
-            Builder.Property(u => u.Barcode).HasMaxLength(OrderConstraintProperty.BarcodeMaximumLength);
-            Builder.Property(u => u.Description).HasMaxLength(OrderConstraintProperty.DescriptionMaximumLength);
+            Builder.Property(u => u.Name).IsRequired().HasMaxLength(ProductConstraintProperty.NameMaximumLength);
+            Builder.Property(u => u.Model).IsRequired().HasMaxLength(ProductConstraintProperty.ModelMaximumLength);
+            Builder.Property(u => u.Barcode).HasMaxLength(ProductConstraintProperty.BarcodeMaximumLength);
+            Builder.Property(u => u.Description).HasMaxLength(ProductConstraintProperty.DescriptionMaximumLength);
             Builder.Property(u => u.IsActive).HasDefaultValue(true);
 
 

@@ -44,9 +44,11 @@ public class OrderMapperProfile : Profile
         #region CreateOrderDto
 
         CreateMap<CreateOrderDto, Order>()
+            //defult
             .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => OrderStatus.Pending))
-            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
+            //defult
             .ForMember(dest => dest.RepresentativeId, opt => opt.MapFrom(src => GetCurruntUserId()))
+            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
 
             ;
 
