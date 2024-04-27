@@ -19,6 +19,7 @@ public class Order : Entity
     public string Barcode { get; set; }
     public string Notes { get; set; }
     public decimal DeliveryFare { get; set; }
+    public decimal? Discount { get; set; }
     public string Address { get; set; }
     public OrderStatus OrderStatus { get; set; }
     public int RepresentativeId { get; set; }
@@ -30,6 +31,7 @@ public class Order : Entity
         protected override void ConfigureCustomizations()
         {
             Builder.Property(x => x.DeliveryFare).HasColumnType("decimal(18,2)");
+            Builder.Property(x => x.Discount).HasColumnType("decimal(18,2)");
         }
     }
 }
