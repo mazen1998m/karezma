@@ -16,7 +16,7 @@ public class OrderFilter : Filter<Order>
     public Lampda _Status() => x => x.OrderStatus == Status;
 
     public Lampda _FromDate() => x => x.CreatedDate >= FromDate;
-    public Lampda _ToDate() => x => x.CreatedDate <= ToDate;
+    public Lampda _ToDate() => x => x.CreatedDate <= ToDate.AddDays(1);
 
 
     protected override void ApplyFilter()

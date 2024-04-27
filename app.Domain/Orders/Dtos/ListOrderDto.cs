@@ -11,4 +11,6 @@ public class ListOrderDto : Dto
     public decimal Price { get; set; }
     public string OrderStatus { get; set; }
 
+    public DateTime CreatedDate { get; set; }
+
 }
