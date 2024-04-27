@@ -1,4 +1,5 @@
-﻿@using App.Domain.Orders.Dtos
+﻿@using App.Domain.Constants.Enums
+@using App.Domain.Orders.Dtos
 <link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
@@ -35,29 +36,84 @@
         <div class="row" style="margin-left: 20px; margin: 10px;">
 
             <div class="col-2 ">
-                <input 
-                    name="Name" 
-                    class="form-control form-control-lg" 
-                    type="text"
+                <input name="RepresentativeName"
+                       class="form-control form-control-lg" 
+                       type="text"
                        placeholder="Salesman Name"
-                       aria-label="User Name"
+                       aria-label="Representative Name"
                        style="border-radius: 17px; border: none;">
             </div>
             <div class="col-2 ">
-                <input name="Phone"
+                <input name="Barcode"
                        class="form-control form-control-lg" 
-                    type="text" 
-                    placeholder="Barcode"
-                       aria-label="Phone Number"
+                       type="text" 
+                       placeholder="Barcode"
+                       aria-label="Barcode"
                        style="border-radius: 17px; border: none;">
             </div>
             
             <div class="col-2 ">
-                <input name="Phone"
+
+                    <select name="Status"
+                            class="form-control form-control-lg"
+                            aria-label="Status"
+                            style="border-radius: 17px; border: none;">
+                        <option 
+                            value="" 
+                            disabled 
+                            selected 
+                            data-arabic="الحالة" 
+                            data-english="Status"
+                        ></option>
+                        <option 
+                            value="@(OrderStatus.Pending)"
+                            data-arabic="قيد الانتظار" 
+                            data-english="Pending"
+                        >Pending</option>
+                        <option 
+                            value="@(OrderStatus.Accept)"    
+                            data-arabic="مقبول" 
+                            data-english="Accepted"
+                        >Accept</option>
+                        <option 
+                            value="@(OrderStatus.Reject)"    
+                            data-arabic="مرفوض" 
+                            data-english="Rejected"
+                        >Reject</option>
+                        <option 
+                            value="@(OrderStatus.Delivered)"    
+                            data-arabic="تم التوصيل" 
+                            data-english="Delivered"
+                        >Delivered</option>
+                        <option 
+                            value="@(OrderStatus.Revoke)"    
+                            data-arabic="مرتجع" 
+                            data-english="Revoke"
+                        >Revoke</option>
+                        <option 
+                            value="@(OrderStatus.Paid)"    
+                            data-arabic="مدفوع" 
+                            data-english="Paid"
+                        >Paid</option>
+
+
+                    </select>
+            </div>
+            <div class="col-2 ">
+                <input name="FromDate"
                        class="form-control form-control-lg"
-                       type="text"
-                       placeholder="Status"
-                       aria-label="Phone Number"
+                       type="date"
+                       placeholder="FromDate"
+                       aria-label="FromDate"
+                       style="border-radius: 17px; border: none;">
+            </div>
+
+            <div class="col-2 ">
+                <input name="ToDate"
+                       class="form-control form-control-lg"
+                       type="date"
+                       placeholder="ToDate"
+                       aria-label="ToDate"
                        style="border-radius: 17px; border: none;">
             </div>
 
