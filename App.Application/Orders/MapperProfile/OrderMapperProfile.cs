@@ -44,19 +44,25 @@ public class OrderMapperProfile : Profile
         #region CreateOrderDto
 
         CreateMap<CreateOrderDto, Order>()
-            //defult
+            //default
             .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => OrderStatus.Pending))
-            //defult
+            //default
             .ForMember(dest => dest.RepresentativeId, opt => opt.MapFrom(src => GetCurruntUserId()))
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
-
+            //we need to add barcode by default
+            .ReverseMap()
             ;
 
         #endregion
 
         #region UpdateOrderDto
 
-        CreateMap<UpdateOrderDto, Order>();
+        CreateMap<UpdateOrderDto, Order>()
+            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
+            .ForMember(dest => dest.OrderStatus, opt => opt.Ignore())
+            //check if we need to reblace the barcode
+            .ReverseMap()
+            ;
 
         #endregion
     }
@@ -65,7 +71,7 @@ public class OrderMapperProfile : Profile
     {
         var currentUser = _currentUser.Inject();
         var repository = _representativeRepository.Inject();
-        var representativeId = repository.FirstOrDefault(x => x.UserInfo.Id == currentUser.UserId, u => u.Id);
+        var representativeId = repository.FirstOrDefault(x => x.UserInfo.Id == currentUser.UserId, u => new { u.Id, u.UserInfo }).Id;
         return representativeId;
     }
 }

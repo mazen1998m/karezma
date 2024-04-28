@@ -3,9 +3,9 @@ using App.Domain.Clints.Dtos;
 
 namespace App.Application.Clints.Validator;
 
-public class CreateClintDroValidator : AbstractValidator<CreateClintDto>
+public class CreateClintDtoValidator : AbstractValidator<CreateClintDto>
 {
-    public CreateClintDroValidator()
+    public CreateClintDtoValidator()
     {
 
         #region Name

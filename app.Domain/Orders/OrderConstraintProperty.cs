@@ -3,29 +3,32 @@
 public class OrderConstraintProperty
 {
 
+    //public string Barcode { get; set; }
+    //public string Notes { get; set; }
+    //public decimal DeliveryFare { get; set; }
+    //public decimal? Discount { get; set; }
+    //public string Address { get; set; }
 
+    #region Barcode
+    public static int BarcodeMaximumLength = 50;
+    public static string BarcodeFormat = @"^\d+$";
+    #endregion
 
-    //#region Name
-    //public static int NameMaximumLength = 50;
-    //public static int NameMinimumLength = 3;
-    //#endregion
+    #region Notes
+    public static int NotesMaximumLength = 500;
+    #endregion
 
-    //#region Model
-    //public static int ModelMaximumLength = 50;
-    //public static int ModelMinimumLength = 3;
-    //#endregion
+    #region DeliveryFare
+    public static decimal DeliveryFareMinimumValue = 0;
+    #endregion
 
-    //#region Barcode
-    //public static int BarcodeMaximumLength = 50;
-    //public static int BarcodeMinimumLength = 3;
-    //public static string BarcodeFormat = @"^\d+$";
-    //#endregion
+    #region Discount
+    public static decimal DiscountMinimumValue = 0;
+    #endregion
 
-    //#region Description
-    //public static int DescriptionMaximumLength = 500;
-    //#endregion
-
-
+    #region Address
+    public static int AddressMaximumLength = 500;
+    #endregion
 
 
 }

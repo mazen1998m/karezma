@@ -10,5 +10,6 @@ public class ClintMapperProfile : Profile
         CreateMap<Clint, ListClintDto>().ReverseMap();
         CreateMap<Clint, DetailsClintDto>().ReverseMap();
         CreateMap<CreateClintDto, Clint>().ReverseMap();
+        CreateMap<UpdateClintDto, Clint>().ReverseMap();
     }
 }

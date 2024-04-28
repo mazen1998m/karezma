@@ -32,6 +32,8 @@ public class Order : Entity
         {
             Builder.Property(x => x.DeliveryFare).HasColumnType("decimal(18,2)");
             Builder.Property(x => x.Discount).HasColumnType("decimal(18,2)");
+            Builder.HasOne(x => x.Clint).WithOne(x => x.Order).HasForeignKey<Order>(x => x.ClintId);
+
         }
     }
 }

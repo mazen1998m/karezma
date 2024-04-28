@@ -4,6 +4,15 @@ namespace App.Application.Clints.Validator;
 
 public class ClintErrorMessage : ValidatorErrorMessage
 {
+    //maybe we don't need CanNotUpdate
+    #region CanNotUpdate 
+    public static string CanNotUpdate = GetAsJson(new()
+    {
+        Ar = "لا يمكن تعديل",
+        En = "Can not update"
+    });
+    #endregion
+
     #region Name
     public static string NameRequired = GetAsJson(new()
     {

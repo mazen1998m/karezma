@@ -1,11 +1,12 @@
 ﻿using app.core.EntityAndDtoStructure.DtoStructure;
-using App.web.JwtServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.web.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class ApiController<TEntity, TCreateDto, TShowDto> : ControllerBase
     where TEntity : Entity where TCreateDto : Dto where TShowDto : Dto
 
@@ -18,10 +19,10 @@ public class ApiController<TEntity, TCreateDto, TShowDto> : ControllerBase
     public virtual async Task<IActionResult> Get(int id)
         => Ok(await _service.GetByIdAsync<TShowDto>(id));
 
-    [HttpPost, Permissions]
+    [HttpPost, /*Permissions*/]
     public virtual async Task<IActionResult> Create(TCreateDto customerDto)
         => Ok(await _service.CreateAsync(customerDto));
-    [HttpDelete, Permissions]
+    [HttpDelete, /*Permissions*/]
     public virtual async Task<IActionResult> Delete(int id)
         => Ok(await _service.DeleteByIdAsync<TShowDto>(id));
 

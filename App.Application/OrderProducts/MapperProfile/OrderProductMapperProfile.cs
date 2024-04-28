@@ -15,6 +15,11 @@ public class OrderProductMapperProfile : Profile
         ;
 
 
+        CreateMap<CreateOrderProductDto, OrderProduct>().ReverseMap();
+
+        CreateMap<UpdateOrderProductDto, OrderProduct>().ReverseMap();
+
+
 
 
 
