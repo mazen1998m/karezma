@@ -28,6 +28,18 @@ internal class OrderService : Service<Order>, IOderService
             throw new Exception(ex.Message);
         }
     }
+
+    public async override Task<Result<TMap>> SoftDeleteByIdAsync<TMap>(int id)
+    {
+        var orderStatus = await _repository.FirstOrDefaultAsync(o => o.Id == id, s => new { s.Id, s.OrderStatus });
+        if (orderStatus.OrderStatus == OrderStatus.Pending || orderStatus.OrderStatus == OrderStatus.Reject)
+        {
+            return await base.SoftDeleteByIdAsync<TMap>(id);
+        }
+
+        return Result<TMap>.Fail("Can not delete order");
+
+    }
 }
 
 public interface IOderService : IService<Order>

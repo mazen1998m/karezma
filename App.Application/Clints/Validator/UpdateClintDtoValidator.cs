@@ -42,9 +42,10 @@ public class UpdateClintDtoValidator : AbstractValidator<UpdateClintDto>
 
         RuleFor(x => x.SecandPhone)
             .Matches(ClintConstraintProperty.SecandPhoneFormat).WithMessage(ClintErrorMessage.SecandPhoneFormat)
-
-            .Length(ClintConstraintProperty.SecandPhoneLength).WithMessage(ClintErrorMessage.SecandPhoneLength);
-
+            .When(x => !string.IsNullOrEmpty(x.SecandPhone))
+            .Length(ClintConstraintProperty.SecandPhoneLength).WithMessage(ClintErrorMessage.SecandPhoneLength)
+            .When(x => !string.IsNullOrEmpty(x.SecandPhone))
+            ;
         #endregion
 
         #region Weight

@@ -22,7 +22,7 @@ public class OrderMapperProfile : Profile
                 dest.Price,
                 opt => opt.MapFrom
                     (
-                     src => src.OrderProducts.Sum(op => op.Price)
+                     src => src.OrderProducts.Sum(op => op.Price * op.Quantity)
                      - (src.Discount ?? 0)
                     )
             )
@@ -35,7 +35,7 @@ public class OrderMapperProfile : Profile
         #region DetailsOrderDto
         CreateMap<Order, DetailsOrderDto>()
             .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.OrderProducts))
-            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.OrderProducts.Sum(op => op.Price) - (src.Discount ?? 0)))
+            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.OrderProducts.Sum(op => op.Price * op.Quantity) - (src.Discount ?? 0)))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Address + " " + src.Clint.Name))
             .ReverseMap()
             ;

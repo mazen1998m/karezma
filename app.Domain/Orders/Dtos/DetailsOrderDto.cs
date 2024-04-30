@@ -12,9 +12,10 @@ public class DetailsOrderDto : Dto
     public string Notes { get; set; }
     public decimal DeliveryFare { get; set; }
     public decimal TotalPrice { get; set; }
+    public string Address { get; set; }
     public OrderStatus OrderStatus { get; set; }
     public string Title { get; set; }
-    public decimal? Discount { get; set; }
+    public decimal Discount { get; set; }
 
 
 }

@@ -4,16 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace App.web.Controllers;
 
-[ApiController]
-[Route("api/[controller]/[action]")]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-public class ApiController<TEntity, TCreateDto, TShowDto> : ControllerBase
+
+public class ApiController<TEntity, TCreateDto, TShowDto> : BaseController<TEntity>
     where TEntity : Entity where TCreateDto : Dto where TShowDto : Dto
 
 {
-    private readonly IService<TEntity> _service;
-
-    public ApiController(IService<TEntity> service) { _service = service; }
+    public ApiController(IService<TEntity> service) : base(service)
+    {
+    }
 
     [HttpGet/*, Permissions*/]
     public virtual async Task<IActionResult> Get(int id)
@@ -29,6 +27,24 @@ public class ApiController<TEntity, TCreateDto, TShowDto> : ControllerBase
 }
 
 
+public class BaseController<TEntity> : ShareController
+    where TEntity : Entity
+
+{
+    protected readonly IService<TEntity> _service;
+
+    public BaseController(IService<TEntity> service) { _service = service; }
 
 
+}
+
+
+[ApiController]
+[Route("api/[controller]/[action]")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+public class ShareController : ControllerBase
+{
+
+
+}
 
