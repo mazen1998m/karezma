@@ -251,10 +251,143 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<div id="customPrintContent" style="display:none">
-    <h1>Custom Print Content</h1>
-    <p>This is the content that will be printed.</p>
+@* ------------------------------------------------------------------------------------------------------------------ *@
+
+<div id="customPrintContent">
+    @* style="display:none" *@
+  
+    <div class="container">
+
+        <div class="header">
+            <h1>Company Name</h1>
+            @* <img src="logo.jpg" alt="Company Logo" class="logo"> *@
+        </div>
+
+        <div class="table">
+            <div class="row">
+                <div class="col">
+                    <div class="client-info">
+                        <h2>Client Info:</h2>
+                        <div class="row">
+                            <div class="col">
+                                <p>Name: John Doe</p>
+                                <p>Phone: 1234567890</p>
+                            </div>
+                            <div class="col">
+                                <p>Second Phone: 987-654-3210</p>
+                                <p>Address: 123 Main St, City, Country</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="salesman-info">
+                        <h2>Salesman Info:</h2>
+                        <p>Name: Jane Smith</p>
+                        <p>Commission: 10</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="max-width: 100%; padding: 10px;">
+                <h2>Product Info:</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price/per piece</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Product Name</td>
+                                    <td>2</td>
+                                    <td>100.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <hr />
+            <div class="row">
+                <div class="col">
+                    <div class="total">
+                        <h2>Discount :</h2>
+                        <p>50.00</p>
+                        <h2>Delivary fees :</h2>
+                        <p>10.00</p>
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="total">
+                        <h2>Total Price:</h2>
+                        <p>160.00</p>
+                    </div>        
+                </div>
+                <div class="col">
+                    <h2>Barcode :</h2>
+                    <img src="~/img/oip.jpeg" width="130px" />
+                </div>            
+            </div>
+
+            
+        </div>
+
+
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="~/pagesjs/managestock/customeroperations.js"></script>
 <script>
     

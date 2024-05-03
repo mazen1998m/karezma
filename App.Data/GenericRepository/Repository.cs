@@ -319,7 +319,32 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
 
     #region FirstOrDefault
 
+    public TEntity FirstOrDefault()
+    {
+        try
+        {
+            return Table.FirstOrDefault()!;
+        }
+        catch (Exception e)
+        {
+            //look at this
+        }
+        return default!;
+    }
+    public TMap FirstOrDefault<TMap>() where TMap : IDto
+    {
+        try
+        {
+            return Table.ProjectTo<TMap>(_mapperConfig).FirstOrDefault()!;
+        }
+        catch (Exception e)
+        {
+            //look at this
 
+        }
+        return default!;
+
+    }
     public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> condition)
     {
         try
@@ -378,6 +403,31 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     }
 
 
+
+    public async Task<TEntity> FirstOrDefaultAsync()
+    {
+        try
+        {
+            return (await Table.FirstOrDefaultAsync())!;
+        }
+        catch (Exception e)
+        {
+            //look at this
+        }
+        return default!;
+    }
+    public async Task<TMap> FirstOrDefaultAsync<TMap>() where TMap : IDto
+    {
+        try
+        {
+            return (await Table.ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync())!;
+        }
+        catch (Exception e)
+        {
+            //look at this
+        }
+        return default!;
+    }
 
     public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> condition)
     {
@@ -1854,6 +1904,9 @@ public interface IRepository<TEntity> : IAutoInjection
     #region FirstOrDefault
 
 
+    TEntity FirstOrDefault();
+    TMap FirstOrDefault<TMap>() where TMap : IDto;
+
     TEntity FirstOrDefault(Expression<Func<TEntity, bool>> condition);
 
     TMap FirstOrDefault<TMap>(Expression<Func<TEntity, bool>> condition) where TMap : IDto;
@@ -1867,6 +1920,8 @@ public interface IRepository<TEntity> : IAutoInjection
 
 
 
+    Task<TEntity> FirstOrDefaultAsync();
+    Task<TMap> FirstOrDefaultAsync<TMap>() where TMap : IDto;
     Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> condition);
 
     Task<TMap> FirstOrDefaultAsync<TMap>(Expression<Func<TEntity, bool>> condition) where TMap : IDto;

@@ -103,19 +103,27 @@
 
         @* add img  *@
 
+        <div style="margin-top: 30px;">
+            <img src="~/img/product-img/@(data.Image)"
+                 alt="" style="border-radius: 17px; width:250px ;margin: 50px" />
+        </div>
 
         <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
             <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
                    data-english="Image"
                    data-arabic="صورة"></label>
 
-            <input class="form-control form-control-lg"
-                   name="Image"
-                   type="file"
-                   accept="image/*"
-                   aria-label="Image"
-                   style="border-radius: 17px; border: none;"
-                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+            <input type="file" id="imageInput" name="imageInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)" />
+            <input type="hidden" id="imageData" name="ImageBase64" />
+            <input type="hidden" asp-for="@data.Image" name="Image">
+
+            <div class="input-group mb-3">
+                <input disabled type="text" class="form-control" id="file-name" placeholder="Choose file" aria-label="Choose file" aria-describedby="button-addon2" style="border-radius: 17px; border: none;">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.getElementById('imageInput').click();" style="border-radius: 17px; border: none; background-color: #502e90; color: white;">Choose</button>
+                </div>
+            </div>
+
 
         </div>
 
@@ -166,3 +174,21 @@
 </form>
 <script src="~/js/validation.js"></script>
 <script src="~/pagesjs/publicjs/popup.js"></script>
+
+<script>
+    function handleFileSelect(event) {
+        debugger;
+        var input = event.target;
+        var file = input.files[0];
+        document.getElementById("file-name").value = file.name;
+
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var imageData = e.target.result;
+                document.getElementById("imageData").value = imageData;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

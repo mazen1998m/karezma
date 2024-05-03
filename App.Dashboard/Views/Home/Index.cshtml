@@ -55,6 +55,19 @@
                 <p style="margin-top: 4px;" data-arabic="إدارة المنتجات" data-english="Product Management"></p>
             </div>
 
+            <div class="col-3" style="margin-top:15px">
+
+                <a asp-controller="Barcode" asp-action="Update">
+                    <div class="card custom-color" style="width: 140px; height: 140px;  margin-top: -22px;">
+                        <center>
+
+                            <img src="~/img/home/Barcode-managment.svg" alt="" width="110px">
+                        </center>
+                    </div>
+                </a>
+                <p style="margin-top: 4px;" data-arabic="إدارة الباركود" data-english="Barcode Management"></p>
+            </div>
+
                
             
 
@@ -101,3 +114,11 @@
     });
 </script>
 
+@{
+    bool inputCondition = ViewBag.Action; // Assuming ViewBag.Action is a boolean value
+}
+
+@if (inputCondition == true)
+{
+    <script src="~/pagesjs/layout/toastmessagejs.js"></script>
+}

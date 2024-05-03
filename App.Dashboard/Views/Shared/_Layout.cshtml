@@ -33,7 +33,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11"> *@
 
     <link href="~/pagescss/css/toastmessagecss.css" rel="stylesheet" />
     <link href="~/pagescss/layout/layout.css" rel="stylesheet" />
@@ -333,6 +333,19 @@
                 $('[data-arabic]').each(function () {
                     $(this).text(selectedLanguage === 'ar' ? $(this).data('arabic') : $(this).data('english'));
                 });
+
+                document.querySelectorAll(("input[placeholder-ar]"))
+                    .forEach(element => {
+                        debugger;
+                        element.placeholder = selectedLanguage === 'ar' ? element.getAttribute('placeholder-ar') : element.getAttribute('placeholder-en');
+                    });
+
+                //add direction: rtl to body
+                if (selectedLanguage === 'ar') {
+                    document.body.style.direction = 'rtl';
+                } else {
+                    document.body.style.direction = 'ltr';
+                }
             }
         });
     </script>

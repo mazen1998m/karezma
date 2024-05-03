@@ -324,6 +324,33 @@ public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity 
     #region FirstOrDefault
 
 
+    public virtual Result<TEntity> FirstOrDefault()
+    {
+        try
+        {
+            var entity = _repository.FirstOrDefault();
+            return Result<TEntity>.Success(entity);
+        }
+        catch (Exception e)
+        {
+            return Result<TEntity>.Exception(e);
+        }
+    }
+
+    public virtual Result<TMap> FirstOrDefault<TMap>() where TMap : IDto
+    {
+        try
+        {
+            var dto = _repository.FirstOrDefault<TMap>();
+            return Result<TMap>.Success(dto);
+        }
+        catch (Exception e)
+        {
+            return Result<TMap>.Exception(e);
+        }
+    }
+
+
     public virtual Result<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> condition)
     {
         try
@@ -381,6 +408,32 @@ public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity 
         }
     }
 
+
+    public virtual async Task<Result<TEntity>> FirstOrDefaultAsync()
+    {
+        try
+        {
+            var entity = await _repository.FirstOrDefaultAsync();
+            return Result<TEntity>.Success(entity);
+        }
+        catch (Exception e)
+        {
+            return Result<TEntity>.Exception(e);
+        }
+    }
+
+    public virtual async Task<Result<TMap>> FirstOrDefaultAsync<TMap>() where TMap : IDto
+    {
+        try
+        {
+            var dto = await _repository.FirstOrDefaultAsync<TMap>();
+            return Result<TMap>.Success(dto);
+        }
+        catch (Exception e)
+        {
+            return Result<TMap>.Exception(e);
+        }
+    }
 
     public virtual async Task<Result<TEntity>> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> condition)
     {
@@ -1056,6 +1109,7 @@ public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity 
         }
     }
 
+
     public virtual async Task<Result<IEnumerable<TMap>>> UpdateRangeAsync<TMap>(IEnumerable<TMap> dtos)
         where TMap : IDto
     {
@@ -1325,6 +1379,9 @@ public interface IService<TEntity> : IAutoInjection where TEntity : Entity
 
     #region FirstOrDefault
 
+    Result<TEntity> FirstOrDefault();
+
+    Result<TMap> FirstOrDefault<TMap>() where TMap : IDto;
 
     Result<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> condition);
 
@@ -1334,6 +1391,10 @@ public interface IService<TEntity> : IAutoInjection where TEntity : Entity
 
     Result<TMap> FirstOrDefault<TMap>(Expression<Func<TEntity, bool>> condition,
        Expression<Func<TEntity, TMap>> selector);
+
+    Task<Result<TEntity>> FirstOrDefaultAsync();
+
+    Task<Result<TMap>> FirstOrDefaultAsync<TMap>() where TMap : IDto;
 
     Task<Result<TEntity>> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> condition);
 
@@ -1443,6 +1504,7 @@ public interface IService<TEntity> : IAutoInjection where TEntity : Entity
     Result<IEnumerable<TMap>> UpdateRange<TMap>(IEnumerable<TMap> dtos) where TMap : IDto;
 
     Task<Result<TMap>> UpdateAsync<TMap>(TMap dto) where TMap : IDto;
+
 
     Task<Result<IEnumerable<TMap>>> UpdateRangeAsync<TMap>(IEnumerable<TMap> dtos)
        where TMap : IDto;

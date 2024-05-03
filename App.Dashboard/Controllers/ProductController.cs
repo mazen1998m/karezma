@@ -1,4 +1,5 @@
-﻿using App.Domain.Products;
+﻿using App.Application.Files;
+using App.Domain.Products;
 using App.Domain.Products.Dtos;
 
 namespace App.Dashboard.Controllers;
@@ -6,10 +7,12 @@ namespace App.Dashboard.Controllers;
 public class ProductController : BaseController
 {
     public IService<Product> _service { get; }
+    public IFileService _fileService { get; }
 
-    public ProductController(IService<Product> service)
+    public ProductController(IService<Product> service, IFileService fileService)
     {
         _service = service;
+        _fileService = fileService;
     }
 
 
@@ -28,7 +31,13 @@ public class ProductController : BaseController
 
 
     [HttpGet]
-    public async Task<IActionResult> Details(int id) => View(await _service.GetByIdAsync<DetailsProductDto>(id));
+    public async Task<IActionResult> Details(int id)
+    {
+        var data = await _service.GetByIdAsync<DetailsProductDto>(id);
+
+        //var file = _fileService.GetFileBase64(data.Response.Image, "Product-img");
+        return View(data);
+    }
 
 
     [HttpGet]

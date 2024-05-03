@@ -13,8 +13,9 @@ public class HomeController : BaseController
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Index(bool? mes)
     {
+        ViewBag.Action = mes == null ? false : mes;
         return View();
     }
 

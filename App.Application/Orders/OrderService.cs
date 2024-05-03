@@ -40,6 +40,8 @@ internal class OrderService : Service<Order>, IOderService
         return Result<TMap>.Fail("Can not delete order");
 
     }
+
+
 }
 
 public interface IOderService : IService<Order>

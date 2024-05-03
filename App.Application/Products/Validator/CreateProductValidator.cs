@@ -32,15 +32,15 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
             .Must(IsModelUnique).WithMessage(ProductErrorMessage.ModelUnique)
             ;
 
-        RuleFor(x => x.Barcode)
-            .MaximumLength(ProductConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
+        //RuleFor(x => x.Barcode)
+        //    .MaximumLength(ProductConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
 
-            .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
+        //    .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
 
-            .Must(IsBarcodeUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
+        //    .Must(IsBarcodeUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
 
-            .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
-            ;
+        //    .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
+        //    ;
 
         RuleFor(x => x.Description)
             .MaximumLength(ProductConstraintProperty.DescriptionMaximumLength).WithMessage(ProductErrorMessage.DescriptionMaximumLength)

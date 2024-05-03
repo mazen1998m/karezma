@@ -1,0 +1,105 @@
+﻿@using App.Domain.Barcodes.Dtos
+<link href="~/pagescss/css/popup.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+<link href="~/pagescss/css/checkboxswitch.css" rel="stylesheet" />
+@model Muslim.HandelResult.Result<UpdateBarcodeDto>
+@{
+    var data = Model.Response;
+}
+<form asp-action="Update" method="post">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+            <h1 class="h3 mb-0 text-gray-800">
+                <i class="fa-solid fa-pen" style="color: #0ec0e4"></i>
+                <span data-arabic="تعديل الباركود" data-english="Update Barcode"></span>
+            </h1>
+            <div>
+                <a href="#">
+                    <i id="infoBtn" class="fa fa-info-circle" style="color:#502e90;"></i>
+                </a>
+                <div id="infoPopup">
+                    <span data-arabic="في هذه الصفحة يمكنك تحديث معلومات المندوب"
+                          data-english="On this page, the user modify  Representative"></span>
+                </div>
+            </div>
+        </div>
+
+        <input asp-for="@data.Id" name="Id" type="hidden" />
+        
+
+
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="من رقم الباركود"
+                   data-english="From Barcode number"></label>
+
+            <input class="form-control form-control-lg"
+                   required
+                   asp-for="@data.FromCode"
+                   name="FromCode"
+                   type="text"
+                   value="@data.FromCode"
+                   style="border-radius: 17px; border: none;"
+                   placeholder-ar="من الكود"
+                   placeholder-en="From Code"
+                   propertyName="FromCode"
+                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+
+        </div>
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="إلى رقم الباركود"
+                   data-english="To Barcode number"></label>
+
+            <input class="form-control form-control-lg"
+                   required
+                   asp-for="@data.ToCode"
+                   name="ToCode"
+                   type="text"
+                   value="@data.ToCode"
+                   style="border-radius: 17px; border: none;"
+                   placeholder-ar="إلى الكود"
+                   placeholder-en="To Code"
+                   propertyName="ToCode"
+                   validation="@(Json.Serialize(Model.ValidatorError).ToString())">
+        </div>
+
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="اخر رقم للباركود مستخدم"
+                   data-english="Last Code Used"></label>
+
+            : @data.LastCodeUsed
+        </div>
+
+        <div class="row" style="margin-left: 20px; margin: 10px;  max-width: 60%;">
+            <label style="font-weight: bold; color: black; margin-top:0px; margin-left: 25px;"
+                   data-arabic="عدد الاكواد المتاحة"
+                   data-english="Number Of Code Available"></label>
+             : @data.NumberOfCodeAvailable
+        </div>
+
+
+
+    <div class="container" style="margin-top:70px">
+        <div class="row">
+            <div class="col-8"></div>
+            <div class="col-4" style=" justify-content: end; text-align: end;">
+                <button type="submit" class="btn  btn-lg new"
+                        style=" color: white; border-radius:20px ;border:2px solid #502e90; padding-left: 35px;height: auto ; padding-right: 35px; margin-top: -110px;">
+                    <span data-arabic="تحديث" data-english="Update"></span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/js/validation.js"></script>
+<script src="~/pagesjs/publicjs/popup.js"></script>

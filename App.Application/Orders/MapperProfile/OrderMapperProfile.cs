@@ -49,6 +49,7 @@ public class OrderMapperProfile : Profile
             //default
             .ForMember(dest => dest.RepresentativeId, opt => opt.MapFrom(src => GetCurruntUserId()))
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
+
             //we need to add barcode by default
             .ReverseMap()
             ;
@@ -73,5 +74,10 @@ public class OrderMapperProfile : Profile
         var repository = _representativeRepository.Inject();
         var representativeId = repository.FirstOrDefault(x => x.UserInfo.Id == currentUser.UserId, u => new { u.Id, u.UserInfo }).Id;
         return representativeId;
+    }
+
+    private string GetBarcode()
+    {
+        return "123456";
     }
 }

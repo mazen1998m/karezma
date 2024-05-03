@@ -43,15 +43,15 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
 
         #region Barcode
 
-        RuleFor(x => x.Barcode)
-            .Must(IsBarcodUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
+        //RuleFor(x => x.Barcode)
+        //    .Must(IsBarcodUnique).WithMessage(ProductErrorMessage.BarcodeUnique)
 
-            .MaximumLength(ProductConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
+        //    .MaximumLength(ProductConstraintProperty.BarcodeMaximumLength).WithMessage(ProductErrorMessage.BarcodeMaximumLength)
 
-            .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
+        //    .MinimumLength(ProductConstraintProperty.BarcodeMinimumLength).WithMessage(ProductErrorMessage.BarcodeMinimumLength)
 
-            .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
-            ;
+        //    .Matches(ProductConstraintProperty.BarcodeFormat).WithMessage(ProductErrorMessage.BarcodeFormat)
+        //    ;
 
         #endregion
 
