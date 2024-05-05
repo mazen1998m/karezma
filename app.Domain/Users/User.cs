@@ -18,6 +18,8 @@ public class User : Entity
     public List<Document> Documents { get; set; }
     public ICollection<Role> Roles { get; set; }
     public bool IsActive { get; set; }
+    public bool IsAdmin { get; set; }
+    public string? DeviceToken { get; set; }
 
 
     internal class Configuration : ConfigureTable<User>

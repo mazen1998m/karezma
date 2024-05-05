@@ -17,13 +17,26 @@
     }
 
     <div class="form-group">
-        <input type="text" asp-for="@Model.Email" class="form-control form-control-user"
-               id="exampleInputEmail" aria-describedby="emailHelp" style="border:2px solid #502e90"
-               placeholder="UserName" required>
+        <input 
+            type="text" 
+            asp-for="@Model.Email" 
+            class="form-control form-control-user"   
+            id="exampleInputEmail" 
+            aria-describedby="emailHelp" 
+            style="border:2px solid #502e90"
+            placeholder-ar="اسم المستخدم"
+            placeholder-en="UserName"
+            required>
     </div>
     <div class="form-group">
-        <input type="password" asp-for="@Model.Password" class="form-control form-control-user"
-               id="exampleInputPassword" placeholder="Password" style="border:2px solid #502e90" required>
+        <input 
+            type="password" 
+            asp-for="@Model.Password" 
+            class="form-control form-control-user"
+            style="border:2px solid #502e90" 
+            placeholder-ar="كلمة المرور"
+            placeholder-en="Password"
+            required>
     </div>
     
     <button type="submit" class="btn  btn-user btn-block new" style="width:345px;border:2px solid #502e90">

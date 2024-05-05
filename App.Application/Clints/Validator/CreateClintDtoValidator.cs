@@ -33,8 +33,8 @@ public class CreateClintDtoValidator : AbstractValidator<CreateClintDto>
         #region SecandPhone
 
         RuleFor(x => x.SecandPhone)
-            .Matches(ClintConstraintProperty.SecandPhoneFormat).WithMessage(ClintErrorMessage.SecandPhoneFormat)
-            .When(x => !string.IsNullOrEmpty(x.SecandPhone))
+            .Matches(ClintConstraintProperty.SecandPhoneFormat)
+            .When(x => !string.IsNullOrEmpty(x.SecandPhone)).WithMessage(ClintErrorMessage.SecandPhoneFormat)
             .Length(ClintConstraintProperty.SecandPhoneLength).WithMessage(ClintErrorMessage.SecandPhoneLength)
             .When(x => !string.IsNullOrEmpty(x.SecandPhone))
             ;

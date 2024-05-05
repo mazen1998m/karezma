@@ -33,4 +33,11 @@ public class BarcodeErrorMessage : ValidatorErrorMessage
         Ar = "الباركود من يجب ان يكون اقل من الباركود الى",
         En = "From barcode must be less than to barcode"
     });
+
+    //ToCodeIsUsed
+    public static string ToCodeIsUsed = GetAsJson(new()
+    {
+        Ar = "الباركود الى يجب ان يكون اكبر من اخر باركود استخدم",
+        En = "To barcode must be greater than last barcode used"
+    });
 }

@@ -1,10 +1,12 @@
-﻿using App.Domain.Barcodes;
+﻿using App.Data.GenericRepository;
+using App.Domain.Barcodes;
 using App.Domain.Barcodes.Dtos;
 
 namespace App.Application.Barcodes.Validator;
 
 public class UpdateBarcodeValidator : AbstractValidator<UpdateBarcodeDto>
 {
+    public IRepository<Barcode> _repository { get; set; }
     public UpdateBarcodeValidator()
     {
 
@@ -20,8 +22,8 @@ public class UpdateBarcodeValidator : AbstractValidator<UpdateBarcodeDto>
         //to code to int Greater Than from code to int
         RuleFor(x => x.ToCode).Must((x, toCode) =>
         {
-            var fromCode = Convert.ToInt32(x.FromCode);
-            var toCode2 = Convert.ToInt32(x.ToCode);
+            var fromCode = decimal.Parse(x.FromCode);
+            var toCode2 = decimal.Parse(x.ToCode);
             return toCode2 > fromCode;
         }).WithMessage(BarcodeErrorMessage.ToCodeGreaterThanFromCode);
 
@@ -29,15 +31,22 @@ public class UpdateBarcodeValidator : AbstractValidator<UpdateBarcodeDto>
 
         RuleFor(x => x.FromCode).Must((x, fromCode) =>
         {
-            var fromCode2 = Convert.ToInt32(x.FromCode);
-            var toCode = Convert.ToInt32(x.ToCode);
+            var fromCode2 = decimal.Parse(x.FromCode);
+            var toCode = decimal.Parse(x.ToCode);
             return fromCode2 < toCode;
         }).WithMessage(BarcodeErrorMessage.FromCodeLessThanToCode);
 
+        RuleFor(x => x.ToCode).Must(ToCodeIsUsed).WithMessage(BarcodeErrorMessage.ToCodeIsUsed);
 
 
+    }
 
+    private bool ToCodeIsUsed(string toCode)
+    {
+        var repository = _repository.Inject();
+        var barcode = repository.FirstOrDefault();
+        var lastBarcodeUsed = decimal.Parse(barcode.LastCodeUsed);
 
-
+        return decimal.Parse(toCode) > lastBarcodeUsed;
     }
 }

@@ -35,7 +35,6 @@ public class ProductController : BaseController
     {
         var data = await _service.GetByIdAsync<DetailsProductDto>(id);
 
-        //var file = _fileService.GetFileBase64(data.Response.Image, "Product-img");
         return View(data);
     }
 

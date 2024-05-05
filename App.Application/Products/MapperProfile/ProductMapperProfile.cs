@@ -21,7 +21,10 @@ public class ProductMapperProfile : Profile
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageBase64.IsNullOrEmpty() ? src.Image : GetImageUrl(src.ImageBase64)))
             .ReverseMap();
 
-        CreateMap<Product, ListProductDto>().ReverseMap();
+        CreateMap<Product, ListProductDto>()
+            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => GetImageBase64(src.Image)))
+
+            .ReverseMap();
     }
 
     private string GetImageUrl(string image)
@@ -36,12 +39,13 @@ public class ProductMapperProfile : Profile
         return file.FileName;
     }
 
-    //private  string GetImageBase64(string image)
-    //{
-    //    var fileService = _fileService.Inject();
+    private static string GetImageBase64(string image)
+    {
 
-    //    var file = fileService.GetFileBase64(image, "Product-img");
-    //    return file;
-    //}
+        var fileService = new FileService();
+
+        var file = fileService.GetFileBase64(image, "Product-img");
+        return file;
+    }
 
 }

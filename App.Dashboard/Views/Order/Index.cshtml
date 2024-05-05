@@ -1,5 +1,6 @@
 ﻿@using App.Domain.Constants.Enums
 @using App.Domain.Orders.Dtos
+@using App.core.Extensions
 <link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
@@ -39,7 +40,8 @@
                 <input name="RepresentativeName"
                        class="form-control form-control-lg" 
                        type="text"
-                       placeholder="Salesman Name"
+                       placeholder-ar="إسم المندوب"
+                       placeholder-en="Salesman Name"
                        aria-label="Representative Name"
                        style="border-radius: 17px; border: none;">
             </div>
@@ -47,7 +49,8 @@
                 <input name="Barcode"
                        class="form-control form-control-lg" 
                        type="text" 
-                       placeholder="Barcode"
+                       placeholder-ar="الباركود"
+                       placeholder-en="Barcode"
                        aria-label="Barcode"
                        style="border-radius: 17px; border: none;">
             </div>
@@ -103,7 +106,8 @@
                 <input name="FromDate"
                        class="form-control form-control-lg"
                        type="date"
-                       placeholder="FromDate"
+                       placeholder-ar="من تاريخ"
+                       placeholder-en="FromDate"
                        aria-label="FromDate"
                        style="border-radius: 17px; border: none;">
             </div>
@@ -112,7 +116,8 @@
                 <input name="ToDate"
                        class="form-control form-control-lg"
                        type="date"
-                       placeholder="ToDate"
+                       placeholder-ar="إلى تاريخ"
+                       placeholder-en="ToDate"
                        aria-label="ToDate"
                        style="border-radius: 17px; border: none;">
             </div>
@@ -181,7 +186,47 @@
                                     <td>@item.Address</td>
                                     <td>@item.Quantity</td>
                                     <td>@item.Price</td>
-                                    <td>@item.OrderStatus</td>
+                                    <td>
+                                        @switch (@item.OrderStatus.ToEnum<OrderStatus>())
+                                        {
+                                            case OrderStatus.Pending:
+                                                <span style=" color: #f6c23e; border-radius: 10px; padding:5px;"
+                                                    data-arabic="قيد الانتظار" 
+                                                    data-english="Pending"></span>
+                                                break;
+                                            case OrderStatus.Accept:
+                                                <span 
+                                                    style="color: #1cc88a;  border-radius: 10px; padding:5px;"
+                                                    data-arabic="مقبول"
+                                                    data-english="Accepted"></span>
+                                                break;
+                                            case OrderStatus.Reject:
+                                                <span style="color: #e74a3b;  border-radius: 10px; padding:5px;"
+                                                    data-arabic="مرفوض"
+                                                    data-english="Rejected"></span>
+                                                break;
+                                            case OrderStatus.Delivered:
+                                                <span style="color: #36b9cc; border-radius: 10px; padding:5px;"
+                                                    data-arabic="تم التوصيل"
+                                                    data-english="Delivered"></span>
+                                                break;
+                                            case OrderStatus.Revoke:
+                                                <span style="color: #e74a3b;  border-radius: 10px; padding:5px;"
+                                                    data-arabic="مرتجع"
+                                                    data-english="Revoke"></span>
+                                                break;
+                                            case OrderStatus.Paid:
+                                                <span style=" color:#1cc88a;  border-radius: 10px; padding:5px;"
+                                                    data-arabic="مدفوع"
+                                                    data-english="Paid"></span>
+                                                break;
+                                            default:
+                                                break;
+                                            
+                                        
+                                        }
+
+                                    </td>
                                     <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
                                   
                                     <td>

@@ -20,7 +20,7 @@ internal class AuthService : IAuthService, IAutoInjection
     public async Task<Result<LoginResponse>> Login(LoginRequest request)
     {
         var authResponse = await _usersService.SingleOrDefaultAsync<LoginResponse>(x => x.IsActive == true && x.Email == request.Email
-                   && x.Password == request.Password.ComputeSha256Hash());
+                   && x.Password == request.Password.ComputeSha256Hash() && x.IsAdmin == request.IsAdmin);
         if (!authResponse.IsSuccess) return authResponse;
 
         _jwtService.SetToken(authResponse.Response);

@@ -42,7 +42,8 @@
                    asp-for="@data.Name"
                    name="Name"
                    type="text"
-                   placeholder="Product Name"
+                   placeholder-ar="اسم المنتج"
+                   placeholder-en="Product Name"
                    aria-label="Name"
                    style="border-radius: 17px; border: none;"
                    propertyName="Name"
@@ -60,7 +61,8 @@
                    asp-for="@data.Model"
                    name="Model"
                    type="text"
-                   placeholder="Model"
+                   placeholder-ar="الموديل"
+                   placeholder-en="Model"
                    aria-label="Model"
                    style="border-radius: 17px; border: none;"
                    propertyName="Model"
@@ -77,7 +79,8 @@
                    asp-for="@data.Barcode"
                    name="Barcode"
                    type="text"
-                   placeholder="Barcode"
+                   placeholder-ar="ألباركود"
+                   placeholder-en="Barcode"
                    aria-label="Barcode"
                    style="border-radius: 17px; border: none;"
                    propertyName="Barcode"
@@ -93,7 +96,8 @@
             <textarea class="form-control form-control-lg"
                       asp-for="@data.Description"
                       name="Description"
-                      placeholder="Description"
+                      placeholder-ar="الوصف"
+                      placeholder-en="Description"
                       aria-label="Description"
                       style="border-radius: 17px; border: none;"
                       propertyName="Description"
@@ -118,7 +122,17 @@
             <input type="hidden" asp-for="@data.Image" name="Image">
 
             <div class="input-group mb-3">
-                <input disabled type="text" class="form-control" id="file-name" placeholder="Choose file" aria-label="Choose file" aria-describedby="button-addon2" style="border-radius: 17px; border: none;">
+                <input disabled 
+                       type="text" 
+                       class="form-control" 
+                       id="file-name" 
+                       placeholder="Choose file" 
+                       placeholder-ar="اختر صورة"
+                       placeholder-en="Choose Image"
+                       aria-label="Choose file" 
+                       aria-describedby="button-addon2" 
+                       style="border-radius: 17px; border: none;">
+
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.getElementById('imageInput').click();" style="border-radius: 17px; border: none; background-color: #502e90; color: white;">Choose</button>
                 </div>

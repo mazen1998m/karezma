@@ -26,7 +26,7 @@ public class AuthController : Controller
     {
         try
         {
-
+            request.IsAdmin = true;
             var token = (await _authService.Login(request)).Response!.Token;
             HttpContext.Session.SetString("token", token);
             return RedirectToAction("Index", "Home");

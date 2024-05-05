@@ -1,4 +1,5 @@
-﻿using App.core.Helpers;
+﻿using App.Application.Barcodes;
+using App.core.Helpers;
 using App.Data.GenericRepository;
 using App.Domain.Constants.Enums;
 using App.Domain.Orders;
@@ -11,6 +12,8 @@ public class OrderMapperProfile : Profile
 {
     private ICurrentUser _currentUser { get; set; }
     private IRepository<Representative> _representativeRepository { get; set; }
+
+    private IBarcodeService _barcodeService { get; set; }
     public OrderMapperProfile()
     {
         #region ListOrderDto
@@ -51,6 +54,7 @@ public class OrderMapperProfile : Profile
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
 
             //we need to add barcode by default
+            .ForMember(dest => dest.Barcode, opt => opt.MapFrom(src => GetBarcode()))
             .ReverseMap()
             ;
 
@@ -78,6 +82,15 @@ public class OrderMapperProfile : Profile
 
     private string GetBarcode()
     {
-        return "123456";
+        var barcodeService = _barcodeService.Inject();
+        var barcode = barcodeService.GetBarcode();
+        barcode.Wait();
+        if (barcode.Result == "-1")
+        {
+            // return exception No Barcode Available
+            throw new Exception("No Barcode Available");
+
+        }
+        return barcode.Result;
     }
 }
