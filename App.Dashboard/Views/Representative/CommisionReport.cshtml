@@ -1,0 +1,200 @@
+﻿@using App.Domain.Enums
+@using App.Domain.Representatives.Dtos
+@using App.core.Extensions
+<link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
+<link href="~/pagescss/css/public.css" rel="stylesheet" />
+<link href="~/pagescss/css/pagination.css" rel="stylesheet" />
+<link href="~/pagescss/css/popup.css" rel="stylesheet" />
+
+@model Muslim.HandelResult.Result<CommisionReportDto>
+@{
+    var data = Model.Response.Orders;
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+        <h1 class="h3 mb-0 text-gray-800">
+
+            <i class="fa-regular fa-rectangle-list" style="color:#502e90;"></i>
+            <span data-arabic="تقرير العمولات"
+                  data-english="Commision Report"></span>
+
+        </h1>
+        <div>
+            <a href="#">
+                <i id="infoBtn" class="fa fa-info-circle" style="color:#502e90;"></i>
+            </a>
+            <div id="infoPopup">On this page, the user can see all additional services and control them by adding a new additional service, modifying an existing additional service, deleting a additional service, or looking at the details of each additional service</div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom:15px;margin-top:50px;">
+        <div class="col col-4">
+                <h5 
+                    style="display:inline"
+                    data-arabic="مجموع العمولات :"
+                    data-english="Total Commision :">
+                </h5>
+                <span
+                    style="color:darkgreen">
+                    @(Model.Response.Commision * Model.Response.Orders.Count)
+                </span>
+        </div>
+        <div class="col col-4">
+            <h5 style="display:inline"
+                data-arabic="مجموع الطلبات :"
+                data-english="Total Orders :">
+            </h5>
+            <span style="color:darkgreen">
+                @(Model.Response.Orders.Count)
+            </span>
+        </div>
+        <div class="col col-4" style="margin-bottom:10px; margin-top:-15px;">
+            <button onclick="updatePageIndex(@ViewBag.LastIndex)" class="btn btn-lg new"
+                    style="border:2px solid #502e90; color: white;width:150px; border-radius:20px ; ">
+                <span data-arabic="ادفع الان" data-english="Pay Now"></span>
+            </button>
+        </div>
+    </div>
+
+    
+
+    
+
+</div>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card-body ">
+        <div class="table-responsive shadow mb-4"
+             style="background-color: white; border-radius: 17px; ">
+            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0"
+                   style="border: 0px;">
+                <thead>
+                    <tr>
+                        <th data-arabic="رقم الطلب" data-english="Order_Id"></th>
+                        <th data-arabic="إسم المندوب" data-english="Salesman Name"></th>
+                        <th data-arabic="إسم الزبون" data-english="Customer Name"></th>
+                        <th data-arabic="رقم الهاتف" data-english="Phone Number"></th>
+                        <th data-arabic="العنوان" data-english="Address"></th>
+                        <th data-arabic="الكمية" data-english="Quantity"></th>
+                        <th data-arabic="السعر الكلي" data-english="Total Price"></th>
+                        <th data-arabic="الحالة" data-english="Status"></th>
+                        <th data-arabic="التاريخ" data-english="Date"></th>
+                        <th data-arabic="عرض التفاصيل" data-english="View Details"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model is not null)
+                    {
+
+
+                        @if (data.Count > 0 && data != null)
+                        {
+
+                            @foreach (var item in data)
+                            {
+
+                                <tr>
+
+                                    <td>@item.Id</td>
+                                    <td>@item.RepresentativeName</td>
+                                    <td>@item.Clint.Name</td>
+                                    <td>@item.Clint.Phone</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Price</td>
+                                    <td>
+                                        @switch (@item.OrderStatus.ToEnum<OrderStatus>())
+                                        {
+                                            case OrderStatus.Pending:
+                                                <span style=" color: #f6c23e; border-radius: 10px; padding:5px;"
+                                                      data-arabic="قيد الانتظار"
+                                                      data-english="Pending"></span>
+                                                break;
+                                            case OrderStatus.Accept:
+                                                <span style="color: #1cc88a;  border-radius: 10px; padding:5px;"
+                                                      data-arabic="مقبول"
+                                                      data-english="Accepted"></span>
+                                                break;
+                                            case OrderStatus.Reject:
+                                                <span style="color: #e74a3b;  border-radius: 10px; padding:5px;"
+                                                      data-arabic="مرفوض"
+                                                      data-english="Rejected"></span>
+                                                break;
+                                            case OrderStatus.Delivered:
+                                                <span style="color: #36b9cc; border-radius: 10px; padding:5px;"
+                                                      data-arabic="تم التوصيل"
+                                                      data-english="Delivered"></span>
+                                                break;
+                                            case OrderStatus.Revoke:
+                                                <span style="color: #e74a3b;  border-radius: 10px; padding:5px;"
+                                                      data-arabic="مرتجع"
+                                                      data-english="Revoke"></span>
+                                                break;
+                                            case OrderStatus.Paid:
+                                                <span style=" color:#1cc88a;  border-radius: 10px; padding:5px;"
+                                                      data-arabic="مدفوع"
+                                                      data-english="Paid"></span>
+                                                break;
+                                            default:
+                                                break;
+
+
+                                        }
+
+                                    </td>
+                                    <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+
+                                    <td>
+                                        <span style="margin: 10px;">
+                                            <a asp-controller="Order" asp-action="Details" asp-route-id="@item.Id">
+                                                <i class="fa fa-info-circle" style="color:#502e90;"></i>
+
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        }
+                        else
+                        {
+                            <tr style="text-align:center">
+                                <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr style="text-align:center">
+                            <td colspan="5" style="font-size:20px;font-style:italic">No Data</td>
+                        </tr>
+                    }
+
+                </tbody>
+
+
+            </table>
+           
+        </div>
+    </div>
+
+</div>
+@{
+    // bool inputCondition = ViewBag.Action; // Assuming ViewBag.Action is a boolean value
+}
+
+@* @if (inputCondition == true)
+{
+    <script src="~/pagesjs/layout/toastmessagejs.js"></script>
+} *@
+<script src="~/pagesjs/permission/permissionindex.js"></script>
+<script src="~/pagesjs/publicjs/public.js"></script>
+<script src="~/pagesjs/pagination/paginationjs.js"></script>
+<script src="~/pagesjs/publicjs/popup.js"></script>

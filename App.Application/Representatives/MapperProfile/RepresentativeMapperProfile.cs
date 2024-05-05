@@ -69,6 +69,11 @@ public class RepresentativeMapperProfile : Profile
                  .ForMember(x => x.IsActive, opt => opt.MapFrom(e => e.UserInfo.IsActive))
             ;
 
+        CreateMap<Representative, CommisionReportDto>()
+            .ForMember(x => x.Orders, opt => opt.MapFrom(e => e.Orders.Where(x => x.OrderStatus == OrderStatus.Delivered)))
+            .ReverseMap()
+            ;
+
 
 
     }

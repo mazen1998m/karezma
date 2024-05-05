@@ -1,6 +1,6 @@
 ﻿namespace App.Domain.Orders;
 
-using App.Domain.Constants.Enums;
+using App.Domain.Enums;
 using Lampda = Expression<Func<Order, bool>>;
 public class OrderFilter : Filter<Order>
 {

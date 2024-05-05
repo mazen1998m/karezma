@@ -1,7 +1,7 @@
 ﻿using App.Application.Barcodes;
 using App.core.Helpers;
 using App.Data.GenericRepository;
-using App.Domain.Constants.Enums;
+using App.Domain.Enums;
 using App.Domain.Orders;
 using App.Domain.Orders.Dtos;
 using App.Domain.Representatives;

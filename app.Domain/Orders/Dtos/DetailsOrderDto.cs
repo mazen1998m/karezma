@@ -1,5 +1,5 @@
 ﻿using App.Domain.Clints.Dtos;
-using App.Domain.Constants.Enums;
+using App.Domain.Enums;
 using App.Domain.OrderProducts.Dtos;
 
 namespace App.Domain.Orders.Dtos;

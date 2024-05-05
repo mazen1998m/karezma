@@ -1,5 +1,6 @@
 ﻿using App.core.Extensions;
 using App.Data.GenericRepository;
+using App.Domain.Enums;
 using App.Domain.Representatives;
 using App.Domain.Users.Auths;
 
@@ -45,6 +46,28 @@ internal class RepresentativeService : Service<Representative>, IRepresentativeS
             return Result<ResetPassword>.Exception(e);
         }
 
+    }
+
+
+    public async Task<bool> Pay(int id)
+    {
+        try
+        {
+            var representative = await _repository.FindAsync<Representative>(x => x.Orders.Any(x => x.OrderStatus == OrderStatus.Delivered));
+
+            if (representative == null) return false;
+
+            representative.Orders
+
+            await _repository.SaveUpdateAsync(representative);
+
+            return true;
+
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
 }

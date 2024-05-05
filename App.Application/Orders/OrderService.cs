@@ -1,5 +1,5 @@
 ﻿using App.Data.GenericRepository;
-using App.Domain.Constants.Enums;
+using App.Domain.Enums;
 using App.Domain.Orders;
 
 namespace App.Application.Orders;

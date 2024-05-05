@@ -1,4 +1,4 @@
-﻿namespace App.Domain.Constants.Enums;
+﻿namespace App.Domain.Enums;
 
 public enum OrderStatus
 {

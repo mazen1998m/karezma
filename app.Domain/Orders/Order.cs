@@ -1,5 +1,5 @@
 ﻿using App.Domain.Clints;
-using App.Domain.Constants.Enums;
+using App.Domain.Enums;
 using App.Domain.OrderProducts;
 using App.Domain.Representatives;
 

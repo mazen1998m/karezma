@@ -91,7 +91,8 @@ public class RepresentativeController : BaseController
     [HttpGet]
     public async Task<IActionResult> CommisionReport(int id)
     {
-        return View();
+        var x = await _service.GetByIdAsync<CommisionReportDto>(id);
+        return View(x);
     }
 
 

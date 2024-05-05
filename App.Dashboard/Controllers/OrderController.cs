@@ -1,5 +1,5 @@
 ﻿using App.Application.Orders;
-using App.Domain.Constants.Enums;
+using App.Domain.Enums;
 using App.Domain.Orders;
 using App.Domain.Orders.Dtos;
 
