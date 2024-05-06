@@ -1,6 +1,5 @@
 ﻿using App.core.Common;
-using Muslim.Assembly.Helper;
-using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace App.Application.Files;
 
@@ -8,11 +7,14 @@ namespace App.Application.Files;
 internal class FileService : IFileService
 {
     #region ctor
-    private static Assembly _assembly;
+    //private static Assembly _assembly;
+    private static string _path { get; set; }
+    private readonly IConfiguration _configuration;
     public FileService()
     {
-
-        _assembly = AssemblyHelper.GetAssembly("app.Dashboard");
+        _configuration = _configuration.Inject();
+        _path = _configuration["saveFileLocation"];
+        //_assembly = AssemblyHelper.GetAssembly("app.Dashboard");
     }
 
     private static readonly string[] MediaFileExt =
@@ -83,15 +85,15 @@ internal class FileService : IFileService
 
     private static string GetFolderPath(string folderName)
     {
-        folderName = folderName.Replace('.', '/');
+        //folderName = folderName.Replace('.', '/');
 
         // Get the assembly's location
-        string assemblyLocation = Path.GetDirectoryName(_assembly.Location);
-        var binDebugNetPath = Path.Combine("bin", "Debug", "net6.0");
-        var exeDirectory = assemblyLocation!.Replace(binDebugNetPath, string.Empty);
+        //string assemblyLocation = Path.GetDirectoryName(_path);
+        //var binDebugNetPath = Path.Combine("bin", "Debug", "net6.0");
+        //var exeDirectory = assemblyLocation!.Replace(binDebugNetPath, string.Empty);
 
         //with wwwroot/img
-        exeDirectory = Path.Combine(exeDirectory, "wwwroot", "img");
+        var exeDirectory = Path.Combine(_path, "wwwroot", "img");
         // Combine assembly location with the folder path to get the full path
         string fullPath = Path.Combine(exeDirectory, folderName);
 
@@ -101,7 +103,7 @@ internal class FileService : IFileService
 
     public string GetFileBase64(string fileName, string folderName = "Documents")
     {
-        var filePath = Path.Combine(GetFolderPath(folderName), fileName);
+        var filePath = Path.Combine(GetFolderPath(folderName)/*_path*/, fileName);
         if (!File.Exists(filePath))
         {
             return string.Empty;

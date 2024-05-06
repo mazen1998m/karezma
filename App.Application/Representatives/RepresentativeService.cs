@@ -53,11 +53,12 @@ internal class RepresentativeService : Service<Representative>, IRepresentativeS
     {
         try
         {
-            var representative = await _repository.FindAsync<Representative>(x => x.Orders.Any(x => x.OrderStatus == OrderStatus.Delivered));
+            var representative = await _repository.FirstOrDefaultAsync
+                (x => x.Id == id && x.Orders.Any(x => x.OrderStatus == OrderStatus.Delivered));
 
             if (representative == null) return false;
 
-            representative.Orders
+            representative.Orders.ToList().ForEach(x => x.OrderStatus = OrderStatus.Paid);
 
             await _repository.SaveUpdateAsync(representative);
 
@@ -76,4 +77,5 @@ internal class RepresentativeService : Service<Representative>, IRepresentativeS
 public interface IRepresentativeService : IService<Representative>
 {
     Task<Result<ResetPassword>> ResetPassword(ResetPassword resetPassword);
+    Task<bool> Pay(int id);
 }

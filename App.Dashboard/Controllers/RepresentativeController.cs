@@ -99,7 +99,11 @@ public class RepresentativeController : BaseController
     [HttpGet]
     public async Task<IActionResult> Pay(int id)
     {
-        return View();
+        var response = await _service.Pay(id);
+        return response
+            ? RedirectToAction("Index", new { mes = true })
+                  : RedirectToAction("CommisionReport", new { Id = id });
+
     }
 
 }
