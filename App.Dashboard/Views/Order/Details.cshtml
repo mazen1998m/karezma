@@ -340,7 +340,8 @@
                 </div>
                 <div class="col">
                     <h2>Barcode :</h2>
-                    <img src="~/img/oip.jpeg" width="130px" />
+                    <svg id="barcode"></svg>
+                    @* <img src="~/img/oip.jpeg" width="130px" /> *@
                 </div>            
             </div>
 
@@ -389,6 +390,8 @@
 
 
 <script src="~/pagesjs/managestock/customeroperations.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.3/JsBarcode.all.min.js"></script>
+
 <script>
     
     function changeStatus(id, status) 
@@ -429,18 +432,24 @@
         document.body.innerHTML = originalContent;
     }
 
+    function generateBarcode(number) {
+        JsBarcode("#barcode", number);
+    }
+
+    // Call the function with your number
+    generateBarcode("1234567890");
 
     //change dir when change lang
-    $(document).ready(function () {
-        if (localStorage.getItem('lang') == 'ar') {
-            $('body').css('direction', 'rtl');
-            $('body').css('text-align', 'right');
-        }
-        else {
-            $('body').css('direction', 'ltr');
-            $('body').css('text-align', 'left');
-        }
-    });
+    // $(document).ready(function () {
+    //     if (localStorage.getItem('lang') == 'ar') {
+    //         $('body').css('direction', 'rtl');
+    //         $('body').css('text-align', 'right');
+    //     }
+    //     else {
+    //         $('body').css('direction', 'ltr');
+    //         $('body').css('text-align', 'left');
+    //     }
+    // });
 
 </script>
 

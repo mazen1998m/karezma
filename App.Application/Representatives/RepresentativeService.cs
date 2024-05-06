@@ -1,6 +1,7 @@
 ﻿using App.core.Extensions;
 using App.Data.GenericRepository;
 using App.Domain.Enums;
+using App.Domain.Orders;
 using App.Domain.Representatives;
 using App.Domain.Users.Auths;
 
@@ -8,10 +9,13 @@ namespace App.Application.Representatives;
 
 internal class RepresentativeService : Service<Representative>, IRepresentativeService
 {
+    private readonly IRepository<Order> _orderRepository;
+
     public IRepository<Representative> _repository { get; }
-    public RepresentativeService(IRepository<Representative> repository) : base(repository)
+    public RepresentativeService(IRepository<Representative> repository, IRepository<Order> orderRepository) : base(repository)
     {
         _repository = repository;
+        _orderRepository = orderRepository;
     }
 
     public async Task<Result<ResetPassword>> ResetPassword(ResetPassword resetPassword)
@@ -53,14 +57,13 @@ internal class RepresentativeService : Service<Representative>, IRepresentativeS
     {
         try
         {
-            var representative = await _repository.FirstOrDefaultAsync
-                (x => x.Id == id && x.Orders.Any(x => x.OrderStatus == OrderStatus.Delivered));
+            var orders = await _orderRepository.FindAsync(x => x.RepresentativeId == id && x.OrderStatus == OrderStatus.Delivered);
 
-            if (representative == null) return false;
+            if (!orders.Any()) return false;
 
-            representative.Orders.ToList().ForEach(x => x.OrderStatus = OrderStatus.Paid);
+            orders.ForEach(x => x.OrderStatus = OrderStatus.Paid);
 
-            await _repository.SaveUpdateAsync(representative);
+            await _orderRepository.SaveUpdateRangeAsync(orders);
 
             return true;
 

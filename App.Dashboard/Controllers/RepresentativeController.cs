@@ -96,7 +96,7 @@ public class RepresentativeController : BaseController
     }
 
 
-    [HttpGet]
+    [HttpPost]
     public async Task<IActionResult> Pay(int id)
     {
         var response = await _service.Pay(id);

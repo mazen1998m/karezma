@@ -32,7 +32,14 @@
     </div>
 
     <div class="row" style="margin-bottom:15px;margin-top:50px;">
-        <div class="col col-4">
+        <div class="col col-3">
+            <h5 style="display:inline"
+                data-arabic="عمولة المندوب :"
+                data-english="Salseman Commision :">
+            </h5>
+            <span style="color:darkgreen"> @Model.Response.Commision </span>
+        </div>
+        <div class="col col-3">
                 <h5 
                     style="display:inline"
                     data-arabic="مجموع العمولات :"
@@ -43,7 +50,7 @@
                     @(Model.Response.Commision * Model.Response.Orders.Count)
                 </span>
         </div>
-        <div class="col col-4">
+        <div class="col col-3">
             <h5 style="display:inline"
                 data-arabic="مجموع الطلبات :"
                 data-english="Total Orders :">
@@ -52,8 +59,8 @@
                 @(Model.Response.Orders.Count)
             </span>
         </div>
-        <div class="col col-4" style="margin-bottom:10px; margin-top:-15px;">
-            <button onclick="updatePageIndex(@ViewBag.LastIndex)" class="btn btn-lg new"
+        <div class="col col-3" style="margin-bottom:10px; margin-top:-15px;">
+            <button onclick="pay(@Model.Response.Id)" class="btn btn-lg new"
                     style="border:2px solid #502e90; color: white;width:150px; border-radius:20px ; ">
                 <span data-arabic="ادفع الان" data-english="Pay Now"></span>
             </button>
@@ -186,15 +193,34 @@
     </div>
 
 </div>
-@{
-    // bool inputCondition = ViewBag.Action; // Assuming ViewBag.Action is a boolean value
-}
 
-@* @if (inputCondition == true)
-{
-    <script src="~/pagesjs/layout/toastmessagejs.js"></script>
-} *@
 <script src="~/pagesjs/permission/permissionindex.js"></script>
 <script src="~/pagesjs/publicjs/public.js"></script>
 <script src="~/pagesjs/pagination/paginationjs.js"></script>
 <script src="~/pagesjs/publicjs/popup.js"></script>
+
+<script>
+    function pay(id) {
+        $.ajax({
+            url: '@Url.Action("Pay", "Representative")',
+            method: 'POST',
+            data: { id: id, },
+            success: function () {
+                Swal.fire({
+                    title: "Success",
+                    text: "pay is  successfully",
+                    icon: "success",
+                    confirmButtonText: "Ok"
+                }).then(() => {
+                    window.location.href = '@Url.Action("CommisionReport", "Representative")';
+                });
+
+
+
+            },
+            error: function (xhr, status, error) {
+                console.error('Error :', error);
+            }
+        });
+    }
+</script>
