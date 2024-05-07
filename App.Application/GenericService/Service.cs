@@ -1,11 +1,4 @@
-﻿using app.core.EntityAndDtoStructure.DtoStructure;
-using app.core.EntityAndDtoStructure.EntityStructure;
-using App.Data.GenericRepository;
-using Muslim.Filter.FilterInterface;
-
-
-
-namespace App.Application.GenericService;
+﻿namespace App.Application.GenericService;
 
 
 public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity : Entity

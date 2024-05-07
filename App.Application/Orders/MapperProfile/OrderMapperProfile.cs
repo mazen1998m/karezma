@@ -1,7 +1,4 @@
 ﻿using App.Application.Barcodes;
-using App.core.Helpers;
-using App.Data.GenericRepository;
-using App.Domain.Enums;
 using App.Domain.Orders;
 using App.Domain.Orders.Dtos;
 using App.Domain.Representatives;
@@ -26,7 +23,7 @@ public class OrderMapperProfile : Profile
                 opt => opt.MapFrom
                     (
                      src => src.OrderProducts.Sum(op => op.Price * op.Quantity)
-                     - (src.Discount ?? 0)
+                     - (src.Discount ?? 0) - (src.DeliveryFare)
                     )
             )
             .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.OrderProducts.Sum(op => op.Quantity)))
@@ -38,7 +35,8 @@ public class OrderMapperProfile : Profile
         #region DetailsOrderDto
         CreateMap<Order, DetailsOrderDto>()
             .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.OrderProducts))
-            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.OrderProducts.Sum(op => op.Price * op.Quantity) - (src.Discount ?? 0)))
+            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src =>
+            src.OrderProducts.Sum(op => op.Price * op.Quantity) - (src.Discount ?? 0) - (src.DeliveryFare)))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Address + " " + src.Clint.Name))
             .ReverseMap()
             ;

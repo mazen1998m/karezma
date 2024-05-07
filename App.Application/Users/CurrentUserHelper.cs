@@ -1,5 +1,4 @@
-﻿using App.core.Helpers;
-using App.Domain.Users;
+﻿using App.Domain.Users;
 using App.Domain.Users.Permissions.Dtos;
 using Microsoft.AspNetCore.Http;
 using UAParser;

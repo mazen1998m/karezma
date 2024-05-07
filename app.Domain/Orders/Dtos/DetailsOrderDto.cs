@@ -8,6 +8,7 @@ public class DetailsOrderDto : Dto
 {
     public DetailsClintDto Clint { get; set; }
     public List<DetailsOrderProductDto> Products { get; set; }
+    //add representive
     public string Barcode { get; set; }//hidin input
     public string Notes { get; set; }
     public decimal DeliveryFare { get; set; }

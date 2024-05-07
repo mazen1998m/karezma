@@ -1,6 +1,4 @@
-﻿using App.core.Extensions;
-using App.Domain.Enums;
-using App.Domain.Users;
+﻿using App.Domain.Users;
 using App.Domain.Users.Roles;
 using App.Domain.Users.Roles.Dtos;
 using System.Data;

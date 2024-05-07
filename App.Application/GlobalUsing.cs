@@ -1,10 +1,16 @@
-﻿global using App.Application.GenericService;
+﻿global using app.core.EntityAndDtoStructure.DtoStructure;
+global using app.core.EntityAndDtoStructure.EntityStructure;
+global using App.Application.GenericService;
+global using App.core.Extensions;
+global using App.core.Helpers;
 global using App.core.InjectionHelper;
 global using App.core.ValidatorHelper;
+global using App.Data.GenericRepository;
+global using App.Domain.Enums;
 global using AutoMapper;
 global using FluentValidation;
 global using Muslim.Filter.Extensions;
+global using Muslim.Filter.FilterInterface;
 global using Muslim.HandelResult;
 global using Muslim.ValidatorErrors;
 global using System.Linq.Expressions;
-

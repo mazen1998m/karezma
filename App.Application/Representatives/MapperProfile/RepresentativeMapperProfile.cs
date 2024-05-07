@@ -1,6 +1,4 @@
-﻿using App.core.Extensions;
-using App.Domain.Enums;
-using App.Domain.Representatives;
+﻿using App.Domain.Representatives;
 using App.Domain.Representatives.Dtos;
 using App.Domain.Users;
 namespace App.Application.Representatives.MapperProfile;

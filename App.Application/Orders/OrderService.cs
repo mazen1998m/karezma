@@ -1,6 +1,4 @@
-﻿using App.Data.GenericRepository;
-using App.Domain.Enums;
-using App.Domain.Orders;
+﻿using App.Domain.Orders;
 
 namespace App.Application.Orders;
 

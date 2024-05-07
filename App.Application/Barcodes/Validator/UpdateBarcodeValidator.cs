@@ -1,5 +1,4 @@
-﻿using App.Data.GenericRepository;
-using App.Domain.Barcodes;
+﻿using App.Domain.Barcodes;
 using App.Domain.Barcodes.Dtos;
 
 namespace App.Application.Barcodes.Validator;

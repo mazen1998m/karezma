@@ -81,7 +81,10 @@
                                 <span id="Hight">@data.Address</span>
 
                             </div>
-
+                            <div class="FullNameContainer MarginStyle">
+                                <span style="font-weight: bold;" data-arabic="الملاحظات :" data-english="Notes :"></span>
+                                <span id="DeliveryFee">@data.Notes</span>
+                            </div>
 
                         </div>
                     </div>
@@ -147,10 +150,7 @@
             <div class="container" style="max-width: 100% ; padding: 10px;background-color: white;">
                 <div class="row">
                     <div class="col" style="margin-top: 30px; margin-left: 10px;">
-                        <div class="FullNameContainer MarginStyle">
-                            <span style="font-weight: bold;" data-arabic="الملاحظات :" data-english="Notes :"></span>
-                            <span id="DeliveryFee">@data.Notes</span>
-                        </div>
+                      
                         <div class="FullNameContainer MarginStyle">
                             <span style="font-weight: bold;" data-arabic="رسوم التوصيل :" data-english="Delivery Fare :"></span>
                             <span id="DeliveryFee">@data.DeliveryFare</span>
@@ -256,93 +256,155 @@
 <div id="customPrintContent">
     @* style="display:none" *@
   
-    <div class="container">
+    <div class="container" style="border:solid 5px;  ">
 
-        <div class="header">
-            <h1>Company Name</h1>
-            @* <img src="logo.jpg" alt="Company Logo" class="logo"> *@
+
+        <div class="header row" style="margin-top:40px;">
+            <div class="col col-9">
+                <h2 data-arabic="اسم الشركة: ملابس اونلاين"
+                    data-english="Company Name: Online Clothes Shop">
+                </h2>
+            </div>
+            <div class="col col-3" style="margin-top:-15px;">
+                <img style="width:150px;" src="~/img/home/logo.png" />
+            </div>
         </div>
 
         <div class="table">
+
+            <div class="row" style="margin-top:30px;">
+                <div class="col " style="border:solid 2px gray">
+                    <h2 data-arabic="معلومات الزبون: "
+                        data-english="Client Info:">
+                    </h2>
+                </div>
+                <div style="margin:10px;"></div>
+                <div class="col " style="border:solid 2px gray">
+                    <h2 data-arabic="معلومات المندوب:"
+                        data-english="Salesman Info:">
+                    </h2>
+                    
+                </div>
+            </div>
             <div class="row">
-                <div class="col">
+               
+                <div class="col "style="border:solid 2px gray;">
                     <div class="client-info">
-                        <h2>Client Info:</h2>
-                        <div class="row">
-                            <div class="col">
-                                <p>Name: John Doe</p>
-                                <p>Phone: 1234567890</p>
-                            </div>
-                            <div class="col">
-                                <p>Second Phone: 987-654-3210</p>
-                                <p>Address: 123 Main St, City, Country</p>
-                            </div>
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="الإسم"data-english="Name:"></span>
+                            <span>@data.Clint.Name</span>
+                        </div>
+
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="الهاتف"data-english="Phone:"></span>
+                            <span>@data.Clint.Phone</span>
+                        </div>
+                        
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="الهاتف البديل"data-english="Second Phone:"></span>
+                            <span>@data.Clint.SecandPhone</span>
+                        </div>
+                        
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="العنوان"data-english="Address:"></span>
+                            <span>@data.Address</span>
                         </div>
                     </div>
                 </div>
-                
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="salesman-info">
-                        <h2>Salesman Info:</h2>
-                        <p>Name: Jane Smith</p>
-                        <p>Commission: 10</p>
+
+                <div style="margin:10px;"></div>
+
+                <div class="col " style="border:solid 2px gray">
+                    <div class="salesman-info">   
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="الإسم"data-english="Name:"></span>
+                            <span>@* @data.Salesman.Name *@mwm</span>@* Todo *@
+                        </div>
+                        
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="العمولة"data-english="Commission:"></span>
+                            <span>@* @data.Salesman.Commission *@50</span>@* Todo *@
+                        </div>
                     </div>
                 </div>
+                         
             </div>
-            <div class="container" style="max-width: 100%; padding: 10px;">
-                <h2>Product Info:</h2>
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table">
+            
+            @* product *@
+            <div class="row" style=" border:solid 2px gray; margin-top:10px;padding:10px;">
+                <h2
+                    data-arabic="تفاصيل المنتجات:"
+                    data-english="Products Details:">
+                </h2>
+                
+                <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Price/per piece</th>
+                                    <th
+                                        data-arabic="اسم المنتج"
+                                        data-english="Product Name">
+                                    </th>
+                                    
+                                    <th 
+                                        data-arabic="رقم الموديل"
+                                        data-english="Model Number">
+                                    </th>
+                                    
+                                    <th
+                                        data-arabic="الكمية"
+                                        data-english="Quantity">
+                                    </th>
+
+                                    <th data-arabic="الملاحظات"
+                                        data-english="Notes">
+                                    </th>
+
+                                    <th
+                                        data-arabic="السعر/للقطعة"
+                                        data-english="Price/Per Unit">
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Product Name</td>
-                                    <td>2</td>
-                                    <td>100.00</td>
-                                </tr>
+                                @foreach (var item in data.Products)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Model</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Notes</td>
+                                        <td>@item.Price</td>
+                                    </tr>
+
+                                }
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                 
             </div>
-
-            <br>
-            <br>
-            <hr />
-            <div class="row">
-                <div class="col">
-                    <div class="total">
-                        <h2>Discount :</h2>
-                        <p>50.00</p>
-                        <h2>Delivary fees :</h2>
-                        <p>10.00</p>
+            @* end product *@
+            
+            <div class="row" style="margin-top:10px;">
+                <div class="col col-8" style="margin-top:20px;">
+                    <div >
+                        <h4 data-arabic="التاريخ:"
+                            data-english="Date:"
+                            style="display:inline;"></h4>
+                        <h4 style="display:inline;">@DateTime.Now.ToString("dd-MM-yyyy")</h4>
                     </div>
+                    <div style="margin-top:15px;">
+                        <h4 data-arabic="السعر الكلي:"
+                            data-english="Total Price:"
+                            style="display:inline;">
+                        </h4>
+                        <h4 style="display:inline;">@data.TotalPrice</h4>
+                    </div>
+                    
                 </div>
                 
-            </div>
-
-
-            <div class="row">
-                <div class="col">
-                    <div class="total">
-                        <h2>Total Price:</h2>
-                        <p>160.00</p>
-                    </div>        
+                <div class="col col-4">
+                    <svg  id="barcode"></svg>
                 </div>
-                <div class="col">
-                    <h2>Barcode :</h2>
-                    <svg id="barcode"></svg>
-                    @* <img src="~/img/oip.jpeg" width="130px" /> *@
-                </div>            
+
             </div>
 
             

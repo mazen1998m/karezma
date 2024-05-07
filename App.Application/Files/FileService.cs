@@ -7,14 +7,12 @@ namespace App.Application.Files;
 internal class FileService : IFileService
 {
     #region ctor
-    //private static Assembly _assembly;
     private static string _path { get; set; }
     private readonly IConfiguration _configuration;
     public FileService()
     {
         _configuration = _configuration.Inject();
         _path = _configuration["saveFileLocation"];
-        //_assembly = AssemblyHelper.GetAssembly("app.Dashboard");
     }
 
     private static readonly string[] MediaFileExt =
@@ -52,7 +50,6 @@ internal class FileService : IFileService
 
         var folderPath = IsFolderExist(folderName);
 
-        //check if file exist
         var fileFullPath = Path.Combine(folderPath, fileInfo.FileName);
 
         File.WriteAllBytes(fileFullPath, file.Bytes);
@@ -85,16 +82,9 @@ internal class FileService : IFileService
 
     private static string GetFolderPath(string folderName)
     {
-        //folderName = folderName.Replace('.', '/');
 
-        // Get the assembly's location
-        //string assemblyLocation = Path.GetDirectoryName(_path);
-        //var binDebugNetPath = Path.Combine("bin", "Debug", "net6.0");
-        //var exeDirectory = assemblyLocation!.Replace(binDebugNetPath, string.Empty);
-
-        //with wwwroot/img
         var exeDirectory = Path.Combine(_path, "wwwroot", "img");
-        // Combine assembly location with the folder path to get the full path
+
         string fullPath = Path.Combine(exeDirectory, folderName);
 
 

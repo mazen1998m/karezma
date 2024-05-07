@@ -1,7 +1,5 @@
-﻿using App.Data.GenericRepository;
-using App.Domain.Clints;
+﻿using App.Domain.Clints;
 using App.Domain.Clints.Dtos;
-using App.Domain.Enums;
 
 namespace App.Application.Clints.Validator;
 

@@ -1,7 +1,4 @@
-﻿using App.core.Extensions;
-using App.Data.GenericRepository;
-using App.Domain.Enums;
-using App.Domain.Orders;
+﻿using App.Domain.Orders;
 using App.Domain.Representatives;
 using App.Domain.Users.Auths;
 

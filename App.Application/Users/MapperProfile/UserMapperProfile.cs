@@ -1,5 +1,4 @@
-﻿using App.core.Extensions;
-using App.Domain.Users;
+﻿using App.Domain.Users;
 using App.Domain.Users.Auths;
 using App.Domain.Users.Dtos;
 
