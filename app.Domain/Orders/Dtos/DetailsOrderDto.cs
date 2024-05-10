@@ -17,6 +17,7 @@ public class DetailsOrderDto : Dto
     public OrderStatus OrderStatus { get; set; }
     public string Title { get; set; }
     public decimal Discount { get; set; }
+    public string SalesmanName { get; set; }
 
 
 }

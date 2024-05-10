@@ -38,6 +38,7 @@ public class OrderMapperProfile : Profile
             .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src =>
             src.OrderProducts.Sum(op => op.Price * op.Quantity) - (src.Discount ?? 0) - (src.DeliveryFare)))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Address + " " + src.Clint.Name))
+            .ForMember(dest => dest.SalesmanName, opt => opt.MapFrom(src => src.Representative.UserInfo.Name))
             .ReverseMap()
             ;
         #endregion

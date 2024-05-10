@@ -272,29 +272,26 @@
 
         <div class="table">
 
-            <div class="row" style="margin-top:30px;">
-                <div class="col " style="border:solid 2px gray">
-                    <h2 data-arabic="معلومات الزبون: "
-                        data-english="Client Info:">
+            <div class="row">
+                <div style="border-left:solid 1px gray;
+                            border-right:solid 1px gray;
+                            border-top:solid 1px gray;  
+                            padding-left:7px;padding-right:7px;">
+                    <h2 data-arabic="معلومات الطلب: "
+                        data-english="Order Details">
                     </h2>
-                </div>
-                <div style="margin:10px;"></div>
-                <div class="col " style="border:solid 2px gray">
-                    <h2 data-arabic="معلومات المندوب:"
-                        data-english="Salesman Info:">
-                    </h2>
-                    
                 </div>
             </div>
             <div class="row">
-               
+                
                 <div class="col "style="border:solid 2px gray;">
+
                     <div class="client-info">
                         <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
-                            <span data-arabic="الإسم"data-english="Name:"></span>
+                            <span data-arabic="اسم الزبون:"data-english="Clint Name:"></span>
                             <span>@data.Clint.Name</span>
                         </div>
-
+                        
                         <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
                             <span data-arabic="الهاتف"data-english="Phone:"></span>
                             <span>@data.Clint.Phone</span>
@@ -305,25 +302,30 @@
                             <span>@data.Clint.SecandPhone</span>
                         </div>
                         
-                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
-                            <span data-arabic="العنوان"data-english="Address:"></span>
-                            <span>@data.Address</span>
-                        </div>
+                        
+
                     </div>
                 </div>
+                <div class="col " style="border:solid 2px gray;">
 
-                <div style="margin:10px;"></div>
-
-                <div class="col " style="border:solid 2px gray">
-                    <div class="salesman-info">   
+                    <div class="row">
                         <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
-                            <span data-arabic="الإسم"data-english="Name:"></span>
-                            <span>@* @data.Salesman.Name *@mwm</span>@* Todo *@
+                            <span data-arabic="العنوان" data-english="Address:"></span>
+                            <span>@data.Address</span>
                         </div>
-                        
                         <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
-                            <span data-arabic="العمولة"data-english="Commission:"></span>
-                            <span>@* @data.Salesman.Commission *@50</span>@* Todo *@
+                            <span data-arabic="اسم المندوب:" data-english="Salesman Name:"></span>
+                            <span>@data.SalesmanName </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="العنوان" data-english="Address:"></span>
+                            <span>@data.Address</span>
+                        </div>
+                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
+                            <span data-arabic="اسم المندوب:" data-english="Salesman Name:"></span>
+                            <span>@data.SalesmanName </span>
                         </div>
                     </div>
                 </div>
@@ -359,10 +361,7 @@
                                         data-english="Notes">
                                     </th>
 
-                                    <th
-                                        data-arabic="السعر/للقطعة"
-                                        data-english="Price/Per Unit">
-                                    </th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -373,7 +372,6 @@
                                         <td>@item.Model</td>
                                         <td>@item.Quantity</td>
                                         <td>@item.Notes</td>
-                                        <td>@item.Price</td>
                                     </tr>
 
                                 }
