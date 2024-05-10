@@ -6,12 +6,15 @@ namespace App.Application.Users;
 internal class AuthService : IAuthService, IAutoInjection
 {
     private readonly IService<User> _usersService;
+    private readonly IRepository<User> _usersRepository;
+
     private readonly JwtService _jwtService;
 
-    public AuthService(IService<User> usersService, JwtService jwtService)
+    public AuthService(IService<User> usersService, JwtService jwtService, IRepository<User> usersRepository)
     {
         _usersService = usersService;
         _jwtService = jwtService;
+        _usersRepository = usersRepository;
     }
 
 
@@ -28,6 +31,32 @@ internal class AuthService : IAuthService, IAutoInjection
 
     }
 
+    public async Task<Result<LoginResponse>> MobileLogin(LoginRequest request)
+    {
+
+        var authResponse = await Login(request);
+        if (authResponse.IsSuccess && authResponse.Response != null && request.DeviceToken.IsNotNullOrEmpty())
+        {
+
+            var deviceToken = (await _usersRepository.FirstOrDefaultAsync(x => x.Id == authResponse.Response.Id, s => new
+            {
+                s.Id,
+                s.DeviceToken
+            })).DeviceToken;
+
+            if (deviceToken != request.DeviceToken)
+            {
+                var user = (await _usersRepository.SingleOrDefaultAsync(x => x.Id == authResponse.Response.Id));
+                user.DeviceToken = request.DeviceToken;
+                await _usersRepository.SaveUpdateAsync(user);
+            }
+
+
+        }
+        return authResponse;
+
+    }
+
 
     public void Logout() => _jwtService.RemoveToken();
 
@@ -36,8 +65,9 @@ internal class AuthService : IAuthService, IAutoInjection
 
 public interface IAuthService : IAutoInjection
 {
-    public Task<Result<LoginResponse>> Login(LoginRequest request);
-    public void Logout();
+    Task<Result<LoginResponse>> Login(LoginRequest request);
+    Task<Result<LoginResponse>> MobileLogin(LoginRequest request);
+    void Logout();
 }
 
 

@@ -1,21 +1,19 @@
 ﻿using FirebaseAdmin;
-using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
 namespace App.Application.Notifications;
-
+using FirebaseAdmin.Messaging;
 internal class NotificationService : INotificationService
 {
-    private static FirebaseApp app = FirebaseApp.Create(new AppOptions { Credential = GoogleCredential.FromFile("firebase-admin-sdk.json") });
+    private static FirebaseApp app = FirebaseApp.Create(new AppOptions { Credential = GoogleCredential.FromFile("firebase.json") });
 
     public async Task PushNotification(string body, string devicetoken, string title)
     {
-        var message = new FirebaseAdmin.Messaging.Message
+        var message = new Message
         {
             Notification = new Notification()
             {
                 Title = title,
                 Body = body,
-                //ImageUrl = Settings.NotificationImage,
             },
             Apns = new ApnsConfig()
             {
@@ -32,13 +30,7 @@ internal class NotificationService : INotificationService
                     ChannelId = "default_channel",
                 },
             },
-            //Webpush = new WebpushConfig()
-            //{
-            //    FcmOptions = new WebpushFcmOptions()
-            //    {
-            //        Link = "https://stagingapp.sanad.gov.jo"
-            //    }
-            //},
+
             Token = devicetoken,
         };
 
@@ -48,7 +40,7 @@ internal class NotificationService : INotificationService
 
     public async Task PushNotificationTopic(string body, string topic, string title, string image)
     {
-        var message = new FirebaseAdmin.Messaging.Message
+        var message = new Message
         {
             Notification = new Notification()
             {

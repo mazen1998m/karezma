@@ -7,11 +7,7 @@ namespace App.Domain.Orders;
 
 public class Order : Entity
 {
-    //todo: order card dto
-    //{ 
-    //public string Title { get; set; }//addriess + clint name 
-    //public decimal TotalPrice { get; set; }//calculate from OrderProduct.Price*OrderProduct.Quantity + delivery fare
-    //}
+
     public Clint Clint { get; set; }
     public int ClintId { get; set; }
     public List<OrderProduct> OrderProducts { get; set; }

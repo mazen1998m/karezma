@@ -1,5 +1,6 @@
 ﻿using App.Domain.Orders.Dtos;
 
+
 namespace App.Domain.Representatives.Dtos;
 
 public class CommisionReportDto : Dto

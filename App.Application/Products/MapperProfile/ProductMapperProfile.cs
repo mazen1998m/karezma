@@ -23,8 +23,8 @@ public class ProductMapperProfile : Profile
 
         CreateMap<Product, ListProductDto>()
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => GetImageBase64(src.Image)))
-
             .ReverseMap();
+
     }
 
     private string GetImageUrl(string image)
