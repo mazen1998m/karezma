@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.web", "app.wep\App.web.csproj", "{743405E7-7C85-4856-B5DB-12A3005C8A4A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.core", "app.core\App.core.csproj", "{AB1D3265-E21C-4E2A-A2D2-D800C739E604}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Domain", "app.Domain\App.Domain.csproj", "{4B2C9101-EC7C-4EC4-B979-1356AEE45CD9}"
@@ -26,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{743405E7-7C85-4856-B5DB-12A3005C8A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{743405E7-7C85-4856-B5DB-12A3005C8A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{743405E7-7C85-4856-B5DB-12A3005C8A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{743405E7-7C85-4856-B5DB-12A3005C8A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB1D3265-E21C-4E2A-A2D2-D800C739E604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AB1D3265-E21C-4E2A-A2D2-D800C739E604}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB1D3265-E21C-4E2A-A2D2-D800C739E604}.Release|Any CPU.ActiveCfg = Release|Any CPU
