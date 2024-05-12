@@ -81,8 +81,6 @@ function sendData2(selectedOption) {
         url: "/AdditionalServices/Index",
         data: { PageSize: selectedOption },
         success: function (response) {
-            console.log("Data sent successfully");
-            // Handle response if needed
         },
         error: function (xhr, status, error) {
             console.error("Error sending data:", error);
@@ -107,11 +105,8 @@ function sendData(selectedOption) {
         url: "/TransportationService/Index",
         data: { PageSize: selectedOption },
         success: function (response) {
-            console.log("Data sent successfully");
-            // إعادة تحميل الصفحة بعد الانتهاء من إرسال المعلومات
         },
         error: function (xhr, status, error) {
-            console.error("Error sending data:", error);
         }
     });
 }
@@ -131,7 +126,6 @@ selectElement.addEventListener('change', function () {
 
 submitButton.addEventListener('click', function () {
    
-    console.log(pageSizeInput.value);
 });
 
 
@@ -150,5 +144,4 @@ selectElementTrans.addEventListener('change', function () {
 
 submitButtonTrans.addEventListener('click', function () {
 
-    console.log(pageSizeInputTrans.value);
 });

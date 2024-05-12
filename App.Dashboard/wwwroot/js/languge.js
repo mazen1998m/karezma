@@ -23,7 +23,6 @@
 
         document.querySelectorAll(("input[placeholder-ar]"))
             .forEach(element => {
-                debugger;
                 element.placeholder = selectedLanguage === 'ar' ? element.getAttribute('placeholder-ar') : element.getAttribute('placeholder-en');
             });
     }

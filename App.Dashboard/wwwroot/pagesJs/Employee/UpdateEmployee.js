@@ -33,15 +33,12 @@
 });
 
 
-// احصل على مراجع للعناصر
 const imageInput = document.getElementById('imageInput');
 const employeeImage = document.getElementById('employeeImage');
 
 imageInput.addEventListener('change', (event) => {
-    console.log("jjjj");
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-        // قم بتغيير مصدر الصورة إلى الصورة الجديدة
         const imageUrl = URL.createObjectURL(selectedFile);
         employeeImage.src = imageUrl;
     }

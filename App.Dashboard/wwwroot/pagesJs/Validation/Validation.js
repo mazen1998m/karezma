@@ -1,8 +1,6 @@
 ﻿var errorDataElement = document.getElementById('errorData');
 var error = JSON.parse(errorDataElement.getAttribute('data-error'));
-console.log("ddc");
 if (error.length === 0) {
-    console.log("Error list is empty");
 } else {
 
     var elements;
@@ -10,8 +8,6 @@ if (error.length === 0) {
     var lineBreak;
 
     error.forEach(function (errorMessage) {
-        console.log(errorMessage);
-        console.log(errorMessage.propertyName);
         elements = document.getElementById(errorMessage.propertyName);
 
 
@@ -24,7 +20,6 @@ if (error.length === 0) {
         elements.parentNode.insertBefore(lineBreak, elements.nextSibling);
 
 
-        console.log(elements);
 
     });
 }

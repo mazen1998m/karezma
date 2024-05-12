@@ -4,11 +4,11 @@ using App.Domain.Orders.MobileDto;
 
 namespace App.Dashboard.Controllers.Api;
 
-public class OrderController : ShareController
+public class MobileOrderController : ShareController
 {
     #region ctor
     public IOderService _service { get; }
-    public OrderController(IOderService service)
+    public MobileOrderController(IOderService service)
     {
         _service = service;
     }
@@ -31,6 +31,11 @@ public class OrderController : ShareController
     [HttpGet]
     public async Task<IActionResult> Find([FromQuery] OrderFilter filter)
         => Ok(await _service.FindAsync<ListOrderDto>(filter));
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+        => Ok(await _service.GetByIdAsync<DetailsOrderDto>(id));
+
 
 
 

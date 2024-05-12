@@ -20,8 +20,15 @@ public class CurrentUserHelper : IAutoInjection, ICurrentUser
     {
         get
         {
-            var userId = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == nameof(User.Id))!.Value;
-            return int.TryParse(userId, out int parsedUserId) ? parsedUserId : 0;
+            try
+            {
+                var userId = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == nameof(User.Id))!.Value;
+                return int.TryParse(userId, out int parsedUserId) ? parsedUserId : 0;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 

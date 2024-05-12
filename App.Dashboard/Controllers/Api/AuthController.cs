@@ -3,7 +3,9 @@ using App.Domain.Users.Auths;
 
 namespace App.Dashboard.Controllers.Api;
 
-public class AuthController : ShareController
+[ApiController]
+[Route("api/[controller]/[action]")]
+public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
 
@@ -13,18 +15,13 @@ public class AuthController : ShareController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginRequest request)
+    public async Task<IActionResult> MobileLogin(LoginRequest request)
     {
         return Ok(await _authService.MobileLogin(request));
 
 
     }
 
-    [HttpGet]
-    public IActionResult Logout()
-    {
-        _authService.Logout();
-        return Ok();
-    }
+
 
 }

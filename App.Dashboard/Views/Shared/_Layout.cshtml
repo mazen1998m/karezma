@@ -33,7 +33,6 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     
 
-    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11"> *@
 
     <link href="~/pagescss/css/toastmessagecss.css" rel="stylesheet" />
     <link href="~/pagescss/layout/layout.css" rel="stylesheet" />
@@ -50,10 +49,66 @@
     }
 
 }
-@{
-    // Access UserName directly from the BaseController
-   
-}
+<style>
+    /* Base Style */
+    .custom-select2 {
+        /* position: relative; */
+        /* display: inline-block; */
+        background-color: transparent;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+        /* Hide default arrow */
+        /* .custom-select2 select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        } */
+
+        /* Arrow icon */
+        /* .custom-select2::after {
+            content: '\25BC'; 
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        } */
+
+        /* Hover effect */
+        /* .custom-select2:hover select {
+            border-color: #aaa;
+        } */
+
+        /* Focus effect */
+        /* .custom-select2 select:focus {
+            border-color: #555;
+        } */
+
+        /* Option styling */
+        .custom-select2  option {
+            /* background-color: #fff !important; */
+            background-color: transparent !important;
+            color: #502e90  !important;
+        }
+
+        /* Disabled state */
+        .custom-select2 select:disabled {
+            opacity: 0.6 !important; 
+            cursor: not-allowed !important;
+        }
+
+</style>
 <body id="page-top" style="background-color:#F8F9FC;">
 
     <!-- Page Wrapper -->
@@ -138,7 +193,7 @@
             <div id="content">
                 @if (controllerName == "Home")
                 {
-                    <nav class="navbar navbar-expand navbar-dark  topbar mb-4 static-top shadow custom-navbar-bg">
+                 @*    <nav class="navbar navbar-expand navbar-dark  topbar mb-4 static-top shadow custom-navbar-bg">
                         <a asp-action="Index" asp-controller="Home">
                             <img src="~/img/carismaLogo.svg" alt="" width="80px">
                         </a><!-- Sidebar Toggle (Topbar) -->
@@ -172,9 +227,7 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-
-                                    @*                                     <div class="dropdown-divider"></div>
-                                *@                                    <a class="dropdown-item" data-toggle="modal" style="cursor:pointer" data-target="#logoutModal">
+                                        <a class="dropdown-item" data-toggle="modal" style="cursor:pointer" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>
@@ -183,7 +236,74 @@
 
                         </ul>
 
+                    </nav> *@
+
+                    <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow custom-navbar-bg">
+                        
+                        <div class="row" style="margin-top:-15px;">
+                            <div class="col-1">
+                                <a asp-action="Index" asp-controller="Home" >
+                                    <img src="~/img/carismaLogo.svg" alt="" width="80px">
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <select id="languageSelector" class="custom-select2">
+                                    <option value="en">English</option>
+                                    <option value="ar">العربية</option>
+                                </select>
+                            </div>
+                            <div class="col-8">
+                                
+                            </div>
+                            <div class="col-1" style="margin-top: -10px;">
+                                <div class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="row">
+                                            <div class="col">
+                                                <img class="img-profile rounded-circle" src="~/img/user-icon.jpg" />
+                                            </div>
+                                            <div class="col">
+                                                <span class="small" style="color: #fff;">Admin</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" data-toggle="modal" style="cursor: pointer;" data-target="#logoutModal">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                           @*  <div class="col">
+
+                                <select id="languageSelector" class="form-select" style="height: 35px; margin-left: 33px; background-color: #502e90; border: 2px solid #fff; color: #fff; border-radius: 20px;">
+                                    <option value="en">English</option>
+                                    <option value="ar">العربية</option>
+                                </select>
+
+                            </div>
+                            <div class="col">
+                                <!-- Topbar Navbar -->
+                                <div class="row">
+                                    <div class="col">
+                                        <div style="border-right: 1px solid #e3e6f0;"></div>
+                                    </div>
+                                    <div class="col">
+                                        
+                                    </div>
+                                </div>
+
+                                <!-- Nav Item - User Information -->
+                            </div> *@
+                        </div>
+                        
+                        
+                        
+                        
                     </nav>
+
                 }
                 else
                 {
@@ -223,20 +343,7 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    @* <a class="dropdown-item" href="#" style="cursor:pointer">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                                </a>
-                                <a class="dropdown-item" href="#" style="cursor:pointer">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                                </a>
-                                <a class="dropdown-item" href="#" style="cursor:pointer">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                                </a> *@
-                                    @*                                     <div class="dropdown-divider"></div>
-                                *@                                    <a class="dropdown-item" href="#" style="cursor:pointer" data-toggle="modal" data-target="#logoutModal">
+                                        <a class="dropdown-item" href="#" style="cursor:pointer" data-toggle="modal" data-target="#logoutModal">
                                         <i style="cursor:pointer" class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>
@@ -333,10 +440,10 @@
                 $('[data-arabic]').each(function () {
                     $(this).text(selectedLanguage === 'ar' ? $(this).data('arabic') : $(this).data('english'));
                 });
-
+                
                 document.querySelectorAll(("input[placeholder-ar]"))
                     .forEach(element => {
-                        debugger;
+                        
                         element.placeholder = selectedLanguage === 'ar' ? element.getAttribute('placeholder-ar') : element.getAttribute('placeholder-en');
                     });
 

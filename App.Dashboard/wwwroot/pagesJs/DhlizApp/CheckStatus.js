@@ -62,29 +62,7 @@ function submitDeclineForm(id) {
 
 //------------------------------------------------------------------------
 
-console.log("test");
 
-
-//var totalPages = '@ViewBag.indexes';
-//var pageNumber = '@ViewBag.LastIndex';
-
-//updatePaginationBar(totalPages, pageNumber);
-
-//// Pagination options
-//const options = {
-//    dataSource: fetchData,
-//    pageSize: 10,
-//    callback: function (data, pagination) {
-//        console.log("Callback called");
-
-//    },
-//};
-
-
-
-
-//--------------------------------------------------------------------------------------------------
-// Function to update the pagination control bar
 function updatePaginationBar(totalPages, currentPage) {
     const paginationBar = document.getElementById('paginationBar');
     paginationBar.innerHTML = '';
