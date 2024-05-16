@@ -2,10 +2,8 @@
 using App.core.InjectionHelper;
 using App.Dashboard.Controllers;
 using App.Domain.Users.Dtos;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Muslim.HandelResult;
+
 
 namespace App.Dashboard.JwtServices;
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true, AllowMultiple = true)]

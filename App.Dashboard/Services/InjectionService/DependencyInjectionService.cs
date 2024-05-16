@@ -13,6 +13,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Muslim.Assembly.Helper;
 
+
 namespace App.Dashboard.Services.InjectionService;
 
 public static class DependencyInjectionService
