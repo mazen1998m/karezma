@@ -32,34 +32,56 @@
     </div>
 
     <div class="row" style="margin-bottom:15px;margin-top:50px;">
-        <div class="col col-3">
+        <div class="col col-2">
             <h5 style="display:inline"
                 data-arabic="عمولة المندوب :"
                 data-english="Salseman Commision :">
             </h5>
             <span style="color:darkgreen"> @Model.Response.Commision </span>
         </div>
-        <div class="col col-3">
-                <h5 
-                    style="display:inline"
-                    data-arabic="مجموع العمولات :"
-                    data-english="Total Commision :">
-                </h5>
-                <span
-                    style="color:darkgreen">
-                    @(Model.Response.Commision * Model.Response.Orders.Count)
-                </span>
-        </div>
-        <div class="col col-3">
+        <div class="col col-2">
             <h5 style="display:inline"
-                data-arabic="مجموع الطلبات :"
-                data-english="Total Orders :">
+                data-arabic="عدد الطلبات :"
+                data-english="Orders Count:">
             </h5>
             <span style="color:darkgreen">
                 @(Model.Response.Orders.Count)
             </span>
         </div>
-        <div class="col col-3" style="margin-bottom:10px; margin-top:-15px;">
+        <div class="col col-2">
+            <h5 style="display:inline"
+                data-arabic="عدد المنتجات :"
+                data-english="Products Count:">
+            </h5>
+            <span style="color:darkgreen">
+                @(Model.Response.Orders.Sum(x => x.Quantity))
+            </span>
+        </div>
+        <div class="col col-2">
+            <h5 style="display:inline"
+                data-arabic="إجمالي المبيعات:"
+                data-english="Total sales :">
+            </h5>
+            <span style="color:darkgreen">
+                @(Model.Response.Orders.Sum(x => x.Price).ToString("00.00"))
+            </span>
+        </div>
+        <div class="col col-2">
+                <h5 
+                    style="display:inline"
+                    data-arabic="العمولة المستحقة :"
+                    data-english="Commission due :">
+                </h5>
+                <span
+                    style="color:darkgreen">
+                    @(Model.Response.Commision * Model.Response.Orders.Sum(x=>x.Quantity))
+                </span>
+        </div>
+       
+     
+       
+       
+        <div class="col col-2" style="margin-bottom:10px; margin-top:-15px;">
             <button onclick="pay(@Model.Response.Id)" class="btn btn-lg new"
                     style="border:2px solid #502e90; color: white;width:150px; border-radius:20px ; ">
                 <span data-arabic="ادفع الان" data-english="Pay Now"></span>

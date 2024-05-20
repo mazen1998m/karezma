@@ -28,7 +28,7 @@
                         <span data-arabic="تفاصيل الطلب" data-english="Order Details"></span>
                     </h1>
                 </div>
-                <hr/>
+                <hr />
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800" style="margin: 10px;">
                         <i class="fa-solid fa-money-check" style="color: #e94e24;"></i>
@@ -43,38 +43,37 @@
                      style=" background-color: white; height:450px;  margin-left: 0!important; border-radius: 17px;">
 
 
-                     
+
                     <div class="row">
 
                         <div class="col" style="margin-top: 30px; margin-left: 10px;">
 
                             <div class="FullNameContainer MarginStyle">
                                 <span style="font-weight: bold;" data-arabic="اسم الزبون :" data-english="Customer Name :"></span>
-                                <span id="FullName">@data.Clint.Name</span>
-                                
+                                <span id="FullName">@(data != null ? data.Clint.Name : "")</span>
                             </div>
                             <div class="PhoneNumberContainer MarginStyle">
                                 <span style="font-weight: bold;" data-arabic="رقم الهاتف :" data-english="Phone Number :"></span>
                                 <span id="Phone">@data.Clint.Phone</span>
-                                
+
                             </div>
 
                             <div class="PhoneNumberContainer MarginStyle">
                                 <span style="font-weight: bold;" data-arabic="رقم الهاتف البديل :" data-english="Second Phone Number :"></span>
                                 <span id="SecandPhone">@data.Clint.SecandPhone</span>
-                                
-                                
+
+
                             </div>
-                           
+
                             <div class="PhoneNumberContainer MarginStyle">
                                 <span style="font-weight: bold;" data-arabic="الوزن :" data-english="Weight :"></span>
                                 <span id="Weight">@data.Clint.Weight</span>
-                                
+
                             </div>
                             <div class="PhoneNumberContainer MarginStyle">
                                 <span style="font-weight: bold;" data-arabic="ألطول :" data-english="Hight :"></span>
                                 <span id="Hight">@data.Clint.Hight</span>
-                                
+
                             </div>
                             <div class="PhoneNumberContainer MarginStyle">
                                 <span style="font-weight: bold;" data-arabic="الموقع :" data-english="Address :"></span>
@@ -101,7 +100,7 @@
                 <i class="fa-solid fa-money-check" style="color: #e94e24;"></i>
                 <span data-arabic="المنتجات" data-english="Products"></span>
             </h1>
-           
+
 
             <div class="container" style="max-width: 100% ; padding: 10px; background-color: white;">
                 @foreach (var item in data.Products)
@@ -109,8 +108,7 @@
 
                     <div class="row">
                         <div style="margin-top: 30px;">
-                            <img src="@item.Image"
-                                 alt="" style="border-radius: 17px; width:250px ;margin: 50px" />
+                            <img src="@("https://shawa7n.site/img/product-img/"+item.Image)" alt="" style="border-radius: 17px; width:250px ;margin: 50px" />
                         </div>
 
                         <div class="col" style="margin-top: 30px; margin-left: 10px;">
@@ -137,7 +135,7 @@
 
 
                         </div>
-                </div>
+                    </div>
 
                 }
             </div>
@@ -176,7 +174,7 @@
                 <div class="row">
                     <div class="col" style="margin-top: 30px; margin-left: 10px;">
                        @* print button *@
-                       <button class="btn btn-primary" style="margin: 10px;" onclick="PrintOrder()">
+                       <button class="btn btn-primary" style="margin: 10px;" onclick="PrintOrder(@data.Barcode)">
                             <i class="fa-solid fa-print" style="color: white;"></i>
                             <span data-arabic="طباعة" data-english="Print"></span>
                         </button>
@@ -310,10 +308,6 @@
 
                     <div class="row">
                         <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
-                            <span data-arabic="العنوان" data-english="Address:"></span>
-                            <span>@data.Address</span>
-                        </div>
-                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
                             <span data-arabic="اسم المندوب:" data-english="Salesman Name:"></span>
                             <span>@data.SalesmanName </span>
                         </div>
@@ -322,10 +316,6 @@
                         <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
                             <span data-arabic="العنوان" data-english="Address:"></span>
                             <span>@data.Address</span>
-                        </div>
-                        <div style="margin-bottom:15px;border-bottom:solid 2px gray;">
-                            <span data-arabic="اسم المندوب:" data-english="Salesman Name:"></span>
-                            <span>@data.SalesmanName </span>
                         </div>
                     </div>
                 </div>
@@ -449,7 +439,7 @@
 
 
 
-<script src="~/pagesjs/managestock/customeroperations.js"></script>
+@* <script src="~/pagesjs/managestock/customeroperations.js"></script> *@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.3/JsBarcode.all.min.js"></script>
 
 <script>
@@ -484,7 +474,9 @@
         });
     }
     
-    function PrintOrder() {
+    function PrintOrder(barcodeNumber) {
+        generateBarcode(barcodeNumber);
+
         var printContent = document.getElementById('customPrintContent').innerHTML;
         var originalContent = document.body.innerHTML;
         document.body.innerHTML = printContent;
@@ -497,19 +489,7 @@
     }
 
     // Call the function with your number
-    generateBarcode("1234567890");
-
-    //change dir when change lang
-    // $(document).ready(function () {
-    //     if (localStorage.getItem('lang') == 'ar') {
-    //         $('body').css('direction', 'rtl');
-    //         $('body').css('text-align', 'right');
-    //     }
-    //     else {
-    //         $('body').css('direction', 'ltr');
-    //         $('body').css('text-align', 'left');
-    //     }
-    // });
+    
 
 </script>
 

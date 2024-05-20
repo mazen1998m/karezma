@@ -1,6 +1,5 @@
 using App.Dashboard.Services.InjectionService;
 using App.Data.EFCore;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,12 +39,12 @@ app.UseSession();
 app.UseMiddleware<JwtSessionMiddleware>();
 app.UseAuthentication(); // This should come before UseAuthorization
 app.UseAuthorization();
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(
-                      Path.Combine(Directory.GetCurrentDirectory(), "Documents")),
-    RequestPath = "/Documents"
-});
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(
+//                      Path.Combine(Directory.GetCurrentDirectory(), "Documents")),
+//    RequestPath = "/Documents"
+//});
 app.MapControllerRoute(
     name: "default",
 

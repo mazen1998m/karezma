@@ -43,10 +43,17 @@ public class JwtService
     }
 
     private static IEnumerable<Claim> GetUserAsClaim(LoginResponse user)
-    => new[]
+    {
+        try
         {
-            new Claim(nameof(User.Id), user.Id.ToString()),
-        };
+            var claim = new[] { new Claim(nameof(User.Id), user.Id.ToString()), };
+            return claim;
+        }
+        catch (Exception)
+        {
+            return new List<Claim>();
+        }
+    }
 
 
     public void SetToken(LoginResponse user)

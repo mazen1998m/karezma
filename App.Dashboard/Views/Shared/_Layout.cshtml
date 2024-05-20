@@ -55,47 +55,13 @@
         /* position: relative; */
         /* display: inline-block; */
         background-color: transparent;
-        border: 1px solid #ccc;
+        border: 1px solid #502e90;
         border-radius: 5px;
         padding: 10px;
         cursor: pointer;
-        color: #fff;
+        color: #502e90;
     }
 
-        /* Hide default arrow */
-        /* .custom-select2 select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-color: transparent;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-            cursor: pointer;
-        } */
-
-        /* Arrow icon */
-        /* .custom-select2::after {
-            content: '\25BC'; 
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            pointer-events: none;
-        } */
-
-        /* Hover effect */
-        /* .custom-select2:hover select {
-            border-color: #aaa;
-        } */
-
-        /* Focus effect */
-        /* .custom-select2 select:focus {
-            border-color: #555;
-        } */
-
-        /* Option styling */
         .custom-select2  option {
             /* background-color: #fff !important; */
             background-color: transparent !important;
@@ -108,6 +74,67 @@
             cursor: not-allowed !important;
         }
 
+</style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: currentcolor;
+        padding: 10px;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            margin-top: 2px;
+            margin-left: -67px;
+            margin-right: -90px;
+        }
+
+            .navbar .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .navbar .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .navbar .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .navbar .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+    }
+
+        .user-profile img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
 </style>
 <body id="page-top" style="background-color:#F8F9FC;">
 
@@ -133,14 +160,14 @@
                     <hr class="sidebar-divider my-0" />
  
                     <li class="nav-item bgDarkItem">
-                       <a class="nav-link" asp-controller="Representative" asp-action="Index">
+                       <a  asp-controller="Representative" asp-action="Index">
                           <i class="fa-solid fa-magnifying-glass" style="color: #e94e24 "></i>
                            <span  data-english="Salesmen Managment" data-arabic="إدارة المندوبين"></span>
                        </a>
                     </li>
 
                     <li class="nav-item bgDarkItem">
-                        <a class="nav-link" asp-controller="Representative" asp-action="Create">
+                        <a  asp-controller="Representative" asp-action="Create">
                             <i class="fa-solid fa-user-plus" style="color: #e94e24"></i>
                                     <span  data-english="Add Salesmen" data-arabic="إضافة المندوب"></span>
                         </a>
@@ -193,167 +220,60 @@
             <div id="content">
                 @if (controllerName == "Home")
                 {
-                 @*    <nav class="navbar navbar-expand navbar-dark  topbar mb-4 static-top shadow custom-navbar-bg">
-                        <a asp-action="Index" asp-controller="Home">
-                            <img src="~/img/carismaLogo.svg" alt="" width="80px">
-                        </a><!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
+                    <nav class="navbar" style="background-color:#502e90">
 
-
-                        <select id="languageSelector" class="form-select" style="height: 35px;
-                                                               margin-left: 33px;
-                                                               background-color: #502e90;
-                                                                 border: 2px solid #fff;
-                                                                 color: #fff;
-                                                                 border-radius: 20px;">
-                            <option value="en">English</option>
-                            <option value="ar">العربية</option>
-                        </select>
-
-                        <!-- Topbar Navbar -->
-                        <ul class="navbar-nav ml-auto ">
-
-                            <div class="topbar-divider d-none d-sm-block "></div>
-
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline  small" style="color: #fff;">Admin</span>
-                                    <img class="img-profile rounded-circle" src="~/img/user-icon.jpg" />
+                        <div class="dropdown" style="display: flex; justify-content: space-between;">
+                            <div class="col-1">
+                                <a asp-action="Index" asp-controller="Home">
+                                    <img src="~/img/carismaLogo.svg" alt="" width="80px">
                                 </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                     aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" data-toggle="modal" style="cursor:pointer" data-target="#logoutModal">
+                            </div>
+                            <select id="languageSelector" class="custom-select2" style="color:white;border-color:white;">
+                                <option value="en">English</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                        </div>
+                        <div class="user-profile">
+                            <img src="~/img/user-icon.jpg" width="40" height="40">
+                            <div class="dropdown">
+                                <button class="dropbtn" style="background:none;border:none;color:white;">Khaled</button>
+                                <div class="dropdown-content">
+                                    <a href="#">Change Password</a>
+                                    <a class="dropdown-item" data-toggle="modal" style="cursor: pointer;" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>
                                 </div>
-                            </li>
-
-                        </ul>
-
-                    </nav> *@
-
-                    <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow custom-navbar-bg">
-                        
-                        <div class="row" style="margin-top:-15px;">
-                            <div class="col-1">
-                                <a asp-action="Index" asp-controller="Home" >
-                                    <img src="~/img/carismaLogo.svg" alt="" width="80px">
-                                </a>
                             </div>
-                            <div class="col-2">
-                                <select id="languageSelector" class="custom-select2">
-                                    <option value="en">English</option>
-                                    <option value="ar">العربية</option>
-                                </select>
-                            </div>
-                            <div class="col-8">
-                                
-                            </div>
-                            <div class="col-1" style="margin-top: -10px;">
-                                <div class="nav-item dropdown no-arrow">
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <div class="row">
-                                            <div class="col">
-                                                <img class="img-profile rounded-circle" src="~/img/user-icon.jpg" />
-                                            </div>
-                                            <div class="col">
-                                                <span class="small" style="color: #fff;">Admin</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <!-- Dropdown - User Information -->
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" data-toggle="modal" style="cursor: pointer;" data-target="#logoutModal">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Logout
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                           @*  <div class="col">
-
-                                <select id="languageSelector" class="form-select" style="height: 35px; margin-left: 33px; background-color: #502e90; border: 2px solid #fff; color: #fff; border-radius: 20px;">
-                                    <option value="en">English</option>
-                                    <option value="ar">العربية</option>
-                                </select>
-
-                            </div>
-                            <div class="col">
-                                <!-- Topbar Navbar -->
-                                <div class="row">
-                                    <div class="col">
-                                        <div style="border-right: 1px solid #e3e6f0;"></div>
-                                    </div>
-                                    <div class="col">
-                                        
-                                    </div>
-                                </div>
-
-                                <!-- Nav Item - User Information -->
-                            </div> *@
                         </div>
-                        
-                        
-                        
-                        
-                    </nav>
 
+                    </nav>
                 }
                 else
                 {
-                    <!-- Topbar -->
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <a asp-action="Index" asp-controller="Home">
-                            <i class="fa-solid fa-house-chimney fa-xl" style="color: #502e90;"></i>
-                        </a>
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-
-
-                        <select id="languageSelector" class="form-select" style="height: 35px;
-                                                               margin-left: 33px;
-                                                               background-color: #fff;
-                                                                 border: 2px solid #502e90;
-                                                                 color: #502e90;
-                                                                 border-radius: 20px;">
-                            <option value="en">English</option>
-                            <option value="ar">العربية</option>
-                        </select>
-
-                        <!-- Topbar Navbar -->
-                        <ul class="navbar-nav ml-auto">
-
-                            <div class="topbar-divider d-none d-sm-block"></div>
-
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                    <img class="img-profile rounded-circle" src="~/img/user-icon.jpg" />
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                     aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#" style="cursor:pointer" data-toggle="modal" data-target="#logoutModal">
-                                        <i style="cursor:pointer" class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <nav class="navbar">
+                        <div class="dropdown">
+                            <select id="languageSelector" class="custom-select2" >
+                                <option value="en">English</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                        </div>
+                        <div class="user-profile">
+                            <img src="~/img/user-icon.jpg"  width="40" height="40">
+                            <div class="dropdown">
+                                <button class="dropbtn" style="background:none;border:none;">Khaled</button>
+                                <div class="dropdown-content">
+                                    <a href="#">Change Password</a>
+                                    <a class="dropdown-item" data-toggle="modal" style="cursor: pointer;" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>
                                 </div>
-                            </li>
-
-                        </ul>
-
+                            </div>
+                        </div>
+                        
                     </nav>
-                    <!-- End of Topbar -->
+
                 }
 
                 @RenderBody()

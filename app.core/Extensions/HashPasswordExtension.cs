@@ -15,6 +15,7 @@ public static class HashPasswordExtension
             {
                 builder.Append(bytes[i].ToString("x2"));
             }
+            var x = builder.ToString();
             return builder.ToString();
         }
     }
