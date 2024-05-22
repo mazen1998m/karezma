@@ -12,7 +12,7 @@ public class ApiController<TEntity, TCreateDto, TShowDto> : BaseController<TEnti
     {
     }
 
-    [HttpGet/*, Permissions*/]
+    [HttpGet/*, Permissions* /]
     public virtual async Task<IActionResult> Get(int id)
         => Ok(await _service.GetByIdAsync<TShowDto>(id));
 
