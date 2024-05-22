@@ -36,6 +36,10 @@ public class MobileOrderController : ShareController
     public async Task<IActionResult> Details(int id)
         => Ok(await _service.GetByIdAsync<DetailsOrderDto>(id));
 
+    [HttpGet]
+    public async Task<IActionResult> Update(int id)
+       => Ok(await _service.GetByIdAsync<Domain.Orders.Dtos.UpdateOrderDto>(id));
+
 
 
 

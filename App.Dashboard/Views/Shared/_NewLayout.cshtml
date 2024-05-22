@@ -1,0 +1,72 @@
+﻿@using App.Dashboard.Controllers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/nav.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78i5lH5l2r4XVJvZv6yZ5qD1z7e9/6zv + 1Jq4z4tF2k4Gg2j + 8kZlZ" crossorigin="anonymous"> 
+
+
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+
+            <div id="nav-bar">
+                <input id="nav-toggle" type="checkbox" />
+                <div id="nav-header">
+                    <a id="nav-title" href="https://codepen.io" target="_blank">C<i class="fab fa-codepen"></i>DEPEN</a>
+                    <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+                    <hr />
+                </div>
+                <div id="nav-content">
+                    <div class="nav-button"><i class="fas fa-palette"></i><span>Your Work</span></div>
+                    <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
+                    <div class="nav-button"><i class="fas fa-thumbtack"></i><span>Pinned Items</span></div>
+                    <hr />
+                    <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
+                    <div class="nav-button"><i class="fas fa-chart-line"></i><span>Trending</span></div>
+                    <div class="nav-button"><i class="fas fa-fire"></i><span>Challenges</span></div>
+                    <div class="nav-button"><i class="fas fa-magic"></i><span>Spark</span></div>
+                    <hr />
+                    <div class="nav-button"><i class="fas fa-gem"></i><span>Codepen Pro</span></div>
+                    <div id="nav-content-highlight"></div>
+                </div>
+                <input id="nav-footer-toggle" type="checkbox" />
+                <div id="nav-footer">
+                    <div id="nav-footer-heading">
+                        <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547" /></div>
+                        <div id="nav-footer-titlebox"><a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank">uahnbu</a><span id="nav-footer-subtitle">Admin</span></div>
+                        <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+                    </div>
+                    <div id="nav-footer-content">
+                        <Lorem>ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Lorem>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        </body>
+
+        <footer>
+            <p>&copy; 2017 - App.Dashboard</p>
+        </footer>
+        
+@* bootstrap 5*@
+        
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
+        <script>
+
+        </script>
+
+</html>

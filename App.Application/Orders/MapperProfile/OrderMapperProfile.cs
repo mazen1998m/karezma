@@ -66,6 +66,7 @@ public class OrderMapperProfile : Profile
             .ForMember(dest => dest.OrderStatus, opt => opt.Ignore())
             //check if we need to reblace the barcode
             .ReverseMap()
+            .ForMember(s => s.Products, opt => opt.MapFrom(d => d.OrderProducts))
             ;
 
         #endregion
