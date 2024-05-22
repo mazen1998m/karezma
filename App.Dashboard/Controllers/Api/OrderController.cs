@@ -15,7 +15,7 @@ public class MobileOrderController : ShareController
     #endregion
 
 
-    [HttpDelete]
+    [HttpPost]
     public async Task<IActionResult> Delete(int id)
         => Ok(await _service.SoftDeleteByIdAsync<DetailsOrderDto>(id));
 
@@ -24,7 +24,7 @@ public class MobileOrderController : ShareController
     public async Task<IActionResult> Create(Domain.Orders.Dtos.CreateOrderDto dto)
         => Ok(await _service.CreateAsync(dto));
 
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> Update(Domain.Orders.Dtos.UpdateOrderDto dto)
         => Ok(await _service.UpdateAsync(dto));
 
