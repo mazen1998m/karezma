@@ -37,18 +37,12 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseMiddleware<JwtSessionMiddleware>();
-app.UseAuthentication(); // This should come before UseAuthorization
+app.UseAuthentication();
 app.UseAuthorization();
-//app.UseStaticFiles(new StaticFileOptions
-//{
-//    FileProvider = new PhysicalFileProvider(
-//                      Path.Combine(Directory.GetCurrentDirectory(), "Documents")),
-//    RequestPath = "/Documents"
-//});
+
 app.MapControllerRoute(
     name: "default",
 
-//pattern: "{controller=Warehouse}/{action=Index}/{id?}");
 pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();

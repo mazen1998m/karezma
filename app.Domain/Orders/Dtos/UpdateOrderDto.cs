@@ -1,4 +1,5 @@
 ﻿using App.Domain.Clints.Dtos;
+using App.Domain.Enums;
 using App.Domain.OrderProducts.Dtos;
 
 namespace App.Domain.Orders.Dtos;
@@ -10,5 +11,9 @@ public class UpdateOrderDto : Dto
     public string Notes { get; set; }
     public decimal DeliveryFare { get; set; }
     public decimal? Discount { get; set; }
+    public int RepresentativeId { get; set; }
+    public OrderStatus OrderStatus { get; set; }
+
+
     public List<UpdateOrderProductDto> Products { get; set; }
 }

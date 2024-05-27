@@ -11,7 +11,7 @@ public class UpdateClintDtoValidator : AbstractValidator<UpdateClintDto>
 
         #region Id
 
-        RuleFor(x => x.Id).Must(CanUpdate).WithMessage(ClintErrorMessage.CanNotUpdate);
+        //RuleFor(x => x.Id).Must(CanUpdate).WithMessage(ClintErrorMessage.CanNotUpdate);
 
         #endregion
         #region Name
@@ -63,14 +63,14 @@ public class UpdateClintDtoValidator : AbstractValidator<UpdateClintDto>
 
     }
 
-    public bool CanUpdate(int id)
-    {
-        var repository = _repository.Inject();
-        var orderStatus = repository.FirstOrDefault(x => x.Id == id, c => c.Order.OrderStatus);
-        if (orderStatus == OrderStatus.Pending || orderStatus == OrderStatus.Reject)
-        {
-            return false;
-        }
-        return true;
-    }
+    //public bool CanUpdate(int id)
+    //{
+    //    var repository = _repository.Inject();
+    //    var orderStatus = repository.FirstOrDefault(x => x.Id == id, c => c.Order.OrderStatus);
+    //    if (orderStatus == OrderStatus.Pending || orderStatus == OrderStatus.Reject)
+    //    {
+    //        return true;
+    //    }
+    //    return false;
+    //}
 }

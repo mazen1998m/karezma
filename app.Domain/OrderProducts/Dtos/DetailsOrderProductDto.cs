@@ -8,4 +8,6 @@ public class DetailsOrderProductDto : Dto
     public string Notes { get; set; }
     public decimal Price { get; set; }
     public string Model { get; set; }
+    public int ProductId { get; set; }
 }
+

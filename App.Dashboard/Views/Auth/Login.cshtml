@@ -3,12 +3,18 @@
 @{
     ViewData["Title"] = "Login";
     Layout = "_LayoutLogin";
-
-    // Check if there is an authentication error message
     string errorMessage = ViewBag.ErrorMessage as string;
 }
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
-<form class="user" asp-action="Login">
+
+
+
+<form class="user" asp-action="Login" style="width: 60%;">
+    
+    <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4"
+            data-arabic="! اهلا بك " data-english="Welcome Back!"></h1>
+    </div>
     @if (!string.IsNullOrEmpty(errorMessage))
     {
         <div class="alert alert-danger" role="alert">
@@ -39,7 +45,7 @@
             required>
     </div>
     
-    <button type="submit" class="btn  btn-user btn-block new" style="width:345px;border:2px solid #502e90">
+    <button type="submit" class="btn  btn-user btn-block new" style="width:100%;border:2px solid #502e90">
         <span data-arabic="تسجيل الدخول" data-english="Login"></span>
     </button>
 </form>

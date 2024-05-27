@@ -26,7 +26,7 @@ public class MobileOrderController : ShareController
 
     [HttpPost]
     public async Task<IActionResult> Update(Domain.Orders.Dtos.UpdateOrderDto dto)
-        => Ok(await _service.UpdateAsync(dto));
+        => Ok(await _service.UpdateOrderAsync(dto));
 
     [HttpGet]
     public async Task<IActionResult> Find([FromQuery] OrderFilter filter)

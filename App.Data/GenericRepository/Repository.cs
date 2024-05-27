@@ -138,6 +138,19 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
         }
         return default!;
     }
+
+    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> condition)
+    {
+        try
+        {
+            return await Table.AsNoTracking().Where(condition).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            //look at this
+        }
+        return default!;
+    }
     public async Task<List<TMap>> GetAllAsync<TMap>() where TMap : IDto
     {
         try
@@ -472,7 +485,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.Where(condition).Select(selector).FirstOrDefaultAsync())!;
+            return (await Table.AsNoTracking().Where(condition).Select(selector).FirstOrDefaultAsync())!;
         }
         catch (Exception e)
         {
@@ -1574,7 +1587,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            var auditable = await Table.Select(x => new Auditable
+            var auditable = await Table.AsNoTracking().Select(x => new Auditable
             {
                 Id = x.Id,
                 CreatedBy = x.CreatedBy,
@@ -1866,6 +1879,7 @@ public interface IRepository<TEntity> : IAutoInjection
     List<TMap> GetAll<TMap>() where TMap : IDto;
 
     Task<List<TEntity>> GetAllAsync();
+    Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> condition);
     Task<List<TMap>> GetAllAsync<TMap>() where TMap : IDto;
 
 

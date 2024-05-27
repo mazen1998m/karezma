@@ -1,14 +1,20 @@
-﻿using App.Domain.Orders;
+﻿using App.Domain.OrderProducts;
+using App.Domain.Orders;
+using App.Domain.Orders.Dtos;
 
 namespace App.Application.Orders;
 
 internal class OrderService : Service<Order>, IOderService
 {
     private readonly IRepository<Order> _repository;
+    private readonly IRepository<OrderProduct> _orderProductRepository;
+    private readonly IMapper _mapper;
 
-    public OrderService(IRepository<Order> repository) : base(repository)
+    public OrderService(IRepository<Order> repository, IRepository<OrderProduct> orderProductRepository, IMapper mapper) : base(repository)
     {
         this._repository = repository;
+        _orderProductRepository = orderProductRepository;
+        _mapper = mapper;
     }
 
 
@@ -39,10 +45,29 @@ internal class OrderService : Service<Order>, IOderService
 
     }
 
+    public async Task<Result<UpdateOrderDto>> UpdateOrderAsync(UpdateOrderDto dto)
+    {
+        try
+        {
+            var r = (await _repository.FirstOrDefaultAsync(x => x.Id == dto.Id, s => new { dto.Id, s.RepresentativeId, s.OrderStatus }));
+            var oldOrderProduct = await _orderProductRepository.GetAllAsync(x => x.OrderId == dto.Id);
+            _ = _orderProductRepository.SaveDeleteRangeAsync(oldOrderProduct);
+            dto.RepresentativeId = r.RepresentativeId;
+            dto.OrderStatus = r.OrderStatus;
+
+            return await base.UpdateAsync(dto);
+        }
+        catch (Exception)
+        {
+            return default;
+        }
+    }
+
 
 }
 
 public interface IOderService : IService<Order>
 {
     Task<OrderStatus> ChangeStatus(int id, OrderStatus status);
+    Task<Result<UpdateOrderDto>> UpdateOrderAsync(UpdateOrderDto dto);
 }

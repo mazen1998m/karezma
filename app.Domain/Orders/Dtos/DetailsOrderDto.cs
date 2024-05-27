@@ -9,7 +9,6 @@ public class DetailsOrderDto : Dto
     public DetailsClintDto Clint { get; set; }
     public string Address { get; set; }
     public string Notes { get; set; }
-
     public List<DetailsOrderProductDto> Products { get; set; }
     public decimal TotalPrice { get; set; }
     public string Barcode { get; set; }//hidin input
@@ -18,6 +17,5 @@ public class DetailsOrderDto : Dto
     public string Title { get; set; }
     public decimal Discount { get; set; }
     public string SalesmanName { get; set; }
-
 
 }

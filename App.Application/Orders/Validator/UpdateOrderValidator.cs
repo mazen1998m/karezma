@@ -48,8 +48,8 @@ public class UpdateOrderValidator : AbstractValidator<UpdateOrderDto>
         var orderStatus = repository.FirstOrDefault(x => x.Id == id, c => c.OrderStatus);
         if (orderStatus == OrderStatus.Pending || orderStatus == OrderStatus.Reject)
         {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

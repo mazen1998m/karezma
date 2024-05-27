@@ -145,7 +145,7 @@
         <div id="navbar" @if (controllerName == "Home") { <text>style="display:none;"</text> }>
 
 
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" style="height: 120rem; background-color: #502e90; background-image: linear-gradient(180deg, #502e90 10%, #502e90 10%, #502e90 100%) !important;" id="accordionSidebar">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" style="height: 100%;margin:0px;padding:0px; background-color: #502e90; background-image: linear-gradient(180deg, #502e90 10%, #502e90 10%, #502e90 100%) !important;" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="Index" asp-controller="Home"
@@ -160,14 +160,14 @@
                     <hr class="sidebar-divider my-0" />
  
                     <li class="nav-item bgDarkItem">
-                       <a  asp-controller="Representative" asp-action="Index">
+                           <a class="nav-link"  asp-controller="Representative" asp-action="Index">
                           <i class="fa-solid fa-magnifying-glass" style="color: #e94e24 "></i>
                            <span  data-english="Salesmen Managment" data-arabic="إدارة المندوبين"></span>
                        </a>
                     </li>
 
                     <li class="nav-item bgDarkItem">
-                        <a  asp-controller="Representative" asp-action="Create">
+                            <a class="nav-link" asp-controller="Representative" asp-action="Create">
                             <i class="fa-solid fa-user-plus" style="color: #e94e24"></i>
                                     <span  data-english="Add Salesmen" data-arabic="إضافة المندوب"></span>
                         </a>

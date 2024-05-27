@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html style="height:100%">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
@@ -16,56 +16,64 @@
 
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+        .left-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1A0F2E;
+            height: 100vh; /* Optional: sets the height to fill the viewport */
+        }
+
+        .right-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Optional: sets the height to fill the viewport */
+        }
+
+        img {
+            max-width: 100%; /* Optional: ensures the image scales responsively */
+            height: auto; /* Optional: maintains aspect ratio */
+        }
+    </style>
 </head>
-<body class="bg-gradient-primary">
-    <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image" style="padding: 107px; background-color:#1A0F2E;">
-                                <img src="~/img/carismaLogo.svg" style=" margin: -44px;" />
-                                </div>
-                            <div class="col-lg-6">
-                                <select id="languageSelector" class="form-select" style="
-                                                        margin-left: 310px;
-                                                        border: 2px solid #502e90;
-                                                        padding: 7px 20px;
-                                                        margin-top: 10px;
-                                                        color: #502e90;
-                                                        border-radius: 20px;
-                                                                    ">
-                                    <option value="en">English</option>
-                                    <option value="ar">العربية</option>
-                                </select>
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"
-                                            data-arabic="! اهلا بك " data-english="Welcome Back!"></h1>
-                                    </div>
-                                    <div>
-                                        @RenderBody()
-                                    </div>
-                                    <hr style="margin-bottom: 150px;">
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
+<body >
+              
+    <div class="row" style="height:100%">
+        <div class="col-lg-5 left-side">
+            <img src="~/img/carismaLogo.svg"  />
         </div>
-
+        
+        <div class="col-lg-7">
+            <select id="languageSelector" class="form-select" style="
+            /* margin-left: 310px; */
+            border: 2px solid #502e90;
+            padding: 7px 20px;
+            margin-top: 10px;
+            color: #502e90;
+            border-radius: 20px;
+            ">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            </select>
+            <div class=" right-side">
+                @RenderBody()
+            <div>
+           
+        </div>
+        @* <hr style="margin-bottom: 100%;"> *@
+        
+        
+        </div>
+        </div>
     </div>
+               
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="~/vendor/jquery/jquery.min.js"></script>
