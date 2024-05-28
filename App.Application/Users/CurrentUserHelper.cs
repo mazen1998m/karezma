@@ -83,6 +83,7 @@ public class CurrentUserHelper : IAutoInjection, ICurrentUser
             }
         }
     }
+
     public string Email
     {
         get
@@ -129,6 +130,23 @@ public class CurrentUserHelper : IAutoInjection, ICurrentUser
             ClientInfo clientInfo = uaParser.Parse(userAgent);
             var browserName = clientInfo.UA.Family;
             return browserName;
+        }
+    }
+
+    public string DeviceToken
+    {
+        get
+        {
+            try
+            {
+                _service = _service.Inject();
+                var DeviceToken = _service.Find(x => x.Id == UserId, x => new { x.Id, x.DeviceToken }).Response.FirstOrDefault().DeviceToken.ToString();
+                return DeviceToken;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
     }
 

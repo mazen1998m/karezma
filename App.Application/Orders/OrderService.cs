@@ -1,6 +1,8 @@
-﻿using App.Domain.OrderProducts;
+﻿using App.Application.Notifications;
+using App.Domain.OrderProducts;
 using App.Domain.Orders;
 using App.Domain.Orders.Dtos;
+using App.Domain.Representatives;
 
 namespace App.Application.Orders;
 
@@ -8,15 +10,37 @@ internal class OrderService : Service<Order>, IOderService
 {
     private readonly IRepository<Order> _repository;
     private readonly IRepository<OrderProduct> _orderProductRepository;
-    private readonly IMapper _mapper;
 
-    public OrderService(IRepository<Order> repository, IRepository<OrderProduct> orderProductRepository, IMapper mapper) : base(repository)
+    public IRepository<Representative> _representativeRepository { get; }
+    private INotificationService _notification { get; }
+    public ICurrentUser _currentUser { get; }
+
+    public OrderService(
+        IRepository<Order> repository,
+        IRepository<OrderProduct> orderProductRepository,
+        IRepository<Representative> representativeRepository,
+        INotificationService notification,
+        ICurrentUser currentUser
+        ) : base(repository)
     {
         this._repository = repository;
         _orderProductRepository = orderProductRepository;
-        _mapper = mapper;
+        _representativeRepository = representativeRepository;
+        _notification = notification;
+        _currentUser = currentUser;
     }
 
+
+    public override async Task<Result<TMap>> CreateAsync<TMap>(TMap dto)
+    {
+        var result = await base.CreateAsync(dto);
+        if (result.IsSuccess)
+        {
+            var adminDeviceToken = "";//must find admin DeviceToken
+            await _notification.PushNotification("create new order", adminDeviceToken, "create new order");
+        }
+        return result;
+    }
 
     public async Task<OrderStatus> ChangeStatus(int id, OrderStatus status)
     {
@@ -25,6 +49,9 @@ internal class OrderService : Service<Order>, IOderService
             var order = await _repository.GetByIdAsync(id);
             order.OrderStatus = status;
             await _repository.SaveUpdateAsync(order);
+
+            var representativeDeviceToken = (await _representativeRepository.FirstOrDefaultAsync(x => x.Id == order.RepresentativeId, s => new { s.Id, DeviceToken = s.UserInfo.DeviceToken })).DeviceToken;
+            await _notification.PushNotification($"oreder {order.Id} is {order.OrderStatus.ToString()}", representativeDeviceToken, order.OrderStatus.ToString());
             return order.OrderStatus;
         }
         catch (Exception ex)
