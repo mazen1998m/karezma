@@ -2,12 +2,16 @@
 using Google.Apis.Auth.OAuth2;
 namespace App.Application.Notifications;
 using FirebaseAdmin.Messaging;
+using System.Collections.Generic;
+
 internal class NotificationService : INotificationService
 {
     private static FirebaseApp app = FirebaseApp.Create(new AppOptions { Credential = GoogleCredential.FromFile("firebase.json") });
 
-    public async Task PushNotification(string body, string devicetoken, string title)
+    public async Task PushNotification(string body, string devicetoken, string title, string orderId = "0")
     {
+        var order = new Dictionary<string, string>();
+        order.Add("\"OrderId\"", orderId);
         var message = new Message
         {
             Notification = new Notification()
@@ -30,6 +34,7 @@ internal class NotificationService : INotificationService
                     ChannelId = "default_channel",
                 },
             },
+            Data = order,
 
             Token = devicetoken,
         };
@@ -37,6 +42,7 @@ internal class NotificationService : INotificationService
         var firebaseMessagingInstance = FirebaseMessaging.GetMessaging(app);
         await firebaseMessagingInstance.SendAsync(message).ConfigureAwait(false);
     }
+
 
     public async Task PushNotificationTopic(string body, string topic, string title, string image)
     {
@@ -74,7 +80,7 @@ internal class NotificationService : INotificationService
 
 public interface INotificationService : IAutoInjection
 {
-    Task PushNotification(string body, string devicetoken, string title);
+    Task PushNotification(string body, string devicetoken, string title, string orderId = "0");
     Task PushNotificationTopic(string body, string topic, string title, string image);
 }
 

@@ -1,8 +1,10 @@
 ﻿using App.Application.Notifications;
+using App.Domain.Notification;
 using App.Domain.OrderProducts;
 using App.Domain.Orders;
 using App.Domain.Orders.Dtos;
 using App.Domain.Representatives;
+using Microsoft.Extensions.Configuration;
 
 namespace App.Application.Orders;
 
@@ -10,16 +12,19 @@ internal class OrderService : Service<Order>, IOderService
 {
     private readonly IRepository<Order> _repository;
     private readonly IRepository<OrderProduct> _orderProductRepository;
-
+    private readonly IRepository<SystemNotification> _notificationrepository;
     public IRepository<Representative> _representativeRepository { get; }
     private INotificationService _notification { get; }
     public ICurrentUser _currentUser { get; }
+    private readonly IConfiguration _configuration;
+
 
     public OrderService(
         IRepository<Order> repository,
         IRepository<OrderProduct> orderProductRepository,
         IRepository<Representative> representativeRepository,
         INotificationService notification,
+        IRepository<SystemNotification> notificationrepository,
         ICurrentUser currentUser
         ) : base(repository)
     {
@@ -28,6 +33,8 @@ internal class OrderService : Service<Order>, IOderService
         _representativeRepository = representativeRepository;
         _notification = notification;
         _currentUser = currentUser;
+        _notificationrepository = notificationrepository;
+        _configuration = _configuration.Inject();
     }
 
 
@@ -36,8 +43,19 @@ internal class OrderService : Service<Order>, IOderService
         var result = await base.CreateAsync(dto);
         if (result.IsSuccess)
         {
-            var adminDeviceToken = "";//must find admin DeviceToken
-            await _notification.PushNotification("create new order", adminDeviceToken, "create new order");
+            try
+            {
+                await _notificationrepository.SaveCreateAsync(new SystemNotification
+                {
+                    Body = "تم اضافة طلب جديد",
+                    Title = $"{result.Response.Id} طلب رقم",
+                    Link = _configuration["Url"] + "Order/Details/" + result.Response.Id,
+                });
+
+            }
+            catch (Exception e)
+            {
+            }
         }
         return result;
     }
@@ -51,7 +69,7 @@ internal class OrderService : Service<Order>, IOderService
             await _repository.SaveUpdateAsync(order);
 
             var representativeDeviceToken = (await _representativeRepository.FirstOrDefaultAsync(x => x.Id == order.RepresentativeId, s => new { s.Id, DeviceToken = s.UserInfo.DeviceToken })).DeviceToken;
-            await _notification.PushNotification($"oreder {order.Id} is {order.OrderStatus.ToString()}", representativeDeviceToken, order.OrderStatus.ToString());
+            await _notification.PushNotification($"oreder {order.Id} is {order.OrderStatus.ToString()}", representativeDeviceToken, order.OrderStatus.ToString(), order.Id.ToString());
             return order.OrderStatus;
         }
         catch (Exception ex)
@@ -76,12 +94,13 @@ internal class OrderService : Service<Order>, IOderService
     {
         try
         {
+
             var r = (await _repository.FirstOrDefaultAsync(x => x.Id == dto.Id, s => new { dto.Id, s.RepresentativeId, s.OrderStatus }));
             var oldOrderProduct = await _orderProductRepository.GetAllAsync(x => x.OrderId == dto.Id);
             _ = _orderProductRepository.SaveDeleteRangeAsync(oldOrderProduct);
             dto.RepresentativeId = r.RepresentativeId;
             dto.OrderStatus = r.OrderStatus;
-
+            if (dto.OrderStatus == OrderStatus.Reject) dto.OrderStatus = OrderStatus.Pending;
             return await base.UpdateAsync(dto);
         }
         catch (Exception)

@@ -25,24 +25,24 @@
                   data-english="Order Managment"></span>
 
         </h1>
-        <div>
+        @* <div>
             <a href="#">
                 <i id="infoBtn" class="fa fa-info-circle" style="color:#502e90;"></i>
             </a>
-            <div id="infoPopup">On this page, the user can see all additional services and control them by adding a new additional service, modifying an existing additional service, deleting a additional service, or looking at the details of each additional service</div>
-        </div>
+            <div id="infoPopup">all</div>
+        </div> *@
     </div>
 
     <form asp-action="Index" method="get" id="searchForm">
         <div class="row" style="margin-left: 20px; margin: 10px;">
 
             <div class="col-2 ">
-                <input name="RepresentativeName"
+                <input name="ClintPhone"
                        class="form-control form-control-lg" 
                        type="text"
-                       placeholder-ar="إسم المندوب"
-                       placeholder-en="Salesman Name"
-                       aria-label="Representative Name"
+                       placeholder-ar="هاتف العميل"
+                       placeholder-en="Clint Phone"
+                       aria-label="Clint Phone"
                        style="border-radius: 17px; border: none;">
             </div>
             <div class="col-2 ">
@@ -123,6 +123,7 @@
             </div>
 
             <input type="hidden" name="PageIndex" id="pageIndex" value="1">
+
 
             <div class="col-2 ">
 
@@ -287,7 +288,7 @@
 {
     <script src="~/pagesjs/layout/toastmessagejs.js"></script>
 }
-@* <script src="~/pagesjs/permission/permissionindex.js"></script> *@
-@* <script src="~/pagesjs/publicjs/public.js"></script>
+<script src="~/pagesjs/permission/permissionindex.js"></script> 
+<script src="~/pagesjs/publicjs/public.js"></script>
 <script src="~/pagesjs/pagination/paginationjs.js"></script>
-<script src="~/pagesjs/publicjs/popup.js"></script> *@
+<script src="~/pagesjs/publicjs/popup.js"></script>

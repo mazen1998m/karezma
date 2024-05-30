@@ -793,6 +793,19 @@ public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity 
         }
     }
 
+    public virtual async Task<Result<TEntity>> DeleteByIdAsync(int id)
+    {
+        try
+        {
+            var dto = await _repository.SaveDeleteByIdAsync(id);
+            return Result<TEntity>.Success(dto);
+        }
+        catch (Exception e)
+        {
+            return Result<TEntity>.Exception(e);
+        }
+    }
+
     public virtual async Task<Result<IEnumerable<TMap>>> DeleteRangeAsync<TMap>(IEnumerable<TEntity> entities) where TMap : IDto
     {
         try
@@ -1451,6 +1464,9 @@ public interface IService<TEntity> : IAutoInjection where TEntity : Entity
 
     Task<Result<TMap>> DeleteAsync<TMap>(TEntity entity) where TMap : IDto;
     Task<Result<TMap>> DeleteByIdAsync<TMap>(int id) where TMap : IDto;
+
+    Task<Result<TEntity>> DeleteByIdAsync(int id);
+
 
     Task<Result<IEnumerable<TMap>>> DeleteRangeAsync<TMap>(IEnumerable<TEntity> entities)
         where TMap : IDto;

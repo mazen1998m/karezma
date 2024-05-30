@@ -47,6 +47,7 @@ public class JwtService
         try
         {
             var claim = new[] { new Claim(nameof(User.Id), user.Id.ToString()), };
+
             return claim;
         }
         catch (Exception)
