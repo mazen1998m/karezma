@@ -11,7 +11,7 @@ internal class NotificationService : INotificationService
     public async Task PushNotification(string body, string devicetoken, string title, string orderId = "0")
     {
         var order = new Dictionary<string, string>();
-        order.Add("\"OrderId\"", orderId);
+        order.Add("OrderId", orderId);
         var message = new Message
         {
             Notification = new Notification()

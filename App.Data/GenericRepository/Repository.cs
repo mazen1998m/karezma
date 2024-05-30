@@ -996,8 +996,9 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
             var entity = _mapper.Map<TEntity>(dto);
             entity.CreatedDate = DateTime.Now;
             entity.CreatedBy = _currentUser.UserId.ToString();
-            var result = _mapper.Map<TResult>((await Table.AddAsync(entity)).Entity);
+            var addEntity = (await Table.AddAsync(entity));
             Save();
+            var result = _mapper.Map<TResult>(addEntity.Entity);
             return result;
         }
         catch (Exception e)
