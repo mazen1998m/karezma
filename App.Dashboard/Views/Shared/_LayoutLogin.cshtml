@@ -16,7 +16,8 @@
 
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/password-toggle@1.0.0/dist/password-toggle.min.js"></script>
     <style>
         html, body {
             overflow: hidden;
@@ -78,6 +79,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <script src="d:\projects\karezma\project - copy\app.dashboard\wwwroot\js\languge.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -104,7 +106,9 @@
             });
 
             function changeLanguage() {
+               
                 const selectedLanguage = $('#languageSelector').val();
+
                 $('[data-arabic]').each(function () {
                     $(this).text(selectedLanguage === 'ar' ? $(this).data('arabic') : $(this).data('english'));
                 });
@@ -113,14 +117,42 @@
                     .forEach(element => {
                         element.placeholder = selectedLanguage === 'ar' ? element.getAttribute('placeholder-ar') : element.getAttribute('placeholder-en');
                     });
-
                 //add direction: rtl to body
                 if (selectedLanguage === 'ar') {
                     document.body.style.direction = 'rtl';
+                    updateEyeIconPosition(selectedLanguage)
                 } else {
                     document.body.style.direction = 'ltr';
                 }
+
+                updateEyeIconPosition(selectedLanguage)
+
+
             }
+            function updateEyeIconPosition(selectedLanguage) {
+                debugger
+                const togglePassword = $('#togglePassword');
+                const passwordField = $('#password');
+                if (selectedLanguage === 'ar') {
+                    togglePassword.css('left', '20px').css('right', '');
+                } else {
+                    togglePassword.css('right', '20px').css('left', '');
+                }
+            }
+
+         $('#togglePassword').click(function () {
+                const passwordField = $('#password');
+                const passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                }
+         });
+
+
         });
     </script>
 

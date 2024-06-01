@@ -14,6 +14,7 @@ public interface ICurrentUser : IAutoInjection
     string Email { get; }
     string Phone { get; }
     string UserType { get; }
+    bool IsAdmin { get; }
     string DeviceToken { get; }
 
 }

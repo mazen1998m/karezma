@@ -67,9 +67,13 @@ internal class OrderService : Service<Order>, IOderService
             var order = await _repository.GetByIdAsync(id);
             order.OrderStatus = status;
             await _repository.SaveUpdateAsync(order);
+            try
+            {
+                var representativeDeviceToken = (await _representativeRepository.FirstOrDefaultAsync(x => x.Id == order.RepresentativeId, s => new { s.Id, DeviceToken = s.UserInfo.DeviceToken })).DeviceToken;
+                await _notification.PushNotification($"oreder {order.Id} is {order.OrderStatus.ToString()}", representativeDeviceToken, order.OrderStatus.ToString(), order.Id.ToString());
+            }
+            catch (Exception) { }
 
-            var representativeDeviceToken = (await _representativeRepository.FirstOrDefaultAsync(x => x.Id == order.RepresentativeId, s => new { s.Id, DeviceToken = s.UserInfo.DeviceToken })).DeviceToken;
-            await _notification.PushNotification($"oreder {order.Id} is {order.OrderStatus.ToString()}", representativeDeviceToken, order.OrderStatus.ToString(), order.Id.ToString());
             return order.OrderStatus;
         }
         catch (Exception ex)
@@ -101,7 +105,27 @@ internal class OrderService : Service<Order>, IOderService
             dto.RepresentativeId = r.RepresentativeId;
             dto.OrderStatus = r.OrderStatus;
             if (dto.OrderStatus == OrderStatus.Reject) dto.OrderStatus = OrderStatus.Pending;
-            return await base.UpdateAsync(dto);
+            var result = await base.UpdateAsync(dto);
+            if (result.IsSuccess)
+            {
+                try
+                {
+                    await _notificationrepository.SaveCreateAsync(new SystemNotification
+                    {
+                        Body = "تم تعديل طلب",
+                        Title = $"{result.Response.Id} طلب رقم",
+                        Link = _configuration["Url"] + "Order/Details/" + result.Response.Id,
+                    });
+
+                }
+                catch (Exception e)
+                {
+                }
+
+
+
+            }
+            return result;
         }
         catch (Exception)
         {

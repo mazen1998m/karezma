@@ -403,6 +403,32 @@
     
     <script>
         $(document).ready(function () {
+
+            $('#togglePassword').click(function () {
+                const passwordField = $('#password');
+                const passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                }
+            });
+
+            $('#togglePassword2').click(function () {
+                const passwordField = $('#confirmPassword');
+                const passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType === 'confirmPassword') {
+                    passwordField.attr('type', 'text');
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                } else {
+                    passwordField.attr('type', 'confirmPassword');
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                }
+            });
+
+
             // Restore selected language from localStorage
             const savedLanguage = localStorage.getItem('selectedLanguage');
             if (savedLanguage) {
@@ -419,7 +445,8 @@
                 changeLanguage();
             });
 
-            function changeLanguage() {
+            function changeLanguage() 
+            {
                 const selectedLanguage = $('#languageSelector').val();
                 $('[data-arabic]').each(function () {
                     $(this).text(selectedLanguage === 'ar' ? $(this).data('arabic') : $(this).data('english'));
@@ -436,6 +463,29 @@
                     document.body.style.direction = 'rtl';
                 } else {
                     document.body.style.direction = 'ltr';
+                }
+
+                updateEyeIconPosition(selectedLanguage)
+            }
+
+            function updateEyeIconPosition(selectedLanguage) 
+            {
+                const togglePassword = $('#togglePassword');
+                const togglePassword2 = $('#togglePassword2');
+
+                const passwordField = $('#password');
+                const confirmPassword = $('#confirmPassword');
+
+                if (selectedLanguage === 'ar') {
+                    togglePassword.css('left', '20px').css('right', '');
+                } else {
+                    togglePassword.css('right', '20px').css('left', '');
+                }
+
+                if (selectedLanguage === 'ar') {
+                    togglePassword2.css('left', '20px').css('right', '');
+                } else {
+                    togglePassword2.css('right', '20px').css('left', '');
                 }
             }
         });
@@ -471,7 +521,7 @@
 
             fetchNotifications();
             // Set interval to fetch notifications every 10 seconds
-            setInterval(fetchNotifications, 10000);
+            setInterval(fetchNotifications, 10000); 
 
             $('#notificationDropdown').on('click', '.notification-item', function () {
                 var notificationId = $(this).data('id');
@@ -492,7 +542,22 @@
         });
 
     </script>
+    <script>
+        $('#generatePassword').click(function () {
+            $('#password').val(generatePassword());
+        });
 
+        function generatePassword() {
+            const length = 12;
+            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%^&*()_+~";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            return password;
+        }
+    </script>
 
 </body>
 

@@ -1,16 +1,18 @@
 ﻿@using App.Domain.Enums
+@using App.Domain.Orders
 @using App.Domain.Orders.Dtos
 @using App.core.Extensions
+@using App.core.Muslim.Result
 <link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
 <link href="~/pagescss/css/popup.css" rel="stylesheet" />
 
-@model Muslim.HandelResult.Result<List<ListOrderDto>>
+@model Result<List<ListOrderDto>>
 @{
     var data = Model.Response;
     var Page = Model.Response.Count==0 ? new() : Model.Page;
-    var pagenumber = ViewBag.Pageindex;
+    var filter = Model.Filter as OrderFilter;
 }
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -43,7 +45,8 @@
                        placeholder-ar="هاتف العميل"
                        placeholder-en="Clint Phone"
                        aria-label="Clint Phone"
-                       style="border-radius: 17px; border: none;">
+                       style="border-radius: 17px; border: none;"
+                       value="@filter.ClintPhone">
             </div>
             <div class="col-2 ">
                 <input name="Barcode"
@@ -52,55 +55,45 @@
                        placeholder-ar="الباركود"
                        placeholder-en="Barcode"
                        aria-label="Barcode"
-                       style="border-radius: 17px; border: none;">
+                       style="border-radius: 17px; border: none;"
+                       value="@filter.Barcode">
             </div>
             
             <div class="col-2 ">
+                <select name="Status"
+                        class="form-control form-control-lg"
+                        aria-label="Status"
+                        style="border-radius: 17px; border: none;">
+                    <option value=""
+                            selected="@(filter.Status == OrderStatus.non)"
+                            data-arabic="كل الحالات"
+                            data-english="All Status"></option>
+                    <option value="@OrderStatus.Pending"
+                            selected="@(filter.Status == OrderStatus.Pending)"
+                            data-arabic="قيد الانتظار"
+                            data-english="Pending">Pending</option>
+                    <option value="@OrderStatus.Accept"
+                            selected="@(filter.Status == OrderStatus.Accept)"
+                            data-arabic="مقبول"
+                            data-english="Accepted">Accept</option>
+                    <option value="@OrderStatus.Reject"
+                            selected="@(filter.Status == OrderStatus.Reject)"
+                            data-arabic="مرفوض"
+                            data-english="Rejected">Reject</option>
+                    <option value="@OrderStatus.Delivered"
+                            selected="@(filter.Status == OrderStatus.Delivered)"
+                            data-arabic="تم التوصيل"
+                            data-english="Delivered">Delivered</option>
+                    <option value="@OrderStatus.Revoke"
+                            selected="@(filter.Status == OrderStatus.Revoke)"
+                            data-arabic="مرتجع"
+                            data-english="Revoke">Revoke</option>
+                    <option value="@OrderStatus.Paid"
+                            selected="@(filter.Status == OrderStatus.Paid)"
+                            data-arabic="مدفوع"
+                            data-english="Paid">Paid</option>
+                </select>
 
-                    <select name="Status"
-                            class="form-control form-control-lg"
-                            aria-label="Status"
-                            style="border-radius: 17px; border: none;">
-                        <option 
-                            value="" 
-                            disabled 
-                            selected 
-                            data-arabic="الحالة" 
-                            data-english="Status"
-                        ></option>
-                        <option 
-                            value="@(OrderStatus.Pending)"
-                            data-arabic="قيد الانتظار" 
-                            data-english="Pending"
-                        >Pending</option>
-                        <option 
-                            value="@(OrderStatus.Accept)"    
-                            data-arabic="مقبول" 
-                            data-english="Accepted"
-                        >Accept</option>
-                        <option 
-                            value="@(OrderStatus.Reject)"    
-                            data-arabic="مرفوض" 
-                            data-english="Rejected"
-                        >Reject</option>
-                        <option 
-                            value="@(OrderStatus.Delivered)"    
-                            data-arabic="تم التوصيل" 
-                            data-english="Delivered"
-                        >Delivered</option>
-                        <option 
-                            value="@(OrderStatus.Revoke)"    
-                            data-arabic="مرتجع" 
-                            data-english="Revoke"
-                        >Revoke</option>
-                        <option 
-                            value="@(OrderStatus.Paid)"    
-                            data-arabic="مدفوع" 
-                            data-english="Paid"
-                        >Paid</option>
-
-
-                    </select>
             </div>
             <div class="col-2 ">
                 <input name="FromDate"
@@ -109,7 +102,9 @@
                        placeholder-ar="من تاريخ"
                        placeholder-en="FromDate"
                        aria-label="FromDate"
-                       style="border-radius: 17px; border: none;">
+                       style="border-radius: 17px; border: none;"
+                       value="@filter.FromDate"
+                >
             </div>
 
             <div class="col-2 ">
@@ -119,7 +114,9 @@
                        placeholder-ar="إلى تاريخ"
                        placeholder-en="ToDate"
                        aria-label="ToDate"
-                       style="border-radius: 17px; border: none;">
+                       style="border-radius: 17px; border: none;"
+                       value="@filter.ToDate"
+                >
             </div>
 
             <input type="hidden" name="PageIndex" id="pageIndex" value="1">
@@ -266,8 +263,15 @@
                 <form method="get" asp-action="Index">
 
 
-                    <input hidden readonly type="number" id="pagenumber" name="pageIndex" value="@pagenumber" />
+                    <input hidden readonly type="number" id="pagenumber" name="pageIndex" value="@filter.PageIndex" />
                     <input readonly hidden type="number" id="currentPage" min="1" value="1">
+                    
+                    <input readonly hidden name="Status" value="@filter.Status">
+                    <input readonly hidden name="FromDate" value="@filter.FromDate">
+                    <input readonly hidden name="ToDate" value="@filter.ToDate">
+                    <input readonly hidden name="ClintPhone" value="@filter.ClintPhone">
+                    <input readonly hidden name="Barcode" value="@filter.Barcode">
+
                     <div class="pagination" id="pagination">
 
                         <input hidden readonly type="number" oninput="generatePagination()" id="totalPages" min="1" value="@Page.NumberOfPages">

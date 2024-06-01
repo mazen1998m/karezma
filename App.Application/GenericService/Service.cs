@@ -1,4 +1,6 @@
-﻿namespace App.Application.GenericService;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace App.Application.GenericService;
 
 
 public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity : Entity
@@ -276,8 +278,10 @@ public class Service<TEntity> : IAutoInjection, IService<TEntity> where TEntity 
         try
         {
             var dtos = await _repository.FindAsync<TMap>(filter);
-            var count = await _repository.CountAsync();
-            return Result<List<TMap>>.Success(dtos, count, filter.PageSize);
+            var count = await filter.ApplyFilterOnly(_repository.Query).CountAsync();
+            var result = Result<List<TMap>>.Success(dtos, count, filter.PageSize);
+            result.Filter = filter;
+            return result;
         }
         catch (Exception e)
         {

@@ -21,7 +21,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.2" />
     <PackageReference Include="Muslim.AssemblyHelper" Version="3.0.0" />
     <PackageReference Include="Muslim.Filter" Version="1.1.0" />
-    <PackageReference Include="Muslim.HandelResult" Version="1.1.1" />
     <PackageReference Include="Muslim.ValidatorErrors" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />

@@ -3,7 +3,7 @@
 <link href="~/pagescss/customer/customerdetails.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 
-@model Muslim.HandelResult.Result<DetailsOrderDto>
+@model Result<DetailsOrderDto>
 @{
     var data = Model.Response;
     var Page = Model.Page;
@@ -259,11 +259,11 @@
 
         <div class="header row" style="margin-top:40px;">
             <div class="col col-9">
-                <h2 data-arabic="اسم الشركة: ملابس اونلاين"
-                    data-english="Company Name: Online Clothes Shop">
+                <h2 data-arabic="ملابس اونلاين"
+                    data-english="Online Clothes Shop">
                 </h2>
             </div>
-            <div class="col col-3" style="margin-top:-15px;">
+            <div class="col col-3" style="margin-top:-15px">
                 <img style="width:150px;" src="~/img/home/logo.png" />
             </div>
         </div>
@@ -346,6 +346,10 @@
                                         data-arabic="الكمية"
                                         data-english="Quantity">
                                     </th>
+                                    <th 
+                                        data-arabic="سعر القطعة"
+                                        data-english="unit price">
+                                    </th>
 
                                     <th data-arabic="الملاحظات"
                                         data-english="Notes">
@@ -361,6 +365,7 @@
                                         <td>@item.Name</td>
                                         <td>@item.Model</td>
                                         <td>@item.Quantity</td>
+                                        <td>@item.Price</td>
                                         <td>@item.Notes</td>
                                     </tr>
 
@@ -378,6 +383,21 @@
                             data-english="Date:"
                             style="display:inline;"></h4>
                         <h4 style="display:inline;">@DateTime.Now.ToString("dd-MM-yyyy")</h4>
+                    </div>
+                    
+                    <div style="margin-top:15px;">
+                        <h4 data-arabic="رسوم التوصيل:"
+                            data-english="Delivery Fees:"
+                            style="display:inline;">
+                        </h4>
+                        <h4 style="display:inline;">@data.DeliveryFare</h4>
+                    </div>
+                    <div style="margin-top:15px;">
+                        <h4 data-arabic="الخصم:"
+                            data-english="Discount:"
+                            style="display:inline;">
+                        </h4>
+                        <h4 style="display:inline;">@data.Discount</h4>
                     </div>
                     <div style="margin-top:15px;">
                         <h4 data-arabic="السعر الكلي:"

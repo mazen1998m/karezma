@@ -1,5 +1,5 @@
 ﻿@using App.Domain.Products.Dtos
-@model Muslim.HandelResult.Result<CreateProductDto>
+@model Result<CreateProductDto>
 @{
     var data = Model.Response;
     var Page = Model.Page;
@@ -88,7 +88,7 @@
                    data-arabic="الوصف"
                    data-english="Description "></label>
 
-            <textarea required class="form-control form-control-lg"
+            <textarea class="form-control form-control-lg"
                       asp-for="@data.Description"
                       name="Response.Description"
                       placeholder-ar="الوصف"

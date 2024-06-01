@@ -1,4 +1,5 @@
 ﻿function generatePagination() {
+    debugger
     var currentPageInput = document.getElementById("currentPage");
     var totalPagesInput = document.getElementById("totalPages");
     var numInput = document.getElementById("pagenumber");
@@ -75,18 +76,6 @@ $(document).ready(function () {
     });
 });
 
-function sendData2(selectedOption) {
-    $.ajax({
-        type: "POST",
-        url: "/AdditionalServices/Index",
-        data: { PageSize: selectedOption },
-        success: function (response) {
-        },
-        error: function (xhr, status, error) {
-            console.error("Error sending data:", error);
-        }
-    });
-}
 
 
 $(document).ready(function () {
@@ -98,18 +87,6 @@ $(document).ready(function () {
     });
 });
 
-function sendData(selectedOption) {
-    
-    $.ajax({
-        type: "Get",
-        url: "/TransportationService/Index",
-        data: { PageSize: selectedOption },
-        success: function (response) {
-        },
-        error: function (xhr, status, error) {
-        }
-    });
-}
 
 
 const selectElement = document.getElementById('mySelect2');

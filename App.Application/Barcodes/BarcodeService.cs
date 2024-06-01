@@ -19,7 +19,7 @@ internal class BarcodeService : IBarcodeService
         var from = decimal.Parse(barcode.FromCode);
         var to = decimal.Parse(barcode.ToCode);
 
-        if (lastBarcodeUsed > to)
+        if (lastBarcodeUsed >= to)
         {
             return "-1";
         }
@@ -34,7 +34,7 @@ internal class BarcodeService : IBarcodeService
             return "-1";
         }
 
-        var newBarcode = lastBarcodeUsed++;
+        var newBarcode = lastBarcodeUsed + 1;
         barcode.LastCodeUsed = newBarcode.ToString();
         await _repository.SaveUpdateAsync(barcode);
         return newBarcode.ToString();

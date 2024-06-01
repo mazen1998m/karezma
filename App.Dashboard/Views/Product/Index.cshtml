@@ -1,14 +1,16 @@
-﻿@using App.Domain.Products.Dtos
+﻿@using App.Domain.Products
+@using App.Domain.Products.Dtos
 <link href="~/pagescss/permission/permissionindex.css" rel="stylesheet" />
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 <link href="~/pagescss/css/pagination.css" rel="stylesheet" />
 <link href="~/pagescss/css/popup.css" rel="stylesheet" />
 
-@model Muslim.HandelResult.Result<List<ListProductDto>>
+@model Result<List<ListProductDto>>
 @{
     var data = Model.Response;
     var Page = Model.Response.Count==0 ? new() : Model.Page;
-    var pagenumber = ViewBag.Pageindex;
+    var filter = Model.Filter as ProductFilter;
+
 }
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -23,12 +25,6 @@
                   data-english="Products Managment"></span>
 
         </h1>
-       @*  <div>
-            <a href="#">
-                <i id="infoBtn" class="fa fa-info-circle" style="color:#502e90;"></i>
-            </a>
-            <div id="infoPopup">On this page, the user can see all additional services and control them by adding a new additional service, modifying an existing additional service, deleting a additional service, or looking at the details of each additional service</div>
-        </div> *@
     </div>
 
     <form asp-action="Index" method="get" id="searchForm">
@@ -40,10 +36,12 @@
                     name="Name" 
                     class="form-control form-control-lg" 
                     type="text" 
-                       placeholder-ar="الإسم"
-                       placeholder-en="Name"
-                       aria-label="Name"
-                       style="border-radius: 17px; border: none;">
+                    placeholder-ar="الإسم"
+                    placeholder-en="Name"
+                    aria-label="Name"
+                    style="border-radius: 17px; border: none;"
+                    value="@filter.Name"    
+                >
             </div>
             <div class="col-2 ">
                 <input name="Model"
@@ -52,7 +50,8 @@
                        placeholder-ar="الموديل"
                        placeholder-en="Model"
                        aria-label="Model"
-                       style="border-radius: 17px; border: none;">
+                       style="border-radius: 17px; border: none;"
+                       value="@filter.Model">
             </div>
             
             <div class="col-2 ">
@@ -62,7 +61,8 @@
                        placeholder-ar="الباركود"
                        placeholder-en="Barcode"
                        aria-label="Barcode"
-                       style="border-radius: 17px; border: none;">
+                       style="border-radius: 17px; border: none;"
+                       value="@filter.Barcode">
             </div>
             <input type="hidden" name="PageIndex" id="pageIndex" value="1">
 
@@ -193,8 +193,12 @@
                 <form method="get" asp-action="Index">
 
 
-                    <input hidden readonly type="number" id="pagenumber" name="pageIndex" value="@pagenumber" />
+                    <input hidden readonly type="number" id="pagenumber" name="pageIndex" value="@filter.PageIndex" />
                     <input readonly hidden type="number" id="currentPage" min="1" value="1">
+                    <input readonly hidden name="Barcode" value="@filter.Barcode">
+                    <input readonly hidden name="Name" value="@filter.Name">
+                    <input readonly hidden name="Model" value="@filter.Model">
+
                     <div class="pagination" id="pagination">
 
                         <input hidden readonly type="number" oninput="generatePagination()" id="totalPages" min="1" value="@Page.NumberOfPages">

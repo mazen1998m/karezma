@@ -23,6 +23,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     private readonly IMapper _mapper;
     private readonly ICurrentUser _currentUser;
     protected DbSet<TEntity> Table;
+    protected IQueryable<TEntity> QueryAsNoTracking => Table.AsNoTracking();
     public IQueryable<TEntity> Query => Table.AsQueryable();
 
 
@@ -45,7 +46,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.Find(id)!;
+            return QueryAsNoTracking.SingleOrDefault(x => x.Id == id)!;
         }
         catch (Exception e)
         {
@@ -58,7 +59,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.ProjectTo<TMap>(_mapperConfig).SingleOrDefault(x => x.Id == id)!;
+            return QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).SingleOrDefault(x => x.Id == id)!;
         }
         catch (Exception e)
         {
@@ -71,7 +72,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.FindAsync(id))!;
+            return (await QueryAsNoTracking.SingleOrDefaultAsync(x => x.Id == id))!;
         }
         catch (Exception e)
         {
@@ -84,7 +85,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.ProjectTo<TMap>(_mapperConfig).SingleOrDefaultAsync(x => x.Id == id))!;
+            return (await QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).SingleOrDefaultAsync(x => x.Id == id))!;
         }
         catch (Exception e)
         {
@@ -104,7 +105,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.ToList();
+            return QueryAsNoTracking.ToList();
         }
         catch (Exception e)
         {
@@ -117,7 +118,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
         try
         {
 
-            return Table.ProjectTo<TMap>(_mapperConfig).ToList();
+            return QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).ToList();
         }
         catch (Exception e)
         {
@@ -130,7 +131,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await Table.ToListAsync();
+            return await QueryAsNoTracking.ToListAsync();
         }
         catch (Exception e)
         {
@@ -143,7 +144,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await Table.AsNoTracking().Where(condition).ToListAsync();
+            return await QueryAsNoTracking.Where(condition).ToListAsync();
         }
         catch (Exception e)
         {
@@ -156,7 +157,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
         try
         {
 
-            return await Table.ProjectTo<TMap>(_mapperConfig).ToListAsync();
+            return await QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).ToListAsync();
         }
         catch (Exception e)
         {
@@ -174,7 +175,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return filter.Apply(Table).ToList();
+            return filter.Apply(QueryAsNoTracking).ToList();
         }
         catch (Exception e)
         {
@@ -186,7 +187,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.Where(condition).ToList();
+            return QueryAsNoTracking.Where(condition).ToList();
         }
         catch (Exception e)
         {
@@ -199,7 +200,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return filter.Apply(Table.ProjectTo<TMap>(_mapperConfig)).ToList();
+            return filter.Apply(QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig)).ToList();
         }
         catch (Exception e)
         {
@@ -211,7 +212,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return filter.Apply(Table).ProjectTo<TMap>(_mapperConfig).ToList();
+            return filter.Apply(QueryAsNoTracking).ProjectTo<TMap>(_mapperConfig).ToList();
         }
         catch (Exception e)
         {
@@ -224,8 +225,8 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
         try
         {
             if (selector == default!)
-                return Table.Where(condition).ProjectTo<TMap>(_mapperConfig).ToList();
-            return Table.Where(condition).Select(selector).ToList();
+                return QueryAsNoTracking.Where(condition).ProjectTo<TMap>(_mapperConfig).ToList();
+            return QueryAsNoTracking.Where(condition).Select(selector).ToList();
         }
         catch (Exception e)
         {
@@ -237,7 +238,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.Select(selector).Where(condition).ToList();
+            return QueryAsNoTracking.Select(selector).Where(condition).ToList();
         }
         catch (Exception e)
         {
@@ -253,7 +254,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await filter.Apply(Table).ToListAsync();
+            return await filter.Apply(QueryAsNoTracking).ToListAsync();
         }
         catch (Exception e)
         {
@@ -265,7 +266,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await Table.Where(condition).ToListAsync();
+            return await QueryAsNoTracking.Where(condition).ToListAsync();
         }
         catch (Exception e)
         {
@@ -278,7 +279,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await filter.Apply(Table.ProjectTo<TMap>(_mapperConfig)).ToListAsync();
+            return await filter.Apply(QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig)).ToListAsync();
         }
         catch (Exception e)
         {
@@ -290,7 +291,8 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await filter.Apply(Table).ProjectTo<TMap>(_mapperConfig).ToListAsync();
+            var query = filter.Apply(QueryAsNoTracking).ProjectTo<TMap>(_mapperConfig);
+            return await query.ToListAsync();
         }
         catch (Exception e)
         {
@@ -303,8 +305,8 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
         try
         {
             if (selector == default)
-                return await Table.Where(condition).ProjectTo<TMap>(_mapperConfig).ToListAsync();
-            return await Table.Where(condition).Select(selector).ToListAsync();
+                return await QueryAsNoTracking.Where(condition).ProjectTo<TMap>(_mapperConfig).ToListAsync();
+            return await QueryAsNoTracking.Where(condition).Select(selector).ToListAsync();
         }
         catch (Exception e)
         {
@@ -316,7 +318,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return await Table.Select(selector).Where(condition).ToListAsync();
+            return await QueryAsNoTracking.Select(selector).Where(condition).ToListAsync();
         }
         catch (Exception e)
         {
@@ -336,7 +338,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.FirstOrDefault()!;
+            return QueryAsNoTracking.FirstOrDefault()!;
         }
         catch (Exception e)
         {
@@ -348,7 +350,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.ProjectTo<TMap>(_mapperConfig).FirstOrDefault()!;
+            return QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).FirstOrDefault()!;
         }
         catch (Exception e)
         {
@@ -362,7 +364,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.FirstOrDefault(condition)!;
+            return QueryAsNoTracking.FirstOrDefault(condition)!;
         }
         catch (Exception e)
         {
@@ -375,7 +377,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.Where(condition).ProjectTo<TMap>(_mapperConfig).FirstOrDefault()!;
+            return QueryAsNoTracking.Where(condition).ProjectTo<TMap>(_mapperConfig).FirstOrDefault()!;
         }
         catch (Exception e)
         {
@@ -390,7 +392,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.ProjectTo<TMap>(_mapperConfig).FirstOrDefault(condition)!;
+            return QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).FirstOrDefault(condition)!;
         }
         catch (Exception e)
         {
@@ -406,7 +408,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.Where(condition).Select(selector).FirstOrDefault()!;
+            return QueryAsNoTracking.Where(condition).Select(selector).FirstOrDefault()!;
         }
         catch (Exception e)
         {
@@ -421,7 +423,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.FirstOrDefaultAsync())!;
+            return (await QueryAsNoTracking.FirstOrDefaultAsync())!;
         }
         catch (Exception e)
         {
@@ -433,7 +435,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync())!;
+            return (await QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync())!;
         }
         catch (Exception e)
         {
@@ -446,7 +448,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.FirstOrDefaultAsync(condition))!;
+            return (await QueryAsNoTracking.FirstOrDefaultAsync(condition))!;
         }
         catch (Exception e)
         {
@@ -459,7 +461,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.Where(condition).ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync())!;
+            return (await QueryAsNoTracking.Where(condition).ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync())!;
         }
         catch (Exception e)
         {
@@ -472,7 +474,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync(condition))!;
+            return (await QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).FirstOrDefaultAsync(condition))!;
         }
         catch (Exception e)
         {
@@ -485,7 +487,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.AsNoTracking().Where(condition).Select(selector).FirstOrDefaultAsync())!;
+            return (await QueryAsNoTracking.Where(condition).Select(selector).FirstOrDefaultAsync())!;
         }
         catch (Exception e)
         {
@@ -502,7 +504,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.SingleOrDefault(condition)!;
+            return QueryAsNoTracking.SingleOrDefault(condition)!;
         }
         catch (Exception e)
         {
@@ -514,7 +516,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.Where(condition).ProjectTo<TMap>(_mapperConfig).SingleOrDefault()!;
+            return QueryAsNoTracking.Where(condition).ProjectTo<TMap>(_mapperConfig).SingleOrDefault()!;
         }
         catch (Exception e)
         {
@@ -526,7 +528,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return Table.ProjectTo<TMap>(_mapperConfig).SingleOrDefault(condition)!;
+            return QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).SingleOrDefault(condition)!;
         }
         catch (Exception e)
         {
@@ -540,7 +542,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.SingleOrDefaultAsync(condition))!;
+            return (await QueryAsNoTracking.SingleOrDefaultAsync(condition))!;
         }
         catch (Exception e)
         {
@@ -552,7 +554,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.Where(condition).ProjectTo<TMap>(_mapperConfig).SingleOrDefaultAsync())!;
+            return (await QueryAsNoTracking.Where(condition).ProjectTo<TMap>(_mapperConfig).SingleOrDefaultAsync())!;
         }
         catch (Exception e)
         {
@@ -564,7 +566,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            return (await Table.ProjectTo<TMap>(_mapperConfig).SingleOrDefaultAsync(condition))!;
+            return (await QueryAsNoTracking.ProjectTo<TMap>(_mapperConfig).SingleOrDefaultAsync(condition))!;
         }
         catch (Exception e)
         {
@@ -1445,7 +1447,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     }
     public TEntity SoftDeleteById(int id)
     {
-        var entity = Table.Find(id);
+        var entity = QueryAsNoTracking.SingleOrDefault(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1454,7 +1456,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     }
     public TMap SoftDeleteById<TMap>(int id) where TMap : IDto
     {
-        var entity = Table.Find(id);
+        var entity = QueryAsNoTracking.SingleOrDefault(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1463,7 +1465,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     }
     public TEntity SaveSoftDeleteById(int id)
     {
-        var entity = Table.Find(id);
+        var entity = QueryAsNoTracking.SingleOrDefault(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1473,7 +1475,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     }
     public TMap SaveSoftDeleteById<TMap>(int id) where TMap : IDto
     {
-        var entity = Table.Find(id);
+        var entity = QueryAsNoTracking.SingleOrDefault(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1505,7 +1507,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
 
     public async Task<TEntity> SoftDeleteByIdAsync(int id)
     {
-        var entity = await Table.FindAsync(id);
+        var entity = await QueryAsNoTracking.SingleOrDefaultAsync(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1515,7 +1517,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
 
     public async Task<TMap> SoftDeleteByIdAsync<TMap>(int id) where TMap : IDto
     {
-        var entity = await Table.FindAsync(id);
+        var entity = await QueryAsNoTracking.SingleOrDefaultAsync(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1525,7 +1527,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
 
     public async Task<TEntity> SaveSoftDeleteByIdAsync(int id)
     {
-        var entity = await Table.FindAsync(id);
+        var entity = await QueryAsNoTracking.SingleOrDefaultAsync(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1536,7 +1538,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
 
     public async Task<TMap> SaveSoftDeleteByIdAsync<TMap>(int id) where TMap : IDto
     {
-        var entity = await Table.FindAsync(id);
+        var entity = await QueryAsNoTracking.SingleOrDefaultAsync(x => x.Id == id);
         entity!.IsDeleted = true;
         entity.DeletedDate = DateTime.UtcNow;
         entity.DeletedBy = _currentUser.UserId.ToString();
@@ -1556,7 +1558,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            var auditable = Table.Select(x => new Auditable
+            var auditable = QueryAsNoTracking.Select(x => new Auditable
             {
                 Id = x.Id,
                 CreatedBy = x.CreatedBy,
@@ -1566,7 +1568,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
                 DeletedBy = x.DeletedBy,
                 DeletedDate = x.DeletedDate,
                 IsDeleted = x.IsDeleted
-            }).FirstOrDefault(x => x.Id == entity.Id);
+            }).AsNoTracking().FirstOrDefault(x => x.Id == entity.Id);
 
             entity.CreatedBy = auditable!.CreatedBy;
             entity.CreatedDate = auditable.CreatedDate;
@@ -1588,7 +1590,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            var auditable = await Table.AsNoTracking().Select(x => new Auditable
+            var auditable = await QueryAsNoTracking.Select(x => new Auditable
             {
                 Id = x.Id,
                 CreatedBy = x.CreatedBy,
@@ -1598,7 +1600,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
                 DeletedBy = x.DeletedBy,
                 DeletedDate = x.DeletedDate,
                 IsDeleted = x.IsDeleted
-            }).FirstOrDefaultAsync(x => x.Id == entity.Id);
+            }).AsNoTracking().FirstOrDefaultAsync(x => x.Id == entity.Id);
 
             entity.CreatedBy = auditable!.CreatedBy;
             entity.CreatedDate = auditable.CreatedDate;
@@ -1627,12 +1629,59 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
         Table.Update(AudiUpdate(entity));
         Save();
     }
+    //public async Task SaveUpdateAsync(TEntity entity)
+    //{
+
+    //    try
+    //    {
+    //        Table.Update(await AudiUpdateAsync(entity));
+    //        await SaveAsync();
+    //    }
+    //    catch (Exception e)
+    //    {
+
+    //    }
+    //}
+
     public async Task SaveUpdateAsync(TEntity entity)
     {
+        try
+        {
+            var key = _context.Model.FindEntityType(typeof(TEntity))
+                            .FindPrimaryKey()
+                            .Properties
+                            .Select(p => p.Name)
+                            .Single();
 
-        Table.Update(await AudiUpdateAsync(entity));
-        await SaveAsync();
+            // Get the primary key value of the provided entity
+            var keyValue = typeof(TEntity).GetProperty(key).GetValue(entity);
+
+            // Try to get the existing tracked entity
+            var existingEntity = _context.Set<TEntity>().Local
+                                          .FirstOrDefault(e => typeof(TEntity).GetProperty(key).GetValue(e).Equals(keyValue));
+
+            if (existingEntity != null)
+            {
+                // Update the tracked entity's values with the values from the provided entity
+                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                // Attach the entity to the context and mark it as modified
+                _context.Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+            }
+
+            // Save changes to the context
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
+
+
     public void UpdateRange(IEnumerable<TEntity> entities)
     {
         entities.Select(entity => AudiUpdate(entity));
@@ -1713,27 +1762,27 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
 
     #region Any
 
-    public bool Any(Expression<Func<TEntity, bool>> condition) => Table.Any(condition);
+    public bool Any(Expression<Func<TEntity, bool>> condition) => QueryAsNoTracking.Any(condition);
 
-    public bool Any() => Table.Any();
+    public bool Any() => QueryAsNoTracking.Any();
 
 
-    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> condition) => await Table.AnyAsync(condition);
-    public async Task<bool> AnyAsync() => await Table.AnyAsync();
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> condition) => await QueryAsNoTracking.AnyAsync(condition);
+    public async Task<bool> AnyAsync() => await QueryAsNoTracking.AnyAsync();
     #endregion
 
 
     #region Count
 
-    public int Count() => Table.Count();
-    public async Task<int> CountAsync() => await Table.CountAsync();
+    public int Count() => QueryAsNoTracking.Count();
+    public async Task<int> CountAsync() => await QueryAsNoTracking.CountAsync();
 
     public int Count(Expression<Func<TEntity, bool>> condition) =>
-        Table.Count(condition);
+        QueryAsNoTracking.Count(condition);
 
 
     public async Task<int> CountAsync(Expression<Func<TEntity, bool>> condition)
-        => await Table.CountAsync(condition);
+        => await QueryAsNoTracking.CountAsync(condition);
 
 
     #endregion
@@ -1830,7 +1879,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
     {
         try
         {
-            var entity = Table.Select(x => new Auditable
+            var entity = QueryAsNoTracking.Select(x => new Auditable
             {
                 Id = x.Id,
                 CreatedBy = x.CreatedBy,
@@ -1840,7 +1889,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IAutoInjection
                 DeletedBy = x.DeletedBy,
                 DeletedDate = x.DeletedDate,
                 IsDeleted = x.IsDeleted
-            }).FirstOrDefault(x => x.Id == id);
+            }).AsNoTracking().FirstOrDefault(x => x.Id == id);
 
             return entity!;
         }

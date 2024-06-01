@@ -116,6 +116,22 @@ public class CurrentUserHelper : IAutoInjection, ICurrentUser
             }
         }
     }
+    public bool IsAdmin
+    {
+        get
+        {
+            try
+            {
+                _service = _service.Inject();
+                var userType = _service.Find(x => x.Id == UserId, x => new { x.Id, x.IsAdmin }).Response.FirstOrDefault().IsAdmin.ToString();
+                return bool.Parse(userType);
+            }
+            catch (Exception)
+            {
+                return default;
+            }
+        }
+    }
     public string RemoteIpAddress
     {
         get { return _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString() ?? string.Empty; }

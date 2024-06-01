@@ -30,7 +30,10 @@ public class MobileOrderController : ShareController
 
     [HttpGet]
     public async Task<IActionResult> Find([FromQuery] OrderFilter filter)
-        => Ok(await _service.FindAsync<ListOrderDto>(filter));
+    {
+        var result = await _service.FindAsync<ListOrderDto>(filter);
+        return Ok(result);
+    }
 
     [HttpGet]
     public async Task<IActionResult> Details(int id)

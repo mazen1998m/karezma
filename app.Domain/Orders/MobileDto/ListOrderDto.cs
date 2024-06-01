@@ -4,6 +4,8 @@ namespace App.Domain.Orders.MobileDto;
 
 public class ListOrderDto : Dto
 {
+    public string RepresentativeName { get; set; }
+
     public OrderStatus OrderStatus { get; set; }
     public string ClintName { get; set; }
     public List<string> Products { get; set; }
