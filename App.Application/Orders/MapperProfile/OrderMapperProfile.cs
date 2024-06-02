@@ -53,7 +53,7 @@ public class OrderMapperProfile : Profile
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products))
 
             //we need to add barcode by default
-            .ForMember(dest => dest.Barcode, opt => opt.MapFrom(src => GetBarcode()))
+            .ForMember(dest => dest.Barcode, opt => opt.MapFrom(src => string.Empty))
             .ReverseMap()
             ;
 

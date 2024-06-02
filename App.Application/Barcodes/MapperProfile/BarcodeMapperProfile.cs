@@ -12,19 +12,37 @@ public class BarcodeMapperProfile : Profile
         CreateMap<Barcode, UpdateBarcodeDto>()
             .ReverseMap()
             .ForMember(e => e.LastCodeUsed, o => o.MapFrom(d => GetLastCodeUsed(d.Id, d.FromCode)))
-            .ForMember(e => e.NumberOfCodeAvailable, o => o.MapFrom(d => CalulateAvailableCode(d)))
+            //.ForMember(e => e.NumberOfCodeAvailable, o => o.MapFrom(d => CalulateAvailableCode(d)))
             ;
     }
 
+    //private string CalulateAvailableCode(UpdateBarcodeDto dto)
+    //{
+    //    var from = decimal.Parse(dto.FromCode);
+    //    var to = decimal.Parse(dto.ToCode);
+
+
+    //    var last = decimal.Parse(GetLastCodeUsed(dto.Id, dto.FromCode));
+    //    var totalAvailable = to - from + 1;
+    //    return (totalAvailable - last).ToString();
+    //}
     private string CalulateAvailableCode(UpdateBarcodeDto dto)
     {
-        var from = decimal.Parse(dto.FromCode);
-        var to = decimal.Parse(dto.ToCode);
+        var lastUsedNumber = decimal.Parse(dto.LastCodeUsed);
+        var fromNumber = decimal.Parse(dto.FromCode);
+        var toNumber = decimal.Parse(dto.ToCode);
 
+        // Total numbers in the range
+        var totalNumbers = toNumber - fromNumber + 1;
 
-        var last = decimal.Parse(GetLastCodeUsed(dto.Id, dto.FromCode));
-        var totalAvailable = to - from + 1;
-        return (totalAvailable - last).ToString();
+        // Numbers used
+        var numbersUsed = (lastUsedNumber < fromNumber) ? 0 : (lastUsedNumber - fromNumber + 1);
+
+        // Total available numbers
+        var totalAvailableNumber = totalNumbers - numbersUsed;
+
+        return totalAvailableNumber.ToString();
+
     }
 
 

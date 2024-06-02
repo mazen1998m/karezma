@@ -1,12 +1,13 @@
 ﻿using App.Domain.Barcodes;
+using App.Domain.Barcodes.Dtos;
 
 namespace App.Application.Barcodes;
 
-internal class BarcodeService : IBarcodeService
+internal class BarcodeService : Service<Barcode>, IBarcodeService
 {
     private readonly IRepository<Barcode> _repository;
 
-    public BarcodeService(IRepository<Barcode> repository)
+    public BarcodeService(IRepository<Barcode> repository) : base(repository)
     {
         _repository = repository;
     }
@@ -39,10 +40,32 @@ internal class BarcodeService : IBarcodeService
         await _repository.SaveUpdateAsync(barcode);
         return newBarcode.ToString();
     }
+
+    public string CalulateAvailableCode(UpdateBarcodeDto dto)
+    {
+        var lastUsedNumber = decimal.Parse(dto.LastCodeUsed);
+        var fromNumber = decimal.Parse(dto.FromCode);
+        var toNumber = decimal.Parse(dto.ToCode);
+
+        // Total numbers in the range
+        var totalNumbers = toNumber - fromNumber + 1;
+
+        // Numbers used
+        //var numbersUsed = (lastUsedNumber < fromNumber) ? 0 : (lastUsedNumber - fromNumber + 1);
+
+        // Total available numbers
+        var totalAvailableNumber = totalNumbers - lastUsedNumber;
+
+        return totalAvailableNumber.ToString();
+
+    }
+
+
 }
 
-public interface IBarcodeService : IAutoInjection
+public interface IBarcodeService : IService<Barcode>, IAutoInjection
 {
     Task<string> GetBarcode();
+    string CalulateAvailableCode(UpdateBarcodeDto dto);
 }
 

@@ -1,4 +1,5 @@
-﻿using App.Application.Notifications;
+﻿using App.Application.Barcodes;
+using App.Application.Notifications;
 using App.Domain.Notification;
 using App.Domain.OrderProducts;
 using App.Domain.Orders;
@@ -17,6 +18,7 @@ internal class OrderService : Service<Order>, IOderService
     private INotificationService _notification { get; }
     public ICurrentUser _currentUser { get; }
     private readonly IConfiguration _configuration;
+    private IBarcodeService _barcodeService { get; set; }
 
 
     public OrderService(
@@ -25,7 +27,8 @@ internal class OrderService : Service<Order>, IOderService
         IRepository<Representative> representativeRepository,
         INotificationService notification,
         IRepository<SystemNotification> notificationrepository,
-        ICurrentUser currentUser
+        ICurrentUser currentUser,
+        IBarcodeService barcodeService
         ) : base(repository)
     {
         this._repository = repository;
@@ -35,6 +38,7 @@ internal class OrderService : Service<Order>, IOderService
         _currentUser = currentUser;
         _notificationrepository = notificationrepository;
         _configuration = _configuration.Inject();
+        _barcodeService = barcodeService;
     }
 
 
@@ -66,6 +70,12 @@ internal class OrderService : Service<Order>, IOderService
         {
             var order = await _repository.GetByIdAsync(id);
             order.OrderStatus = status;
+            if (status == OrderStatus.Accept && order.Barcode == string.Empty)
+            {
+                order.Barcode = await _barcodeService.GetBarcode();
+
+            }
+
             await _repository.SaveUpdateAsync(order);
             try
             {
@@ -99,11 +109,12 @@ internal class OrderService : Service<Order>, IOderService
         try
         {
 
-            var r = (await _repository.FirstOrDefaultAsync(x => x.Id == dto.Id, s => new { dto.Id, s.RepresentativeId, s.OrderStatus }));
+            var r = (await _repository.FirstOrDefaultAsync(x => x.Id == dto.Id, s => new { dto.Id, s.RepresentativeId, s.OrderStatus, s.Barcode }));
             var oldOrderProduct = await _orderProductRepository.GetAllAsync(x => x.OrderId == dto.Id);
             _ = _orderProductRepository.SaveDeleteRangeAsync(oldOrderProduct);
             dto.RepresentativeId = r.RepresentativeId;
             dto.OrderStatus = r.OrderStatus;
+            dto.Barcode = r.Barcode;
             if (dto.OrderStatus == OrderStatus.Reject) dto.OrderStatus = OrderStatus.Pending;
             var result = await base.UpdateAsync(dto);
             if (result.IsSuccess)

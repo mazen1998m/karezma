@@ -1,4 +1,4 @@
-﻿using App.Domain.Barcodes;
+﻿using App.Application.Barcodes;
 using App.Domain.Barcodes.Dtos;
 
 namespace App.Dashboard.Controllers;
@@ -7,9 +7,9 @@ public class BarcodeController : BaseController
 {
 
     #region ctor
-    private readonly IService<Barcode> _service;
+    private readonly IBarcodeService _service;
 
-    public BarcodeController(IService<Barcode> service)
+    public BarcodeController(IBarcodeService service)
     {
         _service = service;
     }
@@ -20,7 +20,9 @@ public class BarcodeController : BaseController
     [HttpGet]
     public async Task<IActionResult> Update()
     {
-        return View(await _service.FirstOrDefaultAsync<UpdateBarcodeDto>());
+        var result = await _service.FirstOrDefaultAsync<UpdateBarcodeDto>();
+        result.Response.NumberOfCodeAvailable = _service.CalulateAvailableCode(result.Response);
+        return View(result);
     }
 
     [HttpPost]

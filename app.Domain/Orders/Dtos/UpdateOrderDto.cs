@@ -13,6 +13,8 @@ public class UpdateOrderDto : Dto
     public decimal? Discount { get; set; }
     public int RepresentativeId { get; set; }
     public OrderStatus OrderStatus { get; set; }
+    public string Barcode { get; set; }
+
 
 
     public List<UpdateOrderProductDto> Products { get; set; }
