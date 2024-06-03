@@ -12,20 +12,12 @@ public class BarcodeMapperProfile : Profile
         CreateMap<Barcode, UpdateBarcodeDto>()
             .ReverseMap()
             .ForMember(e => e.LastCodeUsed, o => o.MapFrom(d => GetLastCodeUsed(d.Id, d.FromCode)))
+            //.ForMember(e => e.ToCode, o => o.MapFrom(d => GetLastCodeUsed(d.Id, d.FromCode)))
             //.ForMember(e => e.NumberOfCodeAvailable, o => o.MapFrom(d => CalulateAvailableCode(d)))
             ;
     }
 
-    //private string CalulateAvailableCode(UpdateBarcodeDto dto)
-    //{
-    //    var from = decimal.Parse(dto.FromCode);
-    //    var to = decimal.Parse(dto.ToCode);
 
-
-    //    var last = decimal.Parse(GetLastCodeUsed(dto.Id, dto.FromCode));
-    //    var totalAvailable = to - from + 1;
-    //    return (totalAvailable - last).ToString();
-    //}
     private string CalulateAvailableCode(UpdateBarcodeDto dto)
     {
         var lastUsedNumber = decimal.Parse(dto.LastCodeUsed);
@@ -59,7 +51,24 @@ public class BarcodeMapperProfile : Profile
         }
         return lastCodeUsed.ToString();
     }
+    //private string GetToCode(int id, string from, string to)
+    //{
+    //    var repository = _repository.Inject();
+    //    var barcode = repository.FirstOrDefaultAsync(x => x.Id == id, s => new { s.Id, s.ToCode, s.LastCodeUsed, s.FromCode });
+    //    barcode.Wait();
+    //    var oldToCode = decimal.Parse(barcode.Result.ToCode);
+    //    var oldFromCode = decimal.Parse(barcode.Result.FromCode);
+    //    var lastCodeUsed = decimal.Parse(barcode.Result.LastCodeUsed);
 
+    //    var fromCode = decimal.Parse(from);
+    //    var toCode = decimal.Parse(to);
+
+    //    if (lastCodeUsed == oldToCode && lastCodeUsed > fromCode && oldToCode<=toCode)
+    //    {
+    //        oldToCode = oldFromCode;
+    //    }
+    //    return oldToCode.ToString();
+    //}
 
 
 }

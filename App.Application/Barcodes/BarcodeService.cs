@@ -12,7 +12,6 @@ internal class BarcodeService : Service<Barcode>, IBarcodeService
         _repository = repository;
     }
 
-    //increase the barcode count
     public async Task<string> GetBarcode()
     {
         var barcode = await _repository.FirstOrDefaultAsync();
@@ -27,7 +26,7 @@ internal class BarcodeService : Service<Barcode>, IBarcodeService
 
         else if (lastBarcodeUsed == 0)
         {
-            lastBarcodeUsed = from;
+            lastBarcodeUsed = from - 1;
         }
 
         else if (lastBarcodeUsed < from)
@@ -47,14 +46,11 @@ internal class BarcodeService : Service<Barcode>, IBarcodeService
         var fromNumber = decimal.Parse(dto.FromCode);
         var toNumber = decimal.Parse(dto.ToCode);
 
-        // Total numbers in the range
         var totalNumbers = toNumber - fromNumber + 1;
 
-        // Numbers used
-        //var numbersUsed = (lastUsedNumber < fromNumber) ? 0 : (lastUsedNumber - fromNumber + 1);
+        if (lastUsedNumber == 0) return totalNumbers.ToString();
 
-        // Total available numbers
-        var totalAvailableNumber = totalNumbers - lastUsedNumber;
+        var totalAvailableNumber = totalNumbers - (lastUsedNumber - fromNumber + 1);
 
         return totalAvailableNumber.ToString();
 

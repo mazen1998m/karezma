@@ -35,7 +35,8 @@ public class UpdateBarcodeValidator : AbstractValidator<UpdateBarcodeDto>
             return fromCode2 < toCode;
         }).WithMessage(BarcodeErrorMessage.FromCodeLessThanToCode);
 
-        RuleFor(x => x.ToCode).Must(ToCodeIsUsed).WithMessage(BarcodeErrorMessage.ToCodeIsUsed);
+        RuleFor(x => x.ToCode).Must(GreateThanLastToCode).WithMessage(BarcodeErrorMessage.GreateThanLastToCode);
+        RuleFor(x => x.FromCode).Must(GreateThanLastToCode).WithMessage(BarcodeErrorMessage.GreateThanLastToCode);
 
 
     }
@@ -47,5 +48,14 @@ public class UpdateBarcodeValidator : AbstractValidator<UpdateBarcodeDto>
         var lastBarcodeUsed = decimal.Parse(barcode.LastCodeUsed);
 
         return decimal.Parse(toCode) > lastBarcodeUsed;
+    }
+
+    private bool GreateThanLastToCode(string code)
+    {
+        var repository = _repository.Inject();
+        var barcode = repository.FirstOrDefault();
+        var toCode = decimal.Parse(barcode.ToCode);
+
+        return decimal.Parse(code) > toCode;
     }
 }

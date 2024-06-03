@@ -40,4 +40,10 @@ public class BarcodeErrorMessage : ValidatorErrorMessage
         Ar = "الباركود الى يجب ان يكون اكبر من اخر باركود استخدم",
         En = "To barcode must be greater than last barcode used"
     });
+
+    public static string GreateThanLastToCode = GetAsJson(new()
+    {
+        Ar = "الباركود الجديد يجب ان لا يكون ضمن الباركود السابق",
+        En = "The new barcode must not be within the previous barcode"
+    });
 }
