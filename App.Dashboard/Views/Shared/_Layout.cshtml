@@ -419,7 +419,7 @@
             $('#togglePassword2').click(function () {
                 const passwordField = $('#confirmPassword');
                 const passwordFieldType = passwordField.attr('type');
-                if (passwordFieldType === 'confirmPassword') {
+                if (passwordFieldType === 'password') {
                     passwordField.attr('type', 'text');
                     $(this).removeClass('fa-eye-slash').addClass('fa-eye');
                 } else {
