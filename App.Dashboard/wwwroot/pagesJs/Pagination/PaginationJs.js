@@ -1,5 +1,4 @@
 ﻿function generatePagination() {
-    debugger
     var currentPageInput = document.getElementById("currentPage");
     var totalPagesInput = document.getElementById("totalPages");
     var numInput = document.getElementById("pagenumber");

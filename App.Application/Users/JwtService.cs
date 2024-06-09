@@ -32,7 +32,7 @@ public class JwtService
     {
         var jwtSecurityToken = new JwtSecurityToken(
             claims: GetUserAsClaim(user),
-            expires: Convert.ToDateTime(DateTime.Now.AddDays(10)),
+            expires: Convert.ToDateTime(DateTime.Now.AddDays(30)),
             signingCredentials: GetSigningCredentials()
         );
 
