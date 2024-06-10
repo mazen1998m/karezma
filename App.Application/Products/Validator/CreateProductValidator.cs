@@ -18,7 +18,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
 
             .MinimumLength(ProductConstraintProperty.NameMinimumLength).WithMessage(ProductErrorMessage.NameMinimumLength)
 
-            .Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
+            //.Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
 
             ;
 
@@ -55,18 +55,18 @@ public class CreateProductValidator : AbstractValidator<CreateProductDto>
     }
 
     //IsNameUnique
-    private bool IsNameUnique(string name)
-    {
-        _productService = _productService.Inject();
-        return _productService.Any(x => x.Name == name) == 0;
-    }
+    //private bool IsNameUnique(string name)
+    //{
+    //    _productService = _productService.Inject();
+    //    return _productService.Any(x => x.Name == name) == 0;
+    //}
 
     //IsBarcodUnique
-    private bool IsBarcodeUnique(string barcode)
-    {
-        _productService = _productService.Inject();
-        return _productService.Any(x => x.Barcode == barcode && x.Barcode != "0" && !x.Barcode.IsNotNullOrEmpty()) == 0;
-    }
+    //private bool IsBarcodeUnique(string barcode)
+    //{
+    //    _productService = _productService.Inject();
+    //    return _productService.Any(x => x.Barcode == barcode && x.Barcode != "0" && !x.Barcode.IsNotNullOrEmpty()) == 0;
+    //}
 
 
 }

@@ -14,7 +14,7 @@ public class Product : Entity
     {
         protected override void ConfigureCustomizations()
         {
-            Builder.HasIndex(c => new { c.Name, c.IsDeleted }).IsUnique();
+            //Builder.HasIndex(c => new { c.Name, c.IsDeleted }).IsUnique();
             Builder.HasIndex(c => new { c.Model, c.IsDeleted }).IsUnique();
 
             Builder.Property(u => u.Name).IsRequired().HasMaxLength(ProductConstraintProperty.NameMaximumLength);

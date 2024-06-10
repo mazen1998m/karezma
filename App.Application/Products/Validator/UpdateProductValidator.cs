@@ -19,7 +19,7 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage(ProductErrorMessage.NameRequired)
 
-            .Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
+            //.Must(IsNameUnique).WithMessage(ProductErrorMessage.NameUnique)
 
             .MaximumLength(ProductConstraintProperty.NameMaximumLength).WithMessage(ProductErrorMessage.NameMaximumLength)
 
@@ -73,21 +73,21 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
     }
 
     //IsNameUnique
-    private bool IsNameUnique(string name)
-    {
-        _productService = _productService.Inject();
-        var oldProductName = _productService.FirstOrDefault(user => user.Id == ProductId, u => new { u.Id, u.Name }).Response.Name;
+    //private bool IsNameUnique(string name)
+    //{
+    //    _productService = _productService.Inject();
+    //    var oldProductName = _productService.FirstOrDefault(user => user.Id == ProductId, u => new { u.Id, u.Name }).Response.Name;
 
-        return _productService.Any(x => x.Name == name && x.Name != oldProductName) == 0;
-    }
+    //    return _productService.Any(x => x.Name == name && x.Name != oldProductName) == 0;
+    //}
 
     //IsBarcodUnique
-    private bool IsBarcodUnique(string barcode)
-    {
-        _productService = _productService.Inject();
-        var oldProductBarcode = _productService.FirstOrDefault(user => user.Id == ProductId, u => new { u.Id, u.Barcode }).Response.Barcode;
-        return _productService.Any(x => x.Barcode == barcode && x.Barcode != "0" && !x.Barcode.IsNotNullOrEmpty() && x.Barcode != oldProductBarcode) == 0;
-    }
+    //private bool IsBarcodUnique(string barcode)
+    //{
+    //    _productService = _productService.Inject();
+    //    var oldProductBarcode = _productService.FirstOrDefault(user => user.Id == ProductId, u => new { u.Id, u.Barcode }).Response.Barcode;
+    //    return _productService.Any(x => x.Barcode == barcode && x.Barcode != "0" && !x.Barcode.IsNotNullOrEmpty() && x.Barcode != oldProductBarcode) == 0;
+    //}
 
     public bool SetProductId(int productId)
     {
