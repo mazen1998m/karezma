@@ -1,5 +1,4 @@
-﻿using App.core.Muslim.Result;
-using App.Domain.Orders;
+﻿using App.Domain.Orders;
 using App.Domain.Representatives;
 using App.Domain.Users.Auths;
 
@@ -37,7 +36,10 @@ internal class RepresentativeService : Service<Representative>, IRepresentativeS
 
             user.UserInfo.Password = resetPassword.NewPassword.ComputeSha256Hash();
 
-            await _repository.SaveUpdateAsync(user);
+            //await _repository.SaveUpdateAsync(user);
+            _repository.Update(user);
+            await _repository.SaveAsync();
+
 
             return Result<ResetPassword>.Success();
 

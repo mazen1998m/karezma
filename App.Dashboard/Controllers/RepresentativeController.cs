@@ -1,5 +1,4 @@
 ﻿using App.Application.Representatives;
-using App.core.Muslim.Result;
 using App.Domain.Representatives;
 using App.Domain.Representatives.Dtos;
 using App.Domain.Users.Auths;
@@ -78,14 +77,15 @@ public class RepresentativeController : BaseController
     }
 
     [HttpGet]
-    public IActionResult ResetPassword(int id) => View(new Result<ResetPassword>() { Response = new ResetPassword() { Id = id } });
+    public IActionResult ResetPassword(int id)
+        => View(new Result<ResetPassword>() { Response = new ResetPassword() { Id = id } });
 
     [HttpPost]
     public async Task<IActionResult> ResetPassword(Result<ResetPassword> resetPassword)
     {
         var response = await _service.ResetPassword(resetPassword.Response);
         if (response.IsSuccess)
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { mes = true });
         return View(response);
     }
 

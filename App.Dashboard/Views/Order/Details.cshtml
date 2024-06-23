@@ -9,6 +9,12 @@
     var Page = Model.Page;
 }
 
+@if (data is null)
+{
+  <h1 data-arabic="للأسف!!! هذا الطلب غير موجود أو تم حذفه"
+        data-english="Unfortunately!!! this order does not exist or has been deleted"></h1>  
+}
+else { 
 <div id="wrapper" >
 
 
@@ -427,7 +433,7 @@
 
 
 
-
+}
 
 
 
