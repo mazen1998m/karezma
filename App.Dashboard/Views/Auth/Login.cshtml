@@ -7,20 +7,8 @@
 }
 <link href="~/pagescss/css/public.css" rel="stylesheet" />
 
-<style>
-    #togglePassword {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #502e90;  
-    }
 
-    style=""
-  
-</style>
-
-<form class="user" asp-action="Login" style="width: 60%;">
+<form class="user" asp-action="Login">
     
     <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4"
@@ -40,17 +28,15 @@
             class="form-control form-control-user"   
             id="exampleInputEmail" 
             aria-describedby="emailHelp" 
-            style="border:2px solid #502e90"
             placeholder-ar="اسم المستخدم"
             placeholder-en="UserName"
             required>
     </div>
-    <div class="form-group" style="position: relative;">
+    <div id="password-form-group" class="form-group" >
         <input type="password"
                id="password"
                asp-for="@Model.Password"
                class="form-control form-control-user"
-               style="border:2px solid #502e90; padding-right: 40px;"
                placeholder-ar="كلمة المرور"
                placeholder-en="Password"
                data-password-toggle="true"
@@ -61,7 +47,7 @@
             
             
     
-    <button type="submit" class="btn  btn-user btn-block new" style="width:100%;border:2px solid #502e90">
+    <button id="login-button" type="submit" class="btn  btn-user btn-block new" >
         <span data-arabic="تسجيل الدخول" data-english="Login"></span>
     </button>
 </form>

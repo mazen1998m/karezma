@@ -1,0 +1,63 @@
+﻿html, body {
+    overflow: hidden;
+}
+
+.left-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1A0F2E;
+    height: 100vh; /* Optional: sets the height to fill the viewport */
+}
+
+.right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Optional: sets the height to fill the viewport */
+}
+
+img {
+    max-width: 100%; /* Optional: ensures the image scales responsively */
+    height: auto; /* Optional: maintains aspect ratio */
+}
+
+form {
+    width: 60%;
+}
+
+html {
+    height: 100%;
+}
+#languageSelector {
+    border: 2px solid #502e90;
+    padding: 7px 20px;
+    margin-top: 10px;
+    color: #502e90;
+    border-radius: 20px;
+}
+
+#togglePassword {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #502e90;
+}
+
+#login-button {
+    width: 100%;
+    border: 2px solid #502e90;
+}
+
+.form-control {
+    border: 2px solid #502e90;
+}
+
+#password {
+    padding-right: 40px;
+}
+
+#password-form-group {
+    position: relative;
+}

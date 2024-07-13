@@ -47,6 +47,7 @@
     <Folder Include="wwwroot\img\Employee\" />
     <Folder Include="wwwroot\img\Stock\" />
     <Folder Include="wwwroot\img\User\" />
+    <Folder Include="wwwroot\pagesJs\Auth\" />
   </ItemGroup>
 
 </Project>
