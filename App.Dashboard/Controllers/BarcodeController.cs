@@ -38,4 +38,11 @@ public class BarcodeController : BaseController
         //return View(response);
     }
 
+    [HttpGet]
+    //IsBarcodeMinimum
+    public async Task<IActionResult> IsBarcodeMinimum()
+    {
+        var isBarcodeMinimum = await _service.IsBarcodeMinimum();
+        return Ok(isBarcodeMinimum);
+    }
 }

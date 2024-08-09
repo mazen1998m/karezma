@@ -1,15 +1,18 @@
 ﻿using App.Domain.Barcodes;
 using App.Domain.Barcodes.Dtos;
+using Microsoft.Extensions.Configuration;
 
 namespace App.Application.Barcodes;
 
 internal class BarcodeService : Service<Barcode>, IBarcodeService
 {
     private readonly IRepository<Barcode> _repository;
+    private readonly IConfiguration conf;
 
-    public BarcodeService(IRepository<Barcode> repository) : base(repository)
+    public BarcodeService(IRepository<Barcode> repository, IConfiguration conf) : base(repository)
     {
         _repository = repository;
+        this.conf = conf;
     }
 
     public async Task<string> GetBarcode()
@@ -56,12 +59,21 @@ internal class BarcodeService : Service<Barcode>, IBarcodeService
 
     }
 
+    public async Task<bool> IsBarcodeMinimum()
+    {
+        var minimulOfBarcode = conf["MinimumOfBarcode"];
+        var dto = await _repository.FirstOrDefaultAsync<UpdateBarcodeDto>();
+        var AvailableCode = CalulateAvailableCode(dto);
+        return AvailableCode.ToInt() <= minimulOfBarcode.ToInt();
 
+    }
 }
 
 public interface IBarcodeService : IService<Barcode>, IAutoInjection
 {
     Task<string> GetBarcode();
     string CalulateAvailableCode(UpdateBarcodeDto dto);
+
+    Task<bool> IsBarcodeMinimum();
 }
 

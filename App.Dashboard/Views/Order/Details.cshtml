@@ -356,6 +356,12 @@ else {
                                         data-arabic="سعر القطعة"
                                         data-english="unit price">
                                     </th>
+                                    <th data-arabic="العرض"
+                                    data-english="Weight">
+                                    </th>
+                                    <th data-arabic="الطول"
+                                    data-english="Hight">
+                                    </th>
 
                                     <th data-arabic="الملاحظات"
                                         data-english="Notes">
@@ -372,6 +378,8 @@ else {
                                         <td>@item.Model</td>
                                         <td>@item.Quantity</td>
                                         <td>@item.Price</td>
+                                        <td>@data.Clint.Weight</td>
+                                        <td>@data.Clint.Hight</td>
                                         <td>@item.Notes</td>
                                     </tr>
 
@@ -501,7 +509,12 @@ else {
     }
     
     function PrintOrder(barcodeNumber) {
-        generateBarcode(barcodeNumber);
+        
+        if (barcodeNumber) {
+            var code = '00';
+            code = code.concat(barcodeNumber.toString())
+            generateBarcode(code);
+        }
 
         var printContent = document.getElementById('customPrintContent').innerHTML;
         var originalContent = document.body.innerHTML;
